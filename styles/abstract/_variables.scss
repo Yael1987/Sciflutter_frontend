@@ -1,0 +1,22 @@
+$color--main-80: #2e1800;
+$color--main-30: #a15300;
+// $color--main-20: #b85f00;
+$color--main-10: #cf6b00;
+$color--main-0: #e67700;
+
+$color--util-0: #0e3c67;
+$color--util-0--20: #135089;
+$color--util-1: #fab005;
+$color--util-1--20: #c88d04;
+$color--util-2: #b52626;
+$color--util-2--20: #8d1d1d;
+
+
+$color--grey-0: #f1f3f5;
+
+$color--black-0: #000814;
+$color--black-10: #343a40;
+
+$shadow--big: rgba($color--black-10, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba($color--black-0, 0.3) 0px 30px 60px -30px;
+$shadow--medium: rgba($color--black-0, 0.1) 0px 1px 0px, rgba($color--black-0, 0.1) 0px 8px 24px, rgba($color--black-0, 0.1) 0px 16px 48px;
+$shadow--small: rgba($color--black-10, 0.2) 0px 2px 8px 0px;

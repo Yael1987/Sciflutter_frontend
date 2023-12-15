@@ -1,0 +1,26 @@
+@import '../abstract/variables';
+@import '../abstract/mixins';
+
+.carrousel{
+  @include flexDisplay(row, 4.8rem, center, center);
+  margin: auto;
+  width: 100%;
+
+  &__button{
+    font-size: 4rem;
+    border: none;
+    background-color: transparent;
+    color: $color--main-0;
+    cursor: pointer;
+
+    &.disable{
+      color: $color--black-0;
+      cursor: default;
+    }
+  }
+
+  &__list{
+    @include flexDisplay(row, 4.8rem, center, center);
+    width: 100%;
+  }
+}

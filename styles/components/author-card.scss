@@ -1,0 +1,54 @@
+@import '../abstract/mixins';
+@import '../abstract/variables';
+
+.author-card{
+  @include flexDisplay(col, 1.2rem, center, center);
+  font-size: 1.6rem;
+  padding: 2.4rem 4.8rem;
+  box-shadow: $shadow--medium;
+  text-align: center;
+  // border-top-left-radius: 25px;
+  // border-bottom-right-radius: 25px;
+  width: 100%;
+  max-width: 35rem;
+
+  &__img{
+    height: 14.4rem;
+    border-radius: 50%;
+  }
+
+  &__heading{
+    font-size: 2rem;
+    font-weight: 500;
+    border-bottom: 2px solid $color--main-0;
+  }
+
+  &__discipline{
+    color: $color--main-0;
+    font-weight: 500;
+  }
+
+  &__stats{
+    @include flexDisplay(col, 1.6rem, initial, center);
+    padding: 1.6rem 0;
+    width: 100%
+  }
+
+  &__stat{
+    @include flexDisplay(row, 1.6rem, center, space-between);
+    width: 100%;
+
+    &-icon{
+      font-size: 2.5rem;
+      color: $color--main-0;
+    }
+
+    &-label{
+      font-weight: 500;
+    }
+
+    &-count{
+      font-weight: 500;
+    }
+  }
+}

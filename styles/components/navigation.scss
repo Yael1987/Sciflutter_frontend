@@ -1,0 +1,54 @@
+@import '../abstract/variables';
+
+.menu{
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+
+  &__icon{
+    &,
+    &:link,
+    &:visited{
+      font-size: 3.2rem;
+      color: $color--black-0;
+      outline: none;
+      text-decoration: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    &:hover,
+    &:active{
+      color: $color--main-0;
+    }
+
+    &-active{
+      &,
+      &:link,
+      &:visited{
+        color: $color--util-1;
+      }
+    }
+  }
+
+  &__avatar{
+    height: 4rem;
+    width: 4rem;
+    position: relative;
+    border-radius: 50rem;
+    overflow: hidden;
+
+    &.menu__icon-active{
+      outline: solid 2px $color--util-1;
+    }
+
+    img{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

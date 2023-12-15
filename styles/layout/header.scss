@@ -1,0 +1,15 @@
+.header{
+  padding: 0 5.6rem;
+
+  &__navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.4rem 0 1.6rem;
+    border-bottom: 1px solid #000;
+
+    &-logo{
+      height: 3.2rem;
+    }
+  }
+}

@@ -1,0 +1,101 @@
+@import '../abstract/variables';
+@import '../abstract/mixins';
+
+.footer{
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  font-size: 1.6rem;
+  border-top: solid 2px $color--black-0;
+  
+  &-col:nth-child(1){
+    @include flexDisplay(col, 2.4rem, initial, flex-end);
+    padding: 2.4rem 5.6rem;
+  }
+
+  &-col:nth-child(2){
+    background-color: $color--black-0;
+    padding: 4.8rem 5.6rem;
+  }
+
+  &__description{
+    padding: 1.6rem 0;
+    width: 90%;
+    @include flexDisplay(col, 1.6rem, initial, center);
+    border-bottom: solid 2px $color--black-0;
+
+    &-logo{
+      height: 9.6rem;
+    }
+
+    &-text{
+      text-align: center;
+      line-height: 1.6;
+    }
+  }
+
+  &__contact{
+    width: 90%;
+    @include flexDisplay(col, 1.6rem, initial, center);
+
+    &-heading{
+      font-size: 2rem;
+      color: $color--main-0;
+      font-weight: 500;
+    }
+
+    &-list{
+      @include flexDisplay(row, 2.4rem, initial, center);
+      list-style: none;
+    }
+
+    &-link{
+      text-decoration: none;
+      font-size: 4rem;
+      color: $color--main-0;
+    }
+  }
+
+  &-nav{
+    @include flexDisplay(row, 5.6rem, flex-start, center);
+
+    &__col{
+      @include flexDisplay(col, 2.4rem, initial, center);
+
+      &-title{
+        font-size: 2rem;
+        color: $color--util-1;
+        font-weight: 500;
+      }
+    }
+
+    &__list{
+      list-style: none;
+      @include flexDisplay(col, 1.6rem, initial, flex-start);
+
+      li{
+        transition: trasnform 0.3s ease-in-out;
+        &:hover{
+          transform: translateX(3px);
+        }
+
+        &:active{
+          transform: translateX(0);
+        }
+      }
+
+      &-link{
+        &,
+        &:link,
+        &:visited{
+          text-decoration: none;
+          color: $color--grey-0;
+          font-weight: 300;
+        }
+        
+        &:hover{
+          color: $color--main-10;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@import '../abstract/variables';
+@import '../abstract/mixins';
+
+.filter-sort{
+  @include flexDisplay(row, auto, center, space-between);
+  width: 100%;
+
+  &-item{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    &__title{
+      font-size: 1.6rem;
+      font-weight: 500;
+      text-align: center
+    }
+
+    &__options{
+      font-size: 1.6rem;
+      padding: 0.8rem 1.6rem;
+      background-color: transparent;
+      border: solid 1px $color--black-0;
+
+      option{
+        font-size: 1.6rem;
+        font-weight: 500;
+        padding: 0.8rem 1.6rem;
+      }
+    }
+  }
+
+  .filters{
+    @include flexDisplay(row, 1.6rem, center, initial);
+  }
+}

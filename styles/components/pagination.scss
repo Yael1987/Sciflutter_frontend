@@ -1,0 +1,34 @@
+@import '../abstract/variables';
+@import '../abstract/mixins';
+
+.pagination{
+  @include flexDisplay(row, 2.4rem, center, center);
+  padding: 0.8rem 1.6rem;
+
+  &__item{
+    font-size: 2rem;
+    border: none;
+    background-color: transparent;
+    color: $color--black-0;
+    cursor: pointer;
+
+    &:hover{
+      color: $color--main-0;
+    }
+
+    &--arrow{
+      color: $color--main-0;
+    }
+  }
+
+  .active{
+    color: $color--main-0;
+    border-bottom: solid 1px $color--main-0;
+    cursor: not-allowed;
+  }
+
+  .disable{
+    color: $color--black-0;
+    cursor:not-allowed;
+  }
+}

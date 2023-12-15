@@ -1,0 +1,22 @@
+@import '../abstract/mixins';
+
+.more-articles{
+  @include flexDisplay(col, 4.8rem, initial, center);
+  width: 120rem; 
+
+  &__list{
+    @include flexDisplay(col, 5.2rem, center, initial);
+    padding: 0 4.8rem;
+  }
+}
+
+.more-authors{
+  @include flexDisplay(col, 4.8rem, initial, center);
+  width: 100%;
+
+  &__list{
+    width: 100%;
+    @include flexDisplay(row, 5.6rem, center, center);
+    padding: 0 5.6rem;
+  }
+}

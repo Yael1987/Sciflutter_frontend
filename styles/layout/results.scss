@@ -1,0 +1,35 @@
+@import '../abstract/mixins';
+@import './aside.scss';
+
+.results-section{
+  width: 100%;
+  @include flexDisplay(col, 4.8rem, initial, center);
+
+  .results{
+    &-resume{
+      width: 100%;
+
+      &__search{
+        font-size: 2.5rem;
+        font-weight: 500;
+      }
+
+      &__count{
+        font-size: 2rem;
+        display: inline-block;
+        padding: 0 2.4rem;
+      }
+    }
+
+    &-articles{
+      @include flexDisplay(col, 4.8rem, initial, center);
+      width: 80%;
+    }
+
+    &-authors{
+      width: 100%;
+      padding: 4.8rem 0 8.8rem;
+      @include flexDisplay(row, initial, center, center);
+    }
+  }
+}
