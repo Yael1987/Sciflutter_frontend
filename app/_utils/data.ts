@@ -18,6 +18,7 @@ export const user = {
 export const sampleMoreArticles: ArticlePreviewI[] = [
   {
     author: {
+      id: "1",
       name: 'Neftali',
       lastName: 'Guadarrama',
       photos: {
@@ -34,6 +35,7 @@ export const sampleMoreArticles: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "2",
       name: 'Nahomi',
       lastName: 'Zavala',
       photos: {
@@ -50,6 +52,7 @@ export const sampleMoreArticles: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "3",
       name: 'Renata',
       lastName: 'Villalobos',
       photos: {
@@ -72,54 +75,59 @@ export const sampleMoreAuthors: AuthorsPreviewI[] = [
     name: "Neftali",
     lastName: "Guadarrama",
     photos: {
-      profile: "/img/users/user-6.png"
+      profile: "/img/users/user-6.png",
+      cover: "/img/covers/Cover-2.jpg",
     },
     discipline: "biologia",
     followers: 200,
     likes: 350,
-    articles: 7
+    articles: 7,
   },
   {
     id: "2",
     name: "Nahomi",
     lastName: "Zavala",
     photos: {
-      profile: "/img/users/user-5.jpg"
+      profile: "/img/users/user-5.jpg",
+      cover: "/img/covers/Cover-2.jpg",
     },
     discipline: "pedagogia",
     followers: 174,
     likes: 423,
-    articles: 6
+    articles: 6,
   },
   {
     id: "3",
     name: "Renata",
     lastName: "Villalobos",
     photos: {
-      profile: "/img/users/user-13.jpg"
+      profile: "/img/users/user-13.jpg",
+      cover: "/img/covers/Cover-9.png",
     },
     discipline: "medicina",
     followers: 428,
     likes: 602,
-    articles: 8
+    articles: 8,
   },
   {
     id: "4",
     name: "Paola",
     lastName: "Rodriguez",
     photos: {
-      profile: "/img/users/user-4.png"
+      profile: "/img/users/user-4.png",
+      cover: "/img/covers/Cover-8.png",
     },
     discipline: "medicina",
     followers: 502,
     likes: 728,
-    articles: 7
+    articles: 7,
   },
 ];
 
 export const sampleArticlesPreview: ArticlePreviewI[] = [
   {
     author: {
+      id: "1",
       name: "Neftali",
       lastName: "Guadarrama",
       photos: {
@@ -136,6 +144,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "2",
       name: "Nahomi",
       lastName: "Zavala",
       photos: {
@@ -152,6 +161,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "3",
       name: "Renata",
       lastName: "Villalobos",
       photos: {
@@ -168,6 +178,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "3",
       name: "Renata",
       lastName: "Villalobos",
       photos: {
@@ -184,6 +195,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "8",
       name: "Roberto",
       lastName: "Estrada",
       photos: {
@@ -200,6 +212,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "1",
       name: "Neftali",
       lastName: "Guadarrama",
       photos: {
@@ -216,6 +229,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "1",
       name: "Neftali",
       lastName: "Guadarrama",
       photos: {
@@ -232,6 +246,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "2",
       name: "Nahomi",
       lastName: "Zavala",
       photos: {
@@ -248,6 +263,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "6",
       name: "Yael",
       lastName: "De Jesus",
       photos: {
@@ -264,6 +280,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "1",
       name: "Neftali",
       lastName: "Guadarrama",
       photos: {
@@ -280,6 +297,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "7",
       name: "Nahayeli",
       lastName: "Isidro",
       photos: {
@@ -296,6 +314,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "7",
       name: "Nahayeli",
       lastName: "Isidro",
       photos: {
@@ -312,6 +331,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "9",
       name: "Diana",
       lastName: "Almanzar",
       photos: {
@@ -328,6 +348,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "8",
       name: "Roberto",
       lastName: "Estrada",
       photos: {
@@ -344,6 +365,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "7",
       name: "Nahayeli",
       lastName: "Isidro",
       photos: {
@@ -360,6 +382,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "5",
       name: "Joselin",
       lastName: "Hernandez",
       photos: {
@@ -376,6 +399,7 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
   },
   {
     author: {
+      id: "9",
       name: "Diana",
       lastName: "Almanzar",
       photos: {
@@ -399,6 +423,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "Guadarrama",
     photos: {
       profile: "/img/users/user-6.png",
+      cover: "/img/covers/Cover-2.jpg"
     },
     discipline: "biologia",
     followers: 200,
@@ -411,6 +436,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "Zavala",
     photos: {
       profile: "/img/users/user-5.jpg",
+      cover: "/img/covers/Cover-2.jpg"
     },
     discipline: "pedagogia",
     followers: 174,
@@ -423,6 +449,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "Villalobos",
     photos: {
       profile: "/img/users/user-13.jpg",
+      cover: "/img/covers/Cover-9.png"
     },
     discipline: "medicina",
     followers: 428,
@@ -435,6 +462,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "Rodriguez",
     photos: {
       profile: "/img/users/user-4.png",
+      cover: "/img/covers/Cover-8.png"
     },
     discipline: "medicina",
     followers: 502,
@@ -447,6 +475,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "Hernandez",
     photos: {
       profile: "/img/users/ari.jpg",
+      cover: "/img/covers/Cover-4.png"
     },
     discipline: "medicina",
     followers: 502,
@@ -459,6 +488,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "De Jesus",
     photos: {
       profile: "/img/users/user-1.jpg",
+      cover: "/img/cover/Cover-2.jpg"
     },
     discipline: "tecnologia",
     followers: 502,
@@ -471,6 +501,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "Isidro",
     photos: {
       profile: "/img/users/user-2.jpg",
+      cover: "/img/cover/cover-1.png"
     },
     discipline: "psicologia",
     followers: 502,
@@ -483,6 +514,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "Estrada",
     photos: {
       profile: "/img/users/user-7.jpg",
+      cover: "/img/cover/Cover-2.jpg"
     },
     discipline: "medicina",
     followers: 502,
@@ -495,6 +527,7 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     lastName: "Almanzar",
     photos: {
       profile: "/img/users/user-9.png",
+      cover: "/img/covers/cover-6.png"
     },
     discipline: "tecnologia",
     followers: 502,

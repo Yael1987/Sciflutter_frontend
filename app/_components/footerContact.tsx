@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Link from 'next/link'
-
 import { Envelope, FacebookLogo, GithubLogo, Globe } from '@phosphor-icons/react/dist/ssr'
 
 import '@/styles/layout/footer.scss'
@@ -14,27 +12,27 @@ const FooterContact: React.FC = () => {
 
       <ul className="footer__contact-list">
         <li>
-          <ButtonLink href='#' className='footer__contact-link' type='icon'>
+          <ButtonLink href="#" className="footer__contact-link" type="icon">
             <FacebookLogo size={32} weight="duotone" />
           </ButtonLink>
         </li>
 
         <li>
-          <Link href="#" className="footer__contact-link">
+          <ButtonLink href="#" className="footer__contact-link" type="icon">
             <Globe size={32} weight="duotone" />
-          </Link>
+          </ButtonLink>
         </li>
 
         <li>
-          <Link href="#" className="footer__contact-link">
+          <ButtonLink href="#" className="footer__contact-link" type="icon">
             <Envelope size={32} weight="duotone" />
-          </Link>
+          </ButtonLink>
         </li>
 
         <li>
-          <Link href="#" className="footer__contact-link">
+          <ButtonLink href="#" className="footer__contact-link" type="icon">
             <GithubLogo size={32} weight="duotone" />
-          </Link>
+          </ButtonLink>
         </li>
       </ul>
     </div>

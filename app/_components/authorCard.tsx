@@ -52,7 +52,7 @@ const AuthorCard: React.FC<Props> = ({ author }) => {
         </div>
       </div>
 
-      <ButtonLink href="#" type="outline">
+      <ButtonLink href={`/users/${author.id}`} type="outline">
         Ver perfil <ArrowRight size={32} weight="regular" className="icon--btn" />
       </ButtonLink>
     </li>

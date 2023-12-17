@@ -14,8 +14,8 @@ import '@/styles/components/mainSearch.scss'
 const MainSearch: React.FC = () => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const { replace } = useRouter()
-  const [searchInput, setSearchInput] = useState<string>(searchParams.get("search")?.toString() || "")
+  const { push } = useRouter()
+  const [searchInput, setSearchInput] = useState<string>(searchParams.get("search")?.toString() ?? "")
 
   const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
@@ -24,17 +24,18 @@ const MainSearch: React.FC = () => {
   }
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams)
 
     if (searchInput) {
-      params.set("search", searchInput);
+      params.set("search", searchInput)
+      params.delete("page")
     } else {
       params.delete("search");
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    push(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
   return (

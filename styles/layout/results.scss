@@ -21,6 +21,18 @@
       }
     }
 
+    &__message{
+      font-size: 2.5rem;
+      font-weight: 400;
+      text-align: center;
+
+      &-sub{
+        font-size: 2rem;
+        font-weight: 400;
+        text-align: center;
+      }
+    }
+
     &-articles{
       @include flexDisplay(col, 4.8rem, initial, center);
       width: 80%;

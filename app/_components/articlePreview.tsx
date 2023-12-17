@@ -50,7 +50,7 @@ const ArticlePreview: React.FC<Props> = ({ article }) => {
             </div>
           </div>
 
-          <ButtonLink href="#" type="outline">
+          <ButtonLink href={`/articles/${article.id}`} type="outline">
             Leer articulo <ArrowRight size={32} weight="regular" className="icon--btn" />
           </ButtonLink>
         </div>

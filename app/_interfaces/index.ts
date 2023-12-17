@@ -1,5 +1,6 @@
 export interface ArticlePreviewI {
   author: {
+    id: string,
     name: string,
     lastName: string,
     photos: {
@@ -19,7 +20,8 @@ export interface AuthorsPreviewI {
   name: string,
   lastName: string,
   photos: {
-    profile: string
+    profile: string,
+    cover: string
   },
   discipline: string,
   followers: number,
