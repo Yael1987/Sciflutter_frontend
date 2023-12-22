@@ -1,0 +1,107 @@
+@import '../abstract/variables';
+@import '../abstract/mixins';
+
+.form{
+  @include flexDisplay(col, 4.8rem, initial, center);
+  padding: 3.2rem 4.8rem;
+  box-shadow: $shadow--medium;
+  width: 45%;
+
+  &--modal{
+    width: 100%;
+    box-shadow: none;
+    padding: 0 2.4rem;
+    gap: 2.4rem;
+    
+    .form-formulary{
+
+      &-group{
+        text-align: center;
+      }
+
+      &__button{
+        width: 100%;
+      }
+    }
+  }
+
+  &-header{
+    max-width: 40rem;
+    text-align: center;
+
+    &__main{
+      font-size: 3.125rem;
+      color: $color--main-0;
+      font-weight: 400;
+      margin-bottom: 1.2rem;
+    }
+
+    &__text{
+      color: $color--black-0;
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+  }
+
+  &__message{
+    font-size: 1.6rem;
+    color: $color--util-2--20;
+    font-weight: 500;
+  }
+
+  &-formulary{
+    width: 100%;
+    @include flexDisplay(col, 3.2rem, initial, center);
+
+    &-group{
+      width: 100%;
+    }
+
+    &__label{
+      display: inline-block;
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 0.8rem;
+      cursor: pointer;
+    }
+
+    &__input{
+      display: block;
+      width: 100%;
+      font-size: 2rem;
+      margin-bottom: 2.4rem;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid $color--black-0;
+      padding: 0 0.8rem;
+      cursor: pointer;
+
+      &:focus{
+        outline: none;
+      }
+
+      &:last-child{
+        margin-bottom: 0;
+      }
+
+      &::placeholder{
+        color: $color--black-10;
+      }
+    }
+
+    &__button{
+      padding: 1.2rem 2.4rem;
+      color: $color--grey-0;
+      background-color: $color--main-0;
+      border: none;
+      font-size: 2rem;
+      font-weight: 500;
+      cursor: pointer;
+
+      &--pending{
+        background-color: $color--black-10;
+      }
+    }
+
+  }
+}

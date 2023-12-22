@@ -1,3 +1,5 @@
+import { User } from "./api"
+
 export interface ArticlePreviewI {
   author: {
     id: string,
@@ -32,4 +34,10 @@ export interface AuthorsPreviewI {
 export interface SearchResultsI {
   articles?: ArticlePreviewI[];
   authors?: AuthorsPreviewI[];
+}
+
+export interface FormState {
+  success: boolean,
+  message?: string,
+  user?: User
 }

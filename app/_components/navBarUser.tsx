@@ -1,4 +1,3 @@
-'use client'
 import React from "react"
 import clsx from 'clsx'
 
@@ -13,14 +12,18 @@ import {
   Chats,
   FilePlus,
   UserCircleGear,
-} from '@phosphor-icons/react'
+} from '@phosphor-icons/react/dist/ssr'
 
 import '@/styles/components/navigation.scss'
 
-import { user } from "../_utils/data"
+import { User } from "../_interfaces/api"
+import { UserStore, useUserStore } from "../_stores/userStore";
 
-const Navbar: React.FC = () => { 
+
+
+const NavBarUser: React.FC = () => { 
   const pathname = usePathname()
+  const user = useUserStore((state: UserStore) => state.user) as User
 
   return (
     <nav className='menu'>
@@ -59,10 +62,10 @@ const Navbar: React.FC = () => {
 
       <ButtonLink
         type='icon'
-        href='/me'
+        href={`/user/${user._id}`}
         className={clsx(
           'menu__avatar',
-          pathname === '/me' && 'menu__icon-active'
+          pathname === `/user/${user._id}` && 'menu__icon-active'
         )}
       >
         <Image
@@ -91,4 +94,4 @@ const Navbar: React.FC = () => {
   )
 }
 
-export default Navbar
+export default NavBarUser

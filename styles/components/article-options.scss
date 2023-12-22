@@ -1,0 +1,60 @@
+@import '../abstract/mixins';
+@import '../abstract/variables';
+
+.article-options{
+  @include flexDisplay(col, 2.4rem, initial, center);
+  padding: 3.2rem 1.6rem;
+  box-shadow: $shadow--small;
+  width: 75%;
+
+  &-heading{
+    font-size: 2rem;
+    font-weight: 500;
+    color: $color--main-0;
+  }
+
+  .article-option{
+    color: $color--black-0;
+    border: none;
+    font-size: 2rem;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    cursor: pointer;
+
+    &__icon{
+      width: 2.4rem;
+      height: 2.4rem;
+      fill: $color--main-0;
+    }
+  }
+
+  .article-author{
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    &,
+    &:link,
+    &:visited{
+      text-decoration: none;
+      color: $color--black-0;
+    }
+
+    &:hover{
+      color: $color--main-0;
+    }
+
+    img{
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+    }
+
+    strong{
+      font-size: 2rem;
+      font-weight: 500;
+    }
+  }
+}

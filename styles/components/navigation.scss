@@ -9,7 +9,8 @@
     &,
     &:link,
     &:visited{
-      font-size: 3.2rem;
+      width: 3.2rem;
+      height: 3.2rem;
       color: $color--black-0;
       outline: none;
       text-decoration: none;
@@ -28,7 +29,64 @@
       &:link,
       &:visited{
         color: $color--util-1;
+        pointer-events: none;
+        cursor: not-allowed;
       }
+    }
+  }
+
+  &__text{
+    &,
+    &:link,
+    &:visited{
+      font-size: 1.6rem;
+      color: $color--black-0;
+      outline: none;
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:active{
+      color: $color--main-0;
+    }
+
+    &-active{
+      &,
+      &:link,
+      &:visited{
+        color: $color--black-10;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    }
+
+    &--main{
+      font-size: 1.6rem;
+      outline: none;
+      text-decoration: none;
+      background-color: $color--main-0;
+      color: $color--grey-0;
+      padding: 0.8rem 1.2rem;
+      transition: all 0.3s ease-in;
+
+      &:hover{
+        background-color: $color--main-10;
+      }
+
+      &:active{
+        transform: translateY(2px)
+      }
+
+      &-active{
+      &,
+      &:link,
+      &:visited{
+        background-color: $color--black-10;
+        color: $color--grey-0;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    }
     }
   }
 
@@ -41,6 +99,8 @@
 
     &.menu__icon-active{
       outline: solid 2px $color--util-1;
+      cursor: not-allowed;
+      pointer-events: none;
     }
 
     img{

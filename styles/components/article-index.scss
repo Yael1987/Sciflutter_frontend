@@ -1,0 +1,28 @@
+@import '../abstract/variables';
+@import '../abstract/mixins';
+
+.article-index{
+  @include flexDisplay(col, 2.4rem, initial, end);
+  padding: 0 2.4rem;
+
+  &__header{
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: $color--main-0;
+  }
+
+  &__list{
+    list-style: none;
+    @include flexDisplay(col, 1.6rem, initial, end);
+
+    &-link{
+      &,
+      &:link,
+      &:visited{
+        text-decoration: none;
+        color: $color--black-0;
+        font-size: 1.6rem;
+      }
+    }
+  }
+}

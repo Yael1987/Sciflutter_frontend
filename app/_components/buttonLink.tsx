@@ -7,10 +7,11 @@ interface Props{
   children: React.ReactNode,
   type: 'outline' | 'main' | 'icon',
   target?: string,
-  className?: string
+  className?: string,
+  prefetch?: boolean
 }
 
-const ButtonLink: React.FC<Props> = ({ href, children, type, target = '_self', className = "" }) => {
+const ButtonLink: React.FC<Props> = ({ href, children, type, target = '_self', className = "", prefetch = true }) => {
   const buttonType = clsx(type !== "icon" && `btn btn-link btn-link--${type}`);
 
   return (
@@ -18,6 +19,7 @@ const ButtonLink: React.FC<Props> = ({ href, children, type, target = '_self', c
       href={href}
       target={target}
       className={`${buttonType} ${className}`}
+      prefetch={prefetch}
     >
       {children}
     </Link>
