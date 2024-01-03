@@ -21,7 +21,17 @@ const nextConfig = {
         source: '/user',
         destination: '/',
         permanent: true,
-      }
+      },
+      {
+        source: '/article',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/confirm',
+        destination: '/',
+        permanent: true,
+      },
     ]
   }
 };

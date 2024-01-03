@@ -1,13 +1,14 @@
 "use client"
-import React, { useLayoutEffect } from 'react'
-import { redirect } from 'next/navigation'
+import { useEffect } from 'react'
 import { useFormState, useFormStatus } from "react-dom";
+import { permanentRedirect } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
+import clsx from "clsx";
 
-import { login } from '@/app/_actions/userActions'
+import { login, checkCookieExist } from "@/app/_actions/authActions";
 
-import { type FormState } from '@/app/_interfaces'
-import { useUserStore } from '@/app/_stores/userStore'
-import clsx from 'clsx'
+import type { FormState } from '@/app/_interfaces'
+import { type UserStore, useUserStore } from '@/app/_stores/userStore'
 
 const initialState: FormState = {
   success: false,
@@ -16,16 +17,19 @@ const initialState: FormState = {
 
 const LoginForm = () => {
   const [state, formAction] : [FormState, (payload: FormData) => void] = useFormState(login, initialState)
-  const { setUser } = useUserStore()
+  const setUser = useUserStore(useShallow((state: UserStore) => state.setUser))
+  const { user } = useUserStore()
   const { pending } = useFormStatus()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.success && state.user) {
       setUser(state.user)
-
-      redirect("/me");
     }
-  }, [state, setUser])
+
+    if (checkCookieExist() && user) { 
+      permanentRedirect("/")
+    }
+  }, [state, setUser, user])
 
   return (
     <>

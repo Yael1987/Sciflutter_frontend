@@ -1,36 +1,66 @@
-import { permanentRedirect } from "next/navigation"
-
-import { checkCookieExist } from "../_actions/authActions"
-
-import FormSection from "../_components/formSection"
-import LoginForm from "./_components/loginForm"
 import ButtonLink from "../_components/buttonLink"
+import { FormHOC, FormContainer, Header as FormHeader, Form, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton } from "../_components/form";
+import { login } from "../_actions/authActions";
+
 
 const Page: React.FC = async () => {
-  if (checkCookieExist()) permanentRedirect('/')
-
   return (
-    <FormSection>
-      <div className="form">
-        <div className="form-header">
-          <h2 className="form-header__main">Descubre mas allá</h2>
-          <p className="form-header__text">
-            Desbloquea todas las funcionalidades creando una cuenta
-          </p>
-        </div>
+    <FormHOC serverAction={login}>
+      <FormContainer>
+        <FormHeader
+          title="Descubre más allá"
+          description="Inicia sesion para poder acceder a todas las funciones disponibles."
+        />
 
-        <LoginForm />
-      </div>
+        <Form>
+          <div className="form-formulary-group">
+            <label className="form-formulary__label" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="Proporciona un correo electronico"
+              className="form-formulary__input"
+              name="email"
+              id="email"
+              required
+            />
+          </div>
 
-      <div className="form-section__links">
-        <p className="form-section__link">
-          ¿Aun no tienes cuenta? <ButtonLink href="/registrarse" type="icon">Registrarse</ButtonLink>
-        </p>
-        <p className="form-section__link">
-          ¿Olvidaste tu contraseña? <ButtonLink href="/" type="icon">Recuperarla</ButtonLink>
-        </p>
-      </div>
-    </FormSection>
+          <div className="form-formulary-group">
+            <label className="form-formulary__label" htmlFor="password">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              placeholder="Tu contraseña"
+              className="form-formulary__input"
+              name="password"
+              id="password"
+              required
+            />
+          </div>
+
+          <FormSubmitButton>Iniciar sesión</FormSubmitButton>
+        </Form>
+      </FormContainer>
+
+      <FormMoreOptions>
+        <FormLink>
+          ¿Aun no tienes cuenta?{" "}
+          <ButtonLink href="/registrarse" type="icon">
+            Registrarse
+          </ButtonLink>
+        </FormLink>
+
+        <FormLink>
+          ¿Olvidaste tu contraseña?{" "}
+          <ButtonLink href="/" type="icon">
+            Recuperarla
+          </ButtonLink>
+        </FormLink>
+      </FormMoreOptions>
+    </FormHOC>
   );
 }
 

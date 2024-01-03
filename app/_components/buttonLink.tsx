@@ -9,9 +9,10 @@ interface Props{
   target?: string,
   className?: string,
   prefetch?: boolean
+  onClick?: () => void
 }
 
-const ButtonLink: React.FC<Props> = ({ href, children, type, target = '_self', className = "", prefetch = true }) => {
+const ButtonLink: React.FC<Props> = ({ href, children, type, target = '_self', className = "", prefetch = true, onClick }) => {
   const buttonType = clsx(type !== "icon" && `btn btn-link btn-link--${type}`);
 
   return (
@@ -20,6 +21,7 @@ const ButtonLink: React.FC<Props> = ({ href, children, type, target = '_self', c
       target={target}
       className={`${buttonType} ${className}`}
       prefetch={prefetch}
+      onClick={onClick}
     >
       {children}
     </Link>

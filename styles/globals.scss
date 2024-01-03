@@ -1,5 +1,6 @@
 @import './abstract/variables';
 @import './abstract/mixins';
+@import './abstract/buttons';
 
 *{
   padding: 0;
@@ -16,6 +17,7 @@ body{
   color: $color--black-0;
   position: relative;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 .heading--secondary{

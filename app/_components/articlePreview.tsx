@@ -1,12 +1,9 @@
-import React from 'react'
-
-import Link from 'next/link'
 import Image from 'next/image';
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr/ArrowRight';
 
 import '@/styles/components/article-preview.scss'
 import { ArticlePreviewI } from '../_interfaces';
-import { BookmarkSimple } from '@phosphor-icons/react/dist/ssr/BookmarkSimple';
+import { ArrowRight, BookmarkSimple } from '@phosphor-icons/react/dist/ssr';
+
 import Button from './button';
 import ButtonLink from './buttonLink';
 import { formatDate } from '../_utils/dateUtils';

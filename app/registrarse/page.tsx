@@ -1,43 +1,17 @@
-import React from 'react'
+import { Form, FormContainer, FormHOC, Header as FormHeader, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton } from '../_components/form';
+import { signup } from '../_actions/authActions';
+import ButtonLink from '../_components/buttonLink';
 
-import FormSection from '../_components/formSection'
-
-const Page: React.FC = () => {
-  const signUpUser = async (formData: FormData) => {
-    "use server"
-
-    const registerData = {
-      name: formData.get('name'),
-      lastName: formData.get('lastName'),
-      email: formData.get('email'),
-      password: formData.get('password'),
-      passwordConfirm: formData.get('passwordConfirm')
-    }
-    
-    const response = await fetch(`http://127.0.0.1:4000/api/v1/users/signup`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(registerData)
-    })
-
-    const data = await response.json()
-
-    console.log(data)
-  }
-
+const Page: React.FC = async () => {
   return (
-    <FormSection>
-      <div className="form">
-        <div className="form-header">
-          <h2 className="form-header__main">Descubre mas allá</h2>
-          <p className="form-header__text">
-            Desbloquea todas las funcionalidades creando una cuenta
-          </p>
-        </div>
+    <FormHOC serverAction={signup}>
+      <FormContainer>
+        <FormHeader
+          title="Descubre más alla"
+          description="Desbloquea todas las funcionalidades creando una cuenta, es rapido y gratis"
+        />
 
-        <form className="form-formulary" action={signUpUser}>
+        <Form>
           <div className="form-formulary-group">
             <label className="form-formulary__label" htmlFor='name'>Nombre</label>
             <input
@@ -46,6 +20,7 @@ const Page: React.FC = () => {
               className="form-formulary__input"
               name='name'
               id='name'
+              required
             />
           </div>
 
@@ -57,17 +32,19 @@ const Page: React.FC = () => {
               className="form-formulary__input"
               name='lastName'
               id='lastName'
+              required
             />
           </div>
 
           <div className="form-formulary-group">
             <label className="form-formulary__label" htmlFor='email'>Email</label>
             <input
-              type="text"
+              type="email"
               placeholder="Proporciona un correo electronico"
               className="form-formulary__input"
               name='email'
               id='email'
+              required
             />
           </div>
 
@@ -79,6 +56,7 @@ const Page: React.FC = () => {
               className="form-formulary__input"
               name='password'
               id='password'
+              required
             />
           </div>
 
@@ -90,19 +68,23 @@ const Page: React.FC = () => {
               className="form-formulary__input"
               name='passwordConfirm'
               id='passwordConfirm'
+              required
             />
           </div>
 
-          <button className="form-formulary__button">Crear cuenta</button>
-        </form>
-      </div>
+          <FormSubmitButton>Crear cuenta</FormSubmitButton>
+        </Form>
+      </FormContainer>
 
-      <div className="form-section__links">
-        <p className="form-section__link">
-          ¿Ya tienes cuenta? <a href="#">Iniciar sesion</a>
-        </p>
-      </div>
-    </FormSection>
+      <FormMoreOptions>
+        <FormLink>
+          ¿Ya tienes cuenta?{" "}
+          <ButtonLink href="/login" type="icon">
+            Inicia sesion
+          </ButtonLink>
+        </FormLink>
+      </FormMoreOptions>
+    </FormHOC>
   );
 }
 

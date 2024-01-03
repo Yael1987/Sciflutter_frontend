@@ -1,17 +1,26 @@
 "use client"
 import NavBarUser from './navBarUser'
-import NavBarPublic from './navBarPublic'
 
 import NavBarSkeleton from '../_skeletons/navBarSkeleton'
-import { checkCookieExist } from '../_actions/authActions'
-import { useUserStore } from '../_stores/userStore'
+import { UserStore, useUserStore } from '../_stores/userStore'
+import { useCallback, useEffect, useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 
 const NavBar = () => {
-  const { user } = useUserStore()
+  const user = useUserStore((state: UserStore) => state.user)
+  const initLoggedUser = useUserStore(useShallow((state: UserStore) => state.initLoggedUser))
+  const initUser = useCallback(
+    async () => await initLoggedUser(),
+    [initLoggedUser]
+  );
+  const [loading, setLoading] = useState<boolean>(Boolean(user))
 
-  if (!checkCookieExist()) return <NavBarPublic />
+  useEffect(() => {
+    if (user) 
+      setLoading(false)
+  }, [user, initUser])
 
-  if (user) {
+  if (!loading && user) {
     return <NavBarUser />
   } else {
     return <NavBarSkeleton />;

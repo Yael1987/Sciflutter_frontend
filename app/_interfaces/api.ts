@@ -11,10 +11,11 @@ export interface User {
   twoStepsAuthentication: boolean,
   status: string,
   socialLinks: string[],
-  __v: number
+  __v: number,
+  discipline?: string
 }
 
-interface ApiResponseBase {
+export interface ApiResponseBase {
   success: boolean,
   message: string
 }

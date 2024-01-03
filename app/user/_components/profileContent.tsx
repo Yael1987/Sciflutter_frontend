@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { AuthorsPreviewI } from '@/app/_interfaces'
-
 import "@/styles/layout/profile-content.scss";
 import "@/styles/components/details.scss";
 import { HeadingSecondary } from '@/app/_components/headings';
@@ -12,13 +10,20 @@ import { Globe } from '@phosphor-icons/react/dist/ssr/Globe';
 import { FacebookLogo } from '@phosphor-icons/react/dist/ssr/FacebookLogo';
 import { PinterestLogo } from '@phosphor-icons/react/dist/ssr/PinterestLogo';
 import { TwitterLogo } from '@phosphor-icons/react/dist/ssr/TwitterLogo';
+import { User } from '@/app/_interfaces/api';
 
 interface Props {
-  user: AuthorsPreviewI
+  user: User
 }
 
 const ProfileContent: React.FC<Props> = ({ user }) => {
-  const publishedArticles = getUserArticles(user.id)
+  const publishedArticles = getUserArticles(user._id)
+
+  if(publishedArticles.length === 0) return (
+    <section className="container--empty">
+      <p className="heading--secondary">Aún no hay articulos publicados</p>
+    </section>
+  );
 
   return (
     <section className="profile-content">

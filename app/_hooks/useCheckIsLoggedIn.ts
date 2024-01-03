@@ -6,14 +6,15 @@ import { useShallow } from "zustand/react/shallow"
 
 const useCheckIsLoggedIn = (): void => {
   const initLoggedUser = useUserStore(useShallow((state: UserStore) => state.initLoggedUser))
+  const user = useUserStore((state: UserStore) => state.user)
 
   const callInitUser = useCallback(async () => await initLoggedUser(), [initLoggedUser])
 
   useEffect(() => {
-    if (checkCookieExist()){
+    if (checkCookieExist() && !user){
       callInitUser()
     }
-  }, [callInitUser])
+  }, [callInitUser, user])
 }
 
 export default useCheckIsLoggedIn
