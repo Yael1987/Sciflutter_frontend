@@ -5,6 +5,7 @@ export interface ContextValue {
   pending?: boolean;
   formAction?: (payload: FormData) => void;
   message?: string;
+  success?: boolean;
 }
 
 export interface FormHOCProps extends BaseComponent {

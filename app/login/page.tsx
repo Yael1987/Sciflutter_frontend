@@ -2,7 +2,6 @@ import ButtonLink from "../_components/buttonLink"
 import { FormHOC, FormContainer, Header as FormHeader, Form, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton } from "../_components/form";
 import { login } from "../_actions/authActions";
 
-
 const Page: React.FC = async () => {
   return (
     <FormHOC serverAction={login}>
@@ -55,7 +54,7 @@ const Page: React.FC = async () => {
 
         <FormLink>
           ¿Olvidaste tu contraseña?{" "}
-          <ButtonLink href="/" type="icon">
+          <ButtonLink href="/recuperar" type="icon">
             Recuperarla
           </ButtonLink>
         </FormLink>

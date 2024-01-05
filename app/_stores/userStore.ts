@@ -5,8 +5,15 @@ import { getLoggedUser } from "../_actions/userActions"
 export interface UserStore{
   user: User | null,
   menuOpen: boolean,
+  displayNotification: boolean,
+  notification: {
+    type: string,
+    message: string
+  }
   setUser: (newUser: User) => void,
   initLoggedUser: () => Promise<void>,
+  showNotification: () => void,
+  setNotification: (type: string, message: string) => void,
   toogleMenuOpen: () => void,
   clearUser: () => void
 }
@@ -14,6 +21,17 @@ export interface UserStore{
 export const useUserStore = create<UserStore>()((set, get) => ({
   user: null,
   menuOpen: false,
+  displayNotification: false,
+  notification: {
+    type: "",
+    message: ""
+  },
+  showNotification: () => {
+    set(state => ({ displayNotification: !state.displayNotification }))
+  },
+  setNotification: (type: string, message: string) => {
+    set(() => ({ notification: { type, message } }))
+  },
   setUser: (newUser: User) => set(() => ({ user: newUser })),
   initLoggedUser: async () => {
     const { user } = get()

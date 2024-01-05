@@ -32,6 +32,55 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/restablecer',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/login',
+        has: [
+          {
+            type: 'cookie',
+            key: 'token_sciflutter'
+          }
+        ],
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/recuperar',
+        has: [
+          {
+            type: 'cookie',
+            key: 'token_sciflutter'
+          }
+        ],
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/registrarse',
+        has: [
+          {
+            type: 'cookie',
+            key: 'token_sciflutter'
+          }
+        ],
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/restablecer/:token*',
+        has: [
+          {
+            type: 'cookie',
+            key: 'token_sciflutter'
+          }
+        ],
+        destination: '/',
+        permanent: true,
+      },
     ]
   }
 };

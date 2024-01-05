@@ -24,7 +24,7 @@ const FormContext = createContext<ContextValue>({})
 
 const initialState: FormState = {
   success: false,
-  message: "",
+  message: ""
 }
 
 export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction, type }) => {
@@ -43,7 +43,7 @@ export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction, type })
   }, [state, setUser, user]);
 
   return (
-    <FormContext.Provider value={{ formAction, message: state.message }}>
+    <FormContext.Provider value={{ formAction, message: state.message, success: state.success }}>
       <section className="form-section">
         <Image src={largeLogo} alt="Main logo" className="form-section__img" />
         
@@ -73,11 +73,12 @@ export const Header: React.FC<HeaderProps> = ({ description, title }) => {
 }
 
 export const Form: React.FC<BaseComponent> = ({ children }) => {
-  const {formAction, message} = useContext(FormContext)
+  const {formAction, message, success} = useContext(FormContext)
 
   return (
     <>
-      {message && <p>{message}</p>}
+      {message && <div className={clsx("form-notification", !success && "form-notification--error")}>{message}</div>}
+
       <form className="form-formulary" action={formAction}>
         {children}
       </form>

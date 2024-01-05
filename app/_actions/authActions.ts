@@ -80,6 +80,51 @@ export const login = async (prevState: FormState, formData: FormData): Promise<F
   }
 }
 
+export const requestResetPassword = async (prevState: FormState, formData: FormData): Promise<FormState> => {
+  const body = {
+    email: formData.get('email')
+  }
+
+  const response = await fetch('http://127.0.0.1:4000/api/v1/users/forgotPassword', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+    cache: 'no-cache'
+  })
+
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
+
+  return {
+    success: data.success,
+    message: data.message
+  }
+}
+
+export const changePassword = async (prevState: FormState, formData: FormData): Promise<FormState> => {
+  const newPassword = {
+    password: formData.get('password'),
+    passwordConfirm: formData.get('passwordConfirm'),
+  }
+
+  const response = await fetch(`http://127.0.0.1:4000/api/v1/users/resetPassword/${formData.get('token')}`, {
+    method: 'PATCH',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newPassword),
+    cache: 'no-cache'
+  })
+
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
+
+  return {
+    success: data.success,
+    message: data.message
+  }
+}
+
 export const confirmAccount = async (token: string): Promise<ApiErrorResponse | ApiResponseBase> => {
   const response = await fetch(`http://127.0.0.1:4000/api/v1/users/confirm/${token}`, { cache: "no-cache", method: 'PATCH' });
 
