@@ -12,7 +12,7 @@ export const getLoggedUser = async (): Promise<User | null> => {
 
   const { payload } = await jwtVerify(token.value, secret)
 
-  const response = await fetch(`http://127.0.0.1:4000/api/v1/users/${payload.id}`, { cache: 'force-cache' });
+  const response = await fetch(`http://127.0.0.1:4000/api/v1/users/${payload.id}`, { cache: 'force-cache', next: {tags: ['logged-user']} });
 
   const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
 

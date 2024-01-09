@@ -21,8 +21,8 @@ const NavBarUser: React.FC = () => {
   return (
     <nav className="menu">
       <ButtonLink
-        href="/saves"
         type="icon"
+        href="/saves"
         className={clsx(
           "menu__icon",
           pathname === "/saves" && "menu__icon-active"

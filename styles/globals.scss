@@ -16,8 +16,12 @@ body{
   background-color: $color--grey-0;
   color: $color--black-0;
   position: relative;
-  scroll-behavior: smooth;
   overflow-x: hidden;
+
+  &.modal-open{
+    overflow: hidden;
+    position: fixed;
+  }
 }
 
 .heading--secondary{
@@ -50,8 +54,4 @@ body{
     padding: 0 2.4rem;
     column-gap: 2.4rem;
   }
-}
-
-.row-direction{
-  flex-direction: row;
 }

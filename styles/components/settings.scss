@@ -1,0 +1,17 @@
+@import '../abstract/mixins';
+
+.settings{
+  width: 100%;
+  @include flexDisplay(col, 2.4rem, flex-start, flex-start);
+  padding: 0 3.2rem;
+
+  &__title{
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+
+  &__photos{
+    width: 100%;
+    @include flexDisplay(col, 2.4rem, center, center)
+  }
+}

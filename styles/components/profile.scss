@@ -25,7 +25,8 @@
 
     &--cover{
       width: 90%;
-      height: 65rem;
+      // height: 65rem;
+      aspect-ratio: 16/9;
     }
 
     &--profile{

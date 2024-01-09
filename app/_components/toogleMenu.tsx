@@ -62,7 +62,7 @@ const ToogleMenu: React.FC = () => {
         <li>
           <ButtonLink
             type="icon"
-            href="settings"
+            href="/settings/"
             className="menu-aside__link"
             onClick={toogleMenuOpen}
           >
@@ -73,7 +73,7 @@ const ToogleMenu: React.FC = () => {
         <li>
           <ButtonLink
             type="icon"
-            href="support"
+            href="/support"
             className="menu-aside__link"
             onClick={toogleMenuOpen}
           >
