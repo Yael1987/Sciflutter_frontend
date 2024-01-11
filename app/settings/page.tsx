@@ -4,11 +4,7 @@ const DynamicUserSettings = dynamic(()=>import('./_components/userSettings'), {s
 
 const Page: React.FC = () => {
   return (
-    <>
-      <p className="settings-section-heading--main">User</p>
-
-      <DynamicUserSettings />
-    </>
+    <DynamicUserSettings />
   );
 }
 

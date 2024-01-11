@@ -2,20 +2,20 @@ import { create } from "zustand"
 import { User } from "../_interfaces/api"
 import { getLoggedUser } from "../_actions/userActions"
 
-export interface UserStore{
-  user: User | null,
-  menuOpen: boolean,
-  displayNotification: boolean,
+export interface UserStore {
+  user: User | null;
+  menuOpen: boolean;
+  displayNotification: boolean;
   notification: {
-    type: string,
-    message: string
-  }
-  setUser: (newUser: User) => void,
-  initLoggedUser: () => Promise<void>,
-  showNotification: () => void,
-  setNotification: (type: string, message: string) => void,
-  toogleMenuOpen: () => void,
-  clearUser: () => void
+    type: string;
+    message: string;
+  };
+  setUser: (newUser: User) => void;
+  initLoggedUser: () => Promise<void>;
+  showNotification: () => void;
+  setNotification: (type: string, message: string) => void;
+  toogleMenuOpen: () => void;
+  clearUser: () => void;
 }
 
 export const useUserStore = create<UserStore>()((set, get) => ({
@@ -32,7 +32,7 @@ export const useUserStore = create<UserStore>()((set, get) => ({
   setNotification: (type: string, message: string) => {
     set(() => ({ notification: { type, message } }))
   },
-  setUser: (newUser: User) => set(() => ({ user: newUser })),
+  setUser: (newData: User) => set(() => ({ user: { ...newData } })),
   initLoggedUser: async () => {
     const { user } = get()
 

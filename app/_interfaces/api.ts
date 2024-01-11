@@ -13,6 +13,7 @@ export interface User {
   socialLinks: string[],
   __v: number,
   discipline?: string
+  description?: string
 }
 
 export interface ApiResponseBase {

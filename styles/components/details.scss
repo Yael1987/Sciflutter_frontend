@@ -8,7 +8,7 @@
     padding: 2.4rem 4.8rem;
     box-shadow: $shadow--small;
     width: 100%;
-    @include flexDisplay(col, 2.4rem, initial, start);
+    @include flexDisplay(col, 2.4rem, initial, flex-start);
     
     &-heading{
       font-size: 2rem;
@@ -25,7 +25,7 @@
 
   &__list{
     list-style: none;
-    @include flexDisplay(col, 1.6rem, initial, start);
+    @include flexDisplay(col, 1.6rem, initial, flex-start);
     padding-left: 1.6rem;
 
     &-link{

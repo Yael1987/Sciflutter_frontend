@@ -7,11 +7,14 @@ interface Props{
   photos: {
     profile: string;
     cover: string;
-  }
+  },
+  setProfileData(blob: Blob): void
+  setCoverData(blob: Blob): void
 }
 
-const PhotosSettings: React.FC<Props> = ({photos}) => {
+const PhotosSettings: React.FC<Props> = ({ photos, setProfileData, setCoverData }) => {
   const [profileImg, setProfileImg] = useState(photos.profile)
+  const [coverImg, setCoverImg] = useState(photos.cover)
   const [previewImg, setPreviewImg] = useState("")
   const [isOpenModal, setIsOpenModal] = useState(false)
 
@@ -34,6 +37,22 @@ const PhotosSettings: React.FC<Props> = ({photos}) => {
     reader.readAsDataURL(file);
     setIsOpenModal(true)
   };
+
+  const onSelectCover = (e: React.FormEvent<HTMLInputElement>) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+      const imageURL = reader.result?.toString() ?? "";
+      setCoverImg(imageURL);
+      setCoverData(new Blob([file], {type: "image/jpeg"}));
+    });
+
+    reader.readAsDataURL(file);
+  }
 
   const handleCropImg = (cropedImg: any) => {
     setProfileImg(cropedImg)
@@ -76,14 +95,14 @@ const PhotosSettings: React.FC<Props> = ({photos}) => {
 
       <ModalWindow isModalOpen={isOpenModal} onClick={handleOnClickOverlay}>
         {previewImg && (
-          <ProfileImageUpload imgSrc={previewImg} onCropImg={handleCropImg} onCancel={handleCancel} />
+          <ProfileImageUpload imgSrc={previewImg} onCropImg={handleCropImg} onCancel={handleCancel} setProfileData={setProfileData}/>
         )}
       </ModalWindow>
       
 
       <div className="user-settings-photo">
         <Image
-          src={photos.cover}
+          src={coverImg}
           alt="cover picture preview"
           className="user-settings-photo__cover-img"
           width={252}
@@ -97,6 +116,7 @@ const PhotosSettings: React.FC<Props> = ({photos}) => {
             name="selectCover"
             id="selectCover"
             className="user-settings-photo__upload-input"
+            onChange={onSelectCover}
           />
           <label
             htmlFor="selectCover"

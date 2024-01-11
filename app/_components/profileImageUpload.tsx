@@ -11,7 +11,8 @@ import { X } from '@phosphor-icons/react';
 interface Props{
   imgSrc: any,
   onCropImg: (cropedImg: any) => void
-  onCancel(): void
+  onCancel(): void,
+  setProfileData(blob: Blob): void
 }
 
 const setCanvasPreview = (
@@ -59,7 +60,7 @@ const setCanvasPreview = (
   ctx.restore();
 };
 
-const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel }) => {
+const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setProfileData }) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const [crop, setCrop] = useState<Crop>()
@@ -150,9 +151,15 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel }) =>
               )
             );
 
-            const dataUrl = previewCanvasRef.current?.toDataURL();
+            const dataUrl = previewCanvasRef.current?.toDataURL("image/jpeg", 0.8);
 
             onCropImg(dataUrl);
+
+            previewCanvasRef.current?.toBlob((blob) => {
+              if (blob) { 
+                setProfileData(blob)
+              }
+            }, 'image/jpeg', 0.9);
           }}
           className="crop-image__button crop-image__button--accept"
         >

@@ -18,9 +18,7 @@ const Layout: React.FC<BaseComponent> = ({ children }) => {
       <div className="settings-section-container">
         <DynamicMenuSettings />
 
-        <div className="settings-section-main">
-          {children}
-        </div>
+        {children}
       </div>
     </section>
   )

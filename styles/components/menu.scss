@@ -27,13 +27,13 @@
   }
   
   menu{
-    @include flexDisplay(col, 2.4rem, center, start);
+    @include flexDisplay(col, 2.4rem, center, flex-start);
     list-style: none;
   }
 
   &__link,
   &__btn{
-    @include flexDisplay(row, 1.2rem, center, start);
+    @include flexDisplay(row, 1.2rem, center, flex-start);
 
     &:hover{
       color: $color--main-0;

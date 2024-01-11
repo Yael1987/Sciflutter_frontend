@@ -1,17 +1,108 @@
 @import '../abstract/mixins';
+@import '../abstract/variables';
 
 .settings{
   width: 100%;
-  @include flexDisplay(col, 2.4rem, flex-start, flex-start);
+  @include flexDisplay(col, 4.8rem, flex-start, flex-start);
   padding: 0 3.2rem;
+
+  &__line{
+    width: 100%;
+    height: 1px;
+    background-color: $color--black-0;
+    margin: 2.4rem 0;
+  }
+
+  &__warn{
+    padding: 1.6rem 3.2rem;
+    background-color: rgba($color--util-1, 0.3);
+    color: $color--util-1--20;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0 auto;
+  }
+
+  &__error{
+    padding: 1.6rem 3.2rem;
+    background-color: rgba($color--util-2, 0.3);
+    color: $color--util-2--20;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0 auto;
+  }
+
+  &__success{
+    padding: 1.6rem 3.2rem;
+    background-color: rgba($color--util-0, 0.3);
+    color: $color--util-0--20;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0 auto;
+  }
 
   &__title{
     font-size: 1.6rem;
-    font-weight: 400;
+    font-weight: 500;
   }
 
   &__photos{
     width: 100%;
     @include flexDisplay(col, 2.4rem, center, center)
+  }
+
+  &__row{
+    width: 100%;
+    @include flexDisplay(row, 2.4rem, center, flex-start);
+  }
+
+  &__group{
+    width: 100%;
+    @include flexDisplay(col, 1.2rem, flex-start, initial);
+
+    &--single{
+      width: 45%;
+    }
+  }
+
+  &__input{
+    position: relative;
+    border: none;
+    background-color: transparent;
+    font-size: 1.8rem;
+    font-weight: 400;
+    display: inline-block;
+    padding: 0.8rem 1.2rem;
+    border-bottom: solid 2px $color--black-0;
+    transition: border-bottom 0.3s ease-in;
+    resize: none;
+    line-height: 1.6;
+    font-family: inherit;
+
+    &:focus{
+      outline: none;
+      border-bottom: solid 2px $color--main-0;
+    }
+  }
+
+  &__submit-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    button{
+      border: none;
+      padding: 0.8rem 1.2rem;
+      background-color: $color--main-0;
+      color: $color--grey-0;
+      font-size: 1.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.3s ease-in;
+
+      &:hover{
+        background-color: $color--main-10;
+      }
+    }
   }
 }
