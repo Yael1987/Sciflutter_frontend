@@ -1,0 +1,37 @@
+@import '../abstract/variables';
+
+.alert{
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  width: 100%;
+  max-width: 50rem;
+  transform: translateX(-50%);
+  padding: 2.4rem 4.8rem;
+  transition: all 0.5s ease;
+  z-index: 7;
+
+  p{
+    font-size: 1.8rem;
+    color: inherit;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  &--error{
+    background-color: rgba($color--util-2, 0.5);
+    color: $color--util-2--20;
+  }
+  &--success{
+    background-color: rgba($color--util-0, 0.5);
+    color: $color--util-0--20;
+  }
+  &--warn{
+    background-color: rgba($color--util-1, 0.3);
+    color: $color--util-1--20;
+  }
+
+  &-display{
+    top: 0;
+  }
+}

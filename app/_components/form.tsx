@@ -5,7 +5,7 @@ import { useShallow } from "zustand/react/shallow"
 import { permanentRedirect } from "next/navigation"
 import clsx from "clsx"
 
-import { type UserStore, useUserStore} from "../_stores/userStore";
+import { type UserStore, useUserStore} from "../_store/userStore";
 
 import Image from "next/image";
 
@@ -18,6 +18,7 @@ import { checkCookieExist } from "../_actions/authActions"
 import largeLogo from "@/public/img/logos/long.svg";
 import "@/styles/layout/form-section.scss";
 import "@/styles/components/form.scss";
+import { AlertStore } from "../_store/alertSlice"
 
 
 const FormContext = createContext<ContextValue>({})
@@ -27,20 +28,25 @@ const initialState: FormState = {
   message: ""
 }
 
-export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction, type }) => {
+export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction }) => {
   const [state, formAction] = useFormState(serverAction, initialState)
   const setUser = useUserStore(useShallow((state: UserStore) => state.setUser));
+  const setAlert = useUserStore(useShallow((state: UserStore & AlertStore) => state.setAlert));
   const { user } = useUserStore();
 
   useEffect(() => {
+    if(!state.success) return setAlert('error', state.message!)
+
     if (state.success && state.user) {
       setUser(state.user);
+      setAlert('success', state.message!);
     }
 
+    
     if (checkCookieExist() && user) {
       permanentRedirect("/");
     }
-  }, [state, setUser, user]);
+  }, [state, setUser, user, setAlert]);
 
   return (
     <FormContext.Provider value={{ formAction, message: state.message, success: state.success }}>
@@ -73,16 +79,12 @@ export const Header: React.FC<HeaderProps> = ({ description, title }) => {
 }
 
 export const Form: React.FC<BaseComponent> = ({ children }) => {
-  const {formAction, message, success} = useContext(FormContext)
+  const {formAction} = useContext(FormContext)
 
   return (
-    <>
-      {message && <div className={clsx("form-notification", !success && "form-notification--error")}>{message}</div>}
-
-      <form className="form-formulary" action={formAction}>
-        {children}
-      </form>
-    </>
+    <form className="form-formulary" action={formAction}>
+      {children}
+    </form>
   );
 }
 

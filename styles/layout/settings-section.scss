@@ -28,6 +28,10 @@
   &-main{
     padding: 1.6rem 2.4rem;
     border-left: solid 1px $color--black-0;
-    @include flexDisplay(col, 2.4rem, flex-start, flex-start);
+
+    &--container{
+      width: 100%;
+      @include flexDisplay(col, 2.4rem, flex-start, flex-start);
+    }
   }
 }

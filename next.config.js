@@ -73,6 +73,12 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/settings/(.*)",
+        missing: [cookieObj],
+        destination: "/login",
+        permanent: true,
+      },
+      {
         source: "/settings/((?!seguridad).*)",
         destination: "/settings/",
         permanent: true,

@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react'
 import { checkCookieExist } from '../_actions/authActions'
-import { useUserStore } from '../_stores/userStore'
+import { useUserStore } from '../_store/userStore'
 import Cookies from 'js-cookie'
 
 const useCheckCookie = () => {

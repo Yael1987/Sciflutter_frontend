@@ -52,7 +52,12 @@
 
   &__row{
     width: 100%;
-    @include flexDisplay(row, 2.4rem, center, flex-start);
+    @include flexDisplay(row, 2.4rem, flex-end, flex-start);
+  }
+
+  &__col{
+    width: 100%;
+    @include flexDisplay(col, 1.8rem, center, flex-start);
   }
 
   &__group{
@@ -88,21 +93,30 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+  }
 
-    button{
-      border: none;
-      padding: 0.8rem 1.2rem;
+  &__button{
+    border: none;
+    padding: 0.8rem 1.2rem;
+    background-color: $color--main-0;
+    color: $color--grey-0;
+    font-size: 1.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 0.3s ease-in;
+
+    &--full{
+      width: 100%;
+    }
+
+    &:hover{
+      background-color: $color--main-10;
+    }
+
+    &.loading{
       background-color: $color--main-0;
-      color: $color--grey-0;
-      font-size: 1.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background-color 0.3s ease-in;
-
-      &:hover{
-        background-color: $color--main-10;
-      }
+      pointer-events: none;
     }
   }
 }

@@ -1,28 +1,30 @@
 import { Window as ModalWindow } from '@/app/_components/modal';
 import ProfileImageUpload from '@/app/_components/profileImageUpload';
+import { useSettingsContext } from '@/app/_store/settingsContext';
 import Image from 'next/image';
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 interface Props{
   photos: {
     profile: string;
     cover: string;
   },
-  setProfileData(blob: Blob): void
-  setCoverData(blob: Blob): void
 }
 
-const PhotosSettings: React.FC<Props> = ({ photos, setProfileData, setCoverData }) => {
+const PhotosSettings: React.FC<Props> = ({ photos }) => {
   const [profileImg, setProfileImg] = useState(photos.profile)
   const [coverImg, setCoverImg] = useState(photos.cover)
+  
   const [previewImg, setPreviewImg] = useState("")
   const [isOpenModal, setIsOpenModal] = useState(false)
+  
+  const { addPicture } = useSettingsContext()
 
   const handleOnClickOverlay = () => {
     setIsOpenModal(state => !state)
   }
 
-  const onSelectFile = (e: React.FormEvent<HTMLInputElement>) => {
+  const onSelectNewProfile = (e: React.FormEvent<HTMLInputElement>) => {
     const file = (e.target as HTMLInputElement).files?.[0];
 
     if (!file) return;
@@ -38,7 +40,7 @@ const PhotosSettings: React.FC<Props> = ({ photos, setProfileData, setCoverData 
     setIsOpenModal(true)
   };
 
-  const onSelectCover = (e: React.FormEvent<HTMLInputElement>) => {
+  const onSelectNewCover = (e: React.FormEvent<HTMLInputElement>) => {
     const file = (e.target as HTMLInputElement).files?.[0];
 
     if (!file) return;
@@ -47,8 +49,9 @@ const PhotosSettings: React.FC<Props> = ({ photos, setProfileData, setCoverData 
 
     reader.addEventListener("load", () => {
       const imageURL = reader.result?.toString() ?? "";
+
       setCoverImg(imageURL);
-      setCoverData(new Blob([file], {type: "image/jpeg"}));
+      addPicture(new Blob([file], {type: "image/jpeg"}), 'cover');
     });
 
     reader.readAsDataURL(file);
@@ -59,10 +62,12 @@ const PhotosSettings: React.FC<Props> = ({ photos, setProfileData, setCoverData 
     setIsOpenModal(false)
   }
 
-  const handleCancel = () => {
+  const handleCancelCrop = () => {
     setPreviewImg('')
     setIsOpenModal(false)
   }
+
+  const addNewProfileImg = (blob: Blob) => addPicture(blob, "profile");
 
   return (
     <>
@@ -82,7 +87,7 @@ const PhotosSettings: React.FC<Props> = ({ photos, setProfileData, setCoverData 
             name="selectProfile"
             id="selectProfile"
             className="user-settings-photo__upload-input"
-            onChange={onSelectFile}
+            onChange={onSelectNewProfile}
           />
           <label
             htmlFor="selectProfile"
@@ -93,12 +98,11 @@ const PhotosSettings: React.FC<Props> = ({ photos, setProfileData, setCoverData 
         </div>
       </div>
 
-      <ModalWindow isModalOpen={isOpenModal} onClick={handleOnClickOverlay}>
+      <ModalWindow isModalOpen={isOpenModal} onClickOverlay={handleOnClickOverlay}>
         {previewImg && (
-          <ProfileImageUpload imgSrc={previewImg} onCropImg={handleCropImg} onCancel={handleCancel} setProfileData={setProfileData}/>
+          <ProfileImageUpload imgSrc={previewImg} onCropImg={handleCropImg} onCancel={handleCancelCrop} setUpdateProfileImg={addNewProfileImg}/>
         )}
       </ModalWindow>
-      
 
       <div className="user-settings-photo">
         <Image
@@ -116,7 +120,7 @@ const PhotosSettings: React.FC<Props> = ({ photos, setProfileData, setCoverData 
             name="selectCover"
             id="selectCover"
             className="user-settings-photo__upload-input"
-            onChange={onSelectCover}
+            onChange={onSelectNewCover}
           />
           <label
             htmlFor="selectCover"

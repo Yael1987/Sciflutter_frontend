@@ -1,18 +1,17 @@
-@import '../abstract/mixins';
 @import '../abstract/variables';
+@import '../abstract/mixins';
 
-.crop-image{
+.confirm-modal{
   background-color: $color--grey-0;
   padding: 2.4rem 3.6rem;
   overflow: hidden;
-  @include flexDisplay(col, 2.4rem, center, center);
+  @include flexDisplay(col, 3.2rem, center, center);
   z-index: 0;
   box-sizing: content-box;
 
   width: 100%;
   max-width: 80rem;
   pointer-events: all;
-
 
   &__header{
     width: 100%;
@@ -48,9 +47,38 @@
     }
   }
 
-  &__preview{
-    max-height: 42rem;
-    max-width: 80rem;
+  &__group{
+    display: inherit;
+    flex-direction: inherit;
+    gap: 1.2rem;
+    font-size: 1.8rem;
+
+    &-label{
+      font-size: inherit;
+    }
+
+    &-input{
+      text-justify: center;
+      position: relative;
+      border: none;
+      background-color: transparent;
+      font-size: 1.8rem;
+      font-weight: 400;
+      display: inline-block;
+      padding: 0.8rem 1.2rem;
+      border-bottom: solid 2px $color--black-0;
+      transition: border-bottom 0.3s ease-in;
+      resize: none;
+      line-height: 1.6;
+      font-family: inherit;
+
+      &:focus{
+        outline: none;
+        border-bottom: solid 2px $color--main-0;
+      }
+    }
+
+
   }
 
   &__buttons{

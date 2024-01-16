@@ -5,8 +5,14 @@ import { revalidateTag } from 'next/cache';
 import { BaseComponent } from '../_interfaces/components'
 
 import "@/styles/layout/settings-section.scss";
+import SettingsProvider from '../_store/settingsContext';
+import { Metadata } from 'next';
 
-const DynamicMenuSettings = dynamic(() => import('./_components/menuSettings'))
+const DynamicSettingsMenu = dynamic(() => import('./_components/menuSettings'))
+
+export const metadata: Metadata = {
+  title: "Settings",
+};
 
 const Layout: React.FC<BaseComponent> = ({ children }) => {
   revalidateTag('logged-user')
@@ -16,9 +22,13 @@ const Layout: React.FC<BaseComponent> = ({ children }) => {
       <h3 className="settings-section-heading">Configuracion</h3>
 
       <div className="settings-section-container">
-        <DynamicMenuSettings />
+        <DynamicSettingsMenu />
 
-        {children}
+        <div className="settings-section-main">
+          <SettingsProvider>
+            {children}
+          </SettingsProvider>
+        </div>
       </div>
     </section>
   )

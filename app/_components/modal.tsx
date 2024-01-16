@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from 'react'
+import React, { createContext, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import Overlay from './overlay'
 import { BaseComponent } from '../_interfaces/components'
@@ -6,33 +6,44 @@ import { BaseComponent } from '../_interfaces/components'
 import '@/styles/components/modal.scss'
 import clsx from 'clsx'
 
-const ModalContext = createContext({})
-
 interface WindowProps extends BaseComponent{
   onClose?(): void;
   isModalOpen: boolean,
-  onClick(): void
+  onClickOverlay(): void
 }
 
-export const Window: React.FC<WindowProps> = ({ children, isModalOpen, onClick }) => {
-  
+export const Window: React.FC<WindowProps> = ({ children, isModalOpen, onClickOverlay }) => {
+  const ref = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
+    const handleClick = (e) => {
+       if(!isModalOpen) return
+
+      if (ref.current && !ref.current.contains(e.target)) onClickOverlay();
+    };
+
     if (isModalOpen) { 
       document.body.classList.add('modal-open')
     } else {
       document.body.classList.remove('modal-open')
     }
-  }, [isModalOpen])
+
+    document.addEventListener("click", handleClick, true);
+
+    return () => {
+      document.removeEventListener("click", handleClick, true);
+    };
+  }, [isModalOpen, ref, onClickOverlay])
 
   return createPortal(
     <div className={clsx('modal-cont-1', isModalOpen && 'modal-cont-1--open')}>
       <div className='modal-cont-2'>
         <div className='modal-cont-3'>
-          <Overlay display={isModalOpen} />
+          <Overlay display={isModalOpen}/>
 
           <div className='modal-cont-4'>
             <div className="modal-cont-5">
-              <div className='modal-container'>
+              <div className='modal-container' ref={ref}>
                 {children}
               </div>
             </div>
@@ -43,3 +54,5 @@ export const Window: React.FC<WindowProps> = ({ children, isModalOpen, onClick }
     document.body
   )
 }
+
+export default Window;

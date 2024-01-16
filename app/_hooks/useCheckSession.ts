@@ -1,4 +1,4 @@
-import { type UserStore, useUserStore } from '../_stores/userStore';
+import { type UserStore, useUserStore } from '../_store/userStore';
 import { useCallback, useEffect, useState } from 'react';
 import { type User } from '../_interfaces/api';
 import { checkCookieExist } from '../_actions/authActions';

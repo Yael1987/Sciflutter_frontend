@@ -70,7 +70,8 @@ export const login = async (prevState: FormState, formData: FormData): Promise<F
 
     return {
       success: data.success,
-      user: data.data.user
+      user: data.data.user,
+      message: data.message
     }
   } else { 
     return {
@@ -135,6 +136,16 @@ export const checkCookieExist = (): boolean => {
   const token = cookies().get('token_sciflutter')
 
   return Boolean(token)
+}
+
+export const setCookieToken = (token: string): void => {
+  const cookieOptions = {
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+    samesite: null,
+  };
+
+  cookies().set('token_sciflutter', token, cookieOptions)
 }
 
 export const signout = (): void => {

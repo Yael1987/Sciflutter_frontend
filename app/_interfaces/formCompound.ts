@@ -12,8 +12,7 @@ export interface FormHOCProps extends BaseComponent {
   serverAction: (
     previewState: FormState,
     formData: FormData
-  ) => Promise<FormState>;
-  type?: string;
+  ) => Promise<FormState>
 }
 
 export interface HeaderProps {

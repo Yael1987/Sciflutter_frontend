@@ -31,9 +31,11 @@
       width: 12.6rem;
       height: 12.6rem;
       border-radius: 50%;
+      border: 1px solid $color--black-0;
     }
 
     &__cover-img{
+      border: 1px solid $color--black-0;
       width: 25.2rem;
       aspect-ratio: 16/9;
       object-fit: cover;

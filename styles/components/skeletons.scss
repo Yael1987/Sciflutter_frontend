@@ -1,4 +1,5 @@
 @import '../abstract/mixins';
+@import '../abstract/variables';
 
 .skeleton{
   &--nav-menu {
@@ -108,6 +109,47 @@
       margin: auto;
       padding: 12.8rem 0 14.8rem;
       gap: 12rem;
+    }
+  }
+
+  &--settings{
+    &__photo{
+      background: #eee;
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      background-size: 200% 100%;
+      animation: 1.5s shine linear infinite;
+
+      &--profile{
+        width: 12.6rem;
+        height: 12.6rem;
+        border-radius: 50%;
+        border: 1px solid $color--black-0;
+      }
+
+      &--cover{
+        width: 25.2rem;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        border: 1px solid $color--black-0;
+      }
+
+    }
+
+    &__input{
+      background: #eee;
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      background-size: 200% 100%;
+      animation: 1.5s shine linear infinite;
+      width: 100%;
+      padding: 0.8rem 1.2rem;
+      line-height: 1.6;
+      font-size: 1.8rem;
+      color: transparent;
+    }
+
+    &__container{
+      width: 100%;
+      @include flexDisplay(col, 2.4rem, flex-start, flex-start);
     }
   }
 }

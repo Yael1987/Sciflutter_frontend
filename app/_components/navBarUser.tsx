@@ -9,7 +9,7 @@ import ButtonLink from "./buttonLink";
 import '@/styles/components/navigation.scss'
 
 import { User } from "../_interfaces/api"
-import { UserStore, useUserStore } from "../_stores/userStore";
+import { UserStore, useUserStore } from "../_store/userStore";
 import { BookmarksSimple, Chats, DotsThreeOutline, FilePlus } from "@phosphor-icons/react";
 import Button from './button';
 

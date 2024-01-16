@@ -1,18 +1,21 @@
 "use client"
 import React, { useRef, useState } from 'react'
-import ReactCrop, { Crop, PixelCrop, centerCrop, convertToPixelCrop, makeAspectCrop } from 'react-image-crop'
-import "react-image-crop/dist/ReactCrop.css";
+import ReactCrop, { Crop, PercentCrop, PixelCrop, centerCrop, convertToPixelCrop, makeAspectCrop } from 'react-image-crop'
 
-import '@/styles/components/crop-image.scss'
 import Image from 'next/image';
+
 import Button from './button';
+
 import { X } from '@phosphor-icons/react';
+
+import "react-image-crop/dist/ReactCrop.css";
+import '@/styles/components/crop-image.scss'
 
 interface Props{
   imgSrc: any,
   onCropImg: (cropedImg: any) => void
   onCancel(): void,
-  setProfileData(blob: Blob): void
+  setUpdateProfileImg(blob: Blob): void
 }
 
 const setCanvasPreview = (
@@ -60,9 +63,10 @@ const setCanvasPreview = (
   ctx.restore();
 };
 
-const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setProfileData }) => {
+const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setUpdateProfileImg }) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+
   const [crop, setCrop] = useState<Crop>()
 
   const onImageLoad = (e: React.FormEvent<HTMLImageElement>) => {
@@ -70,7 +74,7 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setP
 
     const crop = makeAspectCrop(
       {
-        unit: "%", // Puede ser 'px' o '%'
+        unit: "%",
         height: 100,
       },
       1,
@@ -81,6 +85,32 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setP
     const centeredCrop = centerCrop(crop, width, height);
 
     setCrop(centeredCrop);
+  };
+
+  const handleCropImage = () => {
+    if (!imgRef.current || !previewCanvasRef.current || !crop) return;
+
+    setCanvasPreview(
+      imgRef.current,
+      previewCanvasRef.current,
+      convertToPixelCrop(crop, imgRef.current?.width, imgRef.current?.height)
+    );
+
+    const dataUrl = previewCanvasRef.current?.toDataURL("image/jpeg", 0.8);
+
+    //Set the crop image on the settings profile image
+    onCropImg(dataUrl);
+
+    //Get the crop image from the canvas and convert it to a blob
+    previewCanvasRef.current?.toBlob(
+      (blob) => {
+        if (blob) {
+          setUpdateProfileImg(blob);
+        }
+      },
+      "image/jpeg",
+      0.9
+    );
   };
 
   return (
@@ -99,7 +129,7 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setP
           circularCrop
           keepSelection
           aspect={1}
-          onChange={(pixelCrop, percentCrop) => setCrop(percentCrop)}
+          onChange={(pixelCrop: PixelCrop, percentCrop: PercentCrop) => setCrop(percentCrop)}
         >
           <Image
             src={imgSrc}
@@ -138,29 +168,7 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setP
         </button>
 
         <button
-          onClick={() => {
-            if (!imgRef.current || !previewCanvasRef.current || !crop) return
-
-            setCanvasPreview(
-              imgRef.current,
-              previewCanvasRef.current,
-              convertToPixelCrop(
-                crop,
-                imgRef.current?.width,
-                imgRef.current?.height
-              )
-            );
-
-            const dataUrl = previewCanvasRef.current?.toDataURL("image/jpeg", 0.8);
-
-            onCropImg(dataUrl);
-
-            previewCanvasRef.current?.toBlob((blob) => {
-              if (blob) { 
-                setProfileData(blob)
-              }
-            }, 'image/jpeg', 0.9);
-          }}
+          onClick={handleCropImage}
           className="crop-image__button crop-image__button--accept"
         >
           Crop image

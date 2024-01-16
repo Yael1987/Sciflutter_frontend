@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { useUserStore } from '../_stores/userStore'
+import { useUserStore } from '../_store/userStore'
 
 import { Gear, Question, SignOut, X } from '@phosphor-icons/react'
 
@@ -15,16 +15,17 @@ import { signout } from '../_actions/authActions'
 import '@/styles/components/menu.scss'
 
 const ToogleMenu: React.FC = () => {
-  const { menuOpen, user, toogleMenuOpen, clearUser } = useUserStore()
+  const { menuOpen, user, toogleMenuOpen, clearUser, setAlert } = useUserStore()
   const refMenu = useRef<HTMLElement>(null)
   const { refresh } = useRouter()
 
-   const handleSignOut = () => {
-     signout()
-     clearUser()
-     toogleMenuOpen()
-     refresh()
-   };
+  const handleSignOut = () => {
+    signout()
+    clearUser()
+    toogleMenuOpen()
+    setAlert('success', 'Sesion cerrada')
+    refresh()
+  };
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {

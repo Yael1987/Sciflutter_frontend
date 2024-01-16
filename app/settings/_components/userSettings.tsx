@@ -1,91 +1,34 @@
 "use client"
-
-import { useUserStore } from "@/app/_stores/userStore"
 import dynamic from "next/dynamic"
+import clsx from "clsx"
 
-import '@/styles/components/user-settings.scss'
-import '@/styles/components/settings.scss'
-import { useState } from "react"
-import { getToken, revalidateUsers } from "@/app/_actions/userActions"
+import { useUserStore } from "@/app/_store/userStore"
+import { useSettingsContext } from "@/app/_store/settingsContext"
 
-const DynamicPhotosSettings = dynamic(() => import('./photosSettings'), { ssr: true, loading: () => <div>Cargando...</div> })
-const VALID_INPUTS=['name', 'lastName', 'description', 'discipline']
+import UserSettingsSkeleton from "@/app/_skeletons/userSettingsSkeleton"
+import PhotosSettingsSkeleton from "@/app/_skeletons/photosSettingsSkeleton"
+
+import "@/styles/components/user-settings.scss";
+import "@/styles/components/settings.scss";
+
+const DynamicPhotosSettings = dynamic(() => import('./photosSettings'), { ssr: true, loading: () => <PhotosSettingsSkeleton /> })
 
 const UserSettings: React.FC = () => {
   const user = useUserStore(state => state.user)
-  const [globalFormData, setGlobalFormData] = useState<FormData>(new FormData())
-  const [notification, setNotification] = useState({ message: '', error: false })
-  const setUser = useUserStore(state => state.setUser)
 
-  if (!user) return <div>
-    <p>Fotos</p>
-    <div>
-      <div>
-        Cargando...
-      </div>
-    </div>
+  const { requestDataUpdate, pending } = useSettingsContext();
 
-    <div></div>
-  </div>
-
-  const updatePublicData = async (formData: FormData) => {
-    const formEntries = Array.from(formData.keys())
-
-    formEntries.forEach(entry => {
-      if (formData.get(entry) && VALID_INPUTS.includes(entry)) {
-        globalFormData.append(entry, (formData.get(entry) as string));
-      };
-    })
-    
-    const response = await fetch('http://127.0.0.1:4000/api/v1/users/me', {
-      method: 'PATCH',
-      headers: {
-        "Authorization": `Bearer ${await getToken()}`
-      },
-      body: globalFormData,
-      cache: 'no-store'
-    })
-
-    const data = await response.json()
-
-    if (data.success) {
-      setNotification({ message: 'Datos actualizados correctamente', error: false })
-      setUser(data.data)
-      revalidateUsers()
-    } else {
-      setNotification({message: 'Ocurrio un error al actualizar los datos', error: true})
-    }
-  }
-
-  const addProfilePicture = (blob: Blob) => {
-    if (globalFormData.has('profile')) {
-      globalFormData.append('profile', blob)
-    } else {
-      globalFormData.set('profile', blob)
-    }
-  }
-  
-  const addCoverPicture = (blob: Blob) => {
-    if (globalFormData.has('cover')) {
-      globalFormData.append('cover', blob)
-    } else {
-      globalFormData.set('cover', blob)
-    }
-  }
+  if (!user) return <UserSettingsSkeleton />;
   
   return (
     <form
-      action={updatePublicData}
-      className="settings-section-main"
+      action={requestDataUpdate}
+      className="settings-section-main--container"
     >
       {user.status === "unconfirmed" && (
         <div className="settings__warn">
           Por favor confirma tu cuenta para poder cambiar tus datos
         </div>
-      )}
-
-      {notification.message && (
-        <div className={`settings__${notification.error ? "error" : 'success'}`}>{notification.message}</div>
       )}
 
       <p className="settings-section-heading--main">User</p>
@@ -95,7 +38,7 @@ const UserSettings: React.FC = () => {
           <p className="settings__title">Fotos</p>
 
           <div className="settings__photos">
-            <DynamicPhotosSettings photos={user.photos} setProfileData={addProfilePicture} setCoverData={addCoverPicture}/>
+            <DynamicPhotosSettings photos={user.photos} />
           </div>
         </div>
 
@@ -172,7 +115,9 @@ const UserSettings: React.FC = () => {
       )}
 
       <div className="settings__submit-container">
-        <button>Guardar cambios</button>
+        <button className={clsx("settings__button", pending && "loading")}>
+          {pending ? "Guardando..." : "Guardar cambios"}
+        </button>
       </div>
     </form>
   );

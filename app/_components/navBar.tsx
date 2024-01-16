@@ -2,7 +2,7 @@
 import NavBarUser from './navBarUser'
 
 import NavBarSkeleton from '../_skeletons/navBarSkeleton'
-import { UserStore, useUserStore } from '../_stores/userStore'
+import { UserStore, useUserStore } from '../_store/userStore'
 import { useCallback, useEffect, useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 

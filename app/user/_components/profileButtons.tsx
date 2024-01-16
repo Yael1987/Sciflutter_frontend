@@ -1,6 +1,6 @@
 "use client"
 import { User } from '@/app/_interfaces/api';
-import { UserStore, useUserStore } from '@/app/_stores/userStore';
+import { UserStore, useUserStore } from '@/app/_store/userStore';
 import React from 'react'
 
 interface Props {
