@@ -43,7 +43,11 @@ const SettingsProvider: React.FC<BaseComponent> = ({ children }) => {
 
     formEntries.forEach((entry) => {
       if (formData.get(entry) && VALID_INPUTS.includes(entry)) {
-        contextFormData.append(entry, formData.get(entry) as string);
+        if (formData.has(entry)) {
+          contextFormData.set(entry, formData.get(entry) as string);  
+        } else { 
+          contextFormData.append(entry, formData.get(entry) as string);
+        }
       }
     });
 

@@ -5,6 +5,7 @@
   width: 120rem; 
 
   &__list{
+    width: 100%;
     @include flexDisplay(col, 5.2rem, center, initial);
     padding: 0 4.8rem;
   }

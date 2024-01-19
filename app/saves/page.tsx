@@ -1,21 +1,40 @@
+import { Metadata } from "next";
+import { getToken } from "../_actions/userActions";
 import ArticlePreview from "../_components/articlePreview";
 import CardsList from "../_components/cardsList"
 import { HeadingSecondary } from "../_components/headings";
-import { getArticles } from "../_utils/getData"
+import Message from "../_components/message";
+import { ArticlePreviewI } from "../_interfaces";
 
 import '@/styles/layout/saves.scss'
 
-const Page: React.FC = () => {
-  const saves = getArticles();
+export const metadata: Metadata = {
+  title: 'Saves'
+}
+
+const Page: React.FC = async () => {
+  const response = await fetch(`${process.env.BACKEND_URL}/articles/saves`, {
+    headers: {
+      "Authorization": `Bearer ${await getToken()}`
+    }
+  })
+
+  const data = await response.json()
+  const saves = data.data.saves
 
   return (
     <section className="saves">
       <HeadingSecondary>Mis favoritos</HeadingSecondary>
 
       <CardsList type="articles">
-        {saves.map((article) => (
-          <ArticlePreview article={article} key={article.id} />
-        ))}
+        {data.data.saves.length === 0
+          ? (
+            <Message>Aun no hay articulos guardados</Message>
+          ) : (
+            saves.map((article: ArticlePreviewI) => (
+              <ArticlePreview article={article} key={article.id} />
+            ))
+          )}
       </CardsList>
     </section>
   );

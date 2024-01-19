@@ -2,11 +2,13 @@ import { useUserStore } from "@/app/_store/userStore";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import ConfirmModal from "./confirmModal";
-import { getToken } from "@/app/_actions/userActions";
+import { changePassword, getToken } from "@/app/_actions/userActions";
 import { ApiErrorResponse, ApiSuccessResponse } from "@/app/_interfaces/api";
 import { setCookieToken } from "@/app/_actions/authActions";
 
 const DynamicModalWindow = dynamic(() => import('@/app/_components/modal'), { ssr: false })
+
+const FORM_FIELDS = ['password', 'newPassword', 'newPasswordConfirm']
 
 const ChangePassword: React.FC = () => {
   const { setAlert } = useUserStore();
@@ -82,25 +84,18 @@ const ChangePassword: React.FC = () => {
       <DynamicModalWindow isModalOpen={confirmPasswordOpen} onClickOverlay={() => setConfirmPasswordOpen(false)}>
         <ConfirmModal
           onClick={async (password: string) => {
-            const response = await fetch('http://127.0.0.1:4000/api/v1/users/me/updatePassword', {
-              headers: {
-                "Authorization": `Bearer ${await getToken()}`,
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                password,
-                newPassword,
-                newPasswordConfirm
-              }),
-              method: 'PATCH'
-            })
+            const formData = {
+              password,
+              newPassword,
+              newPasswordConfirm
+            }
 
-            const data: ApiSuccessResponse | ApiErrorResponse = await response.json()
+            const apiResponse: ApiSuccessResponse | ApiErrorResponse = await changePassword(formData)
 
-            setAlert(data.success ? "success" : 'error', data.message)
+            setAlert(apiResponse.success ? "success" : 'error', apiResponse.message)
 
-            if (data.success && data.token) {
-              setCookieToken(data.token)
+            if (apiResponse.success && apiResponse.token) {
+              setCookieToken(apiResponse.token)
               setConfirmPasswordOpen(false)
             }
           }}

@@ -8,7 +8,7 @@ export const getLoggedUser = async (): Promise<User | null> => {
 
   if(!token) return null
 
-  const response = await fetch('http://127.0.0.1:4000/api/v1/users/me', {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/me`, {
     cache: 'no-store',
     headers: {
       "Authorization": `Bearer ${token.value}`
@@ -27,7 +27,7 @@ export const getLoggedUser = async (): Promise<User | null> => {
 }
 
 export const getUser = async (userId: string): Promise<{success: boolean, message: string, user?: User}> => {
-  const response = await fetch(`http://127.0.0.1:4000/api/v1/users/${userId}`, {next: {tags: ['users']}})
+  const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}`, {next: {tags: ['users']}})
   const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
 
   if (!data.success) return {
@@ -42,8 +42,15 @@ export const getUser = async (userId: string): Promise<{success: boolean, messag
   }
 }
 
+export const getUserStats = async (userId: string) => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}/stats`, { next: { tags: ['users-stats'] } })
+  const data = await response.json()
+
+  return data
+}
+
 export const updateUserData = async (formData: FormData): Promise<{success: boolean, message: string, user?: User}> => {
-  const response = await fetch("http://127.0.0.1:4000/api/v1/users/me", {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/me`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${await getToken()}`,
@@ -57,6 +64,24 @@ export const updateUserData = async (formData: FormData): Promise<{success: bool
   if (!data.success) return { success: data.success, message: data.message }
   
   return { success: data.success, message: data.message, user: (data.data as User) }
+}
+
+export const changePassword = async (formData: { password: string, newPassword: string, newPasswordConfirm: string }): Promise<ApiErrorResponse | ApiSuccessResponse>  => {
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/users/me/updatePassword`,
+    {
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+      method: "PATCH",
+    }
+  );
+
+  const data: ApiSuccessResponse | ApiErrorResponse = await response.json();
+
+  return data
 }
 
 export const getToken = async (): Promise<string | null> => {

@@ -1,4 +1,4 @@
-import { changePassword } from "@/app/_actions/authActions";
+import { resetPassword } from "@/app/_actions/authActions";
 import { Form, FormContainer, FormHOC, Header as FormHeader, SubmitButton } from "@/app/_components/form";
 
 interface Props{
@@ -9,7 +9,7 @@ interface Props{
 
 const Page: React.FC<Props> = ({ params }) => {
   return (
-    <FormHOC serverAction={changePassword}>
+    <FormHOC serverAction={resetPassword}>
       <FormContainer>
         <FormHeader
           title = "Recupera tu cuenta"

@@ -11,13 +11,15 @@ import { FacebookLogo } from '@phosphor-icons/react/dist/ssr/FacebookLogo';
 import { PinterestLogo } from '@phosphor-icons/react/dist/ssr/PinterestLogo';
 import { TwitterLogo } from '@phosphor-icons/react/dist/ssr/TwitterLogo';
 import { User } from '@/app/_interfaces/api';
+import { getArticlesOfAuthor } from '@/app/_actions/articleActions';
 
 interface Props {
   user: User
 }
 
-const ProfileContent: React.FC<Props> = ({ user }) => {
-  const publishedArticles = getUserArticles(user._id)
+const ProfileContent: React.FC<Props> = async ({ user }) => {
+  const apiResponse = await getArticlesOfAuthor(user._id)
+  const publishedArticles = apiResponse.data
 
   if(publishedArticles.length === 0) return (
     <section className="container--empty">
@@ -31,7 +33,7 @@ const ProfileContent: React.FC<Props> = ({ user }) => {
         <HeadingSecondary>Articulos publicados</HeadingSecondary>
 
         <CardsList type="articles">
-          {publishedArticles.map((article) => (
+          {publishedArticles.map((article: any) => (
             <ArticlePreview article={article} key={article.id} />
           ))}
         </CardsList>
