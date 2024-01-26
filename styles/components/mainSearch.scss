@@ -1,42 +1,16 @@
-@import '../abstract/variables';
-@import '../abstract/buttons';
+@use '../abstract/variables';
 
-.main-search{
+.b-main-search{
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6.4rem;
+  display: grid;
+  justify-items: center;
+  grid-row-gap: variables.$space-3xl;
 
   &__logo{
-    height: 36rem;
+    width: 50%;
   }
 
-  &__search{
-    width: 75%;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    padding: 0.8rem 2.4rem;
-    border: solid 1px #000;
-    border-radius: 5rem;
-    gap: 0.8rem;
-    align-items: center;
-
-    &-icon{
-      height: 2.4rem;
-      width: 2.4rem;
-      cursor: pointer;
-      color: $color--black-0;
-    }
-
-    &-input{
-      font-size: 2rem;
-      border: none;
-      background-color: transparent;
-
-      &:focus{
-        outline: none;
-      }
-    }
+  &__bar{
+    width: 100%
   }
 }

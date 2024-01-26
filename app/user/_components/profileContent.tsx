@@ -1,25 +1,20 @@
-import React from 'react'
-
 import "@/styles/layout/profile-content.scss";
 import "@/styles/components/details.scss";
 import { HeadingSecondary } from '@/app/_components/headings';
-import { getUserArticles } from '@/app/_utils/getData';
-import CardsList from '@/app/_components/cardsList';
-import ArticlePreview from '@/app/_components/articlePreview';
 import { Globe } from '@phosphor-icons/react/dist/ssr/Globe';
 import { FacebookLogo } from '@phosphor-icons/react/dist/ssr/FacebookLogo';
 import { PinterestLogo } from '@phosphor-icons/react/dist/ssr/PinterestLogo';
 import { TwitterLogo } from '@phosphor-icons/react/dist/ssr/TwitterLogo';
 import { User } from '@/app/_interfaces/api';
 import { getArticlesOfAuthor } from '@/app/_actions/articleActions';
+import ProfileArticles from "./profileArticles";
 
 interface Props {
   user: User
 }
 
 const ProfileContent: React.FC<Props> = async ({ user }) => {
-  const apiResponse = await getArticlesOfAuthor(user._id)
-  const publishedArticles = apiResponse.data
+  const publishedArticles = await getArticlesOfAuthor(user._id)
 
   if(publishedArticles.length === 0) return (
     <section className="container--empty">
@@ -32,27 +27,20 @@ const ProfileContent: React.FC<Props> = async ({ user }) => {
       <div className="articles">
         <HeadingSecondary>Articulos publicados</HeadingSecondary>
 
-        <CardsList type="articles">
-          {publishedArticles.map((article: any) => (
-            <ArticlePreview article={article} key={article.id} />
-          ))}
-        </CardsList>
+        <ProfileArticles publishedArticles={publishedArticles}/>
       </div>
 
       <div className="details">
-        <div className="details__box">
-          <h4 className="details__box-heading">Sobre mi</h4>
-          <p className="details__box-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-            vulputate ipsum ac vehicula sagittis. Aliquam erat ligula,
-            sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi
-            nibh, elementum eu sem eu, ornare cursus orci. Suspendisse vel
-            condimentum ante. Cras at libero congue, bibendum mi tempus, euismod
-            diam.
-          </p>
-        </div>
+        {user.description && (
+          <div className="details__box">
+            <h4 className="details__box-heading">Sobre mi</h4>
+            <p className="details__box-description">
+              {user.description}
+            </p>
+          </div>
+        )}
 
-        <aside className="details__box">
+        {user.socialLinks.length > 0 && <aside className="details__box">
           <h4 className="details__box-heading">Contacto</h4>
 
           <ul className="details__list">
@@ -85,7 +73,7 @@ const ProfileContent: React.FC<Props> = async ({ user }) => {
               </a>
             </li>
           </ul>
-        </aside>
+        </aside>}
       </div>
     </section>
   );

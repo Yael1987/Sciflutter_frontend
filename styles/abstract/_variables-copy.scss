@@ -1,0 +1,66 @@
+/* UI COLORS */
+
+$color--main-dark--2: #2e1800;
+$color--main-dark--1: #cf6b00;
+$color--main-base: #e67700;
+
+$color--background: #f1f3f5;
+
+$color--lines: #000814;
+
+$color--text-emphasys: #2e1800;
+$color--text-base: #000814;
+$color--text-light: #343a40;
+
+$color--error-dark: #8d1d1d;
+$color--error-base: #b52626;
+
+$color--warn-dark: #c88d04;
+$color--warn-base: #fab005;
+
+$color--success-dark: #0e3c67;
+$color--success-base: #135089;
+
+/* SKELETON */
+
+$_color--skeleton-background: #ececec;
+$_color--skeleton-animation: #f5f5f5;
+
+$animated-item-background: linear-gradient(110deg, $_color--skeleton-background 8%, $_color--skeleton-animation 18%, $_color--skeleton-background 33%);
+
+/* SHADOWS */
+$color--shadow-dark: #000814;
+$color--shadow-base: #343a40;
+$color--shadow-light: #32325d;
+
+$shadow--big: rgba($color--shadow-base, 0.1) 0px 1px 1px 0px inset, rgba($color--shadow-light, 0.25) 0px 50px 100px -20px, rgba($color--shadow-dark 0.3) 0px 30px 60px -30px;
+$shadow--medium: rgba($color--shadow-dark, 0.1) 0px 1px 0px, rgba($color--shadow-dark, 0.1) 0px 8px 24px, rgba($color--shadow-dark, 0.1) 0px 16px 48px;
+$shadow--small: rgba($color--shadow-base 0.2) 0px 2px 8px 0px;
+
+/* FONT SIZES */
+$text--2xl: 6.104rem;
+$text--xl: 3.906rem;
+$text--lg: 3.125rem;
+$text--md: 2.5rem;
+$text--base: 2rem;
+$text--sm: 1.6rem;
+$text--xsm: 1.28rem;
+
+/* SPACES */
+$space-6xl: 14.8rem;
+$space-5xl: 12.8rem;
+$space-4xl: 9.6rem;
+$space-3xl: 6.4rem;
+$space-2xl: 4.8rem;
+$space-xl: 3.2rem;
+$space-lg: 2.4rem;
+$space-md: 1.6rem;
+$space-base: 1.2rem;
+$space-sm: 0.8rem;
+$space-xsm: 0.4rem;
+
+/* WEIGHTS */
+$text-weight--bold: 600;
+$text-weight--medium: 500;
+$text-weight--regular: 400;
+$text-weight--light: 300;

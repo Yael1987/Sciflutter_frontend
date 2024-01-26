@@ -1,9 +1,15 @@
 "use server"
 import { cookies } from 'next/headers'
-import { ApiErrorResponse, ApiSuccessResponse, User } from '../_interfaces/api'
+import type { ApiErrorResponse, ApiSuccessResponse, LoggedUser, User, UserStats } from '../_interfaces/api'
 import { revalidateTag } from 'next/cache'
 
-export const getLoggedUser = async (): Promise<User | null> => {
+const defaultStats: UserStats = {
+  likes: 0,
+  articles: 0,
+  followers: 0,
+};
+
+export const getLoggedUser = async (): Promise<LoggedUser | null> => {
   const token = cookies().get('token_sciflutter')
 
   if(!token) return null
@@ -23,7 +29,7 @@ export const getLoggedUser = async (): Promise<User | null> => {
     return null
   }
 
-  return (data.data.user as User) ?? null
+  return (data.data.user as LoggedUser)
 }
 
 export const getUser = async (userId: string): Promise<{success: boolean, message: string, user?: User}> => {
@@ -38,15 +44,17 @@ export const getUser = async (userId: string): Promise<{success: boolean, messag
   return {
     success: true,
     message: data.message,
-    user: (data.data as User)
+    user: data.data.user
   }
 }
 
-export const getUserStats = async (userId: string) => {
+export const getUserStats = async (userId: string): Promise<UserStats> => {
   const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}/stats`, { next: { tags: ['users-stats'] } })
-  const data = await response.json()
+  const data: ApiSuccessResponse | ApiErrorResponse = await response.json()
 
-  return data
+  if (!data.success) return defaultStats
+  
+  return data.data.stats!
 }
 
 export const updateUserData = async (formData: FormData): Promise<{success: boolean, message: string, user?: User}> => {

@@ -13,7 +13,6 @@ import PageSkeleton from './_skeletons/pageSkeleton'
 
 import { checkCookieExist } from './_actions/authActions'
 import '@/styles/globals.scss'
-// import Alert from './_components/alert'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -36,7 +35,7 @@ interface Props {
 const RootLayout: React.FC<Props> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={`${montserrat.className} light`}>
         <Header>
           {!checkCookieExist() ? <NavBarPublic /> : <DynamicNavBar />}
         </Header>

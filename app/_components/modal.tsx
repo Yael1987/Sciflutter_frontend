@@ -23,9 +23,9 @@ export const Window: React.FC<WindowProps> = ({ children, isModalOpen, onClickOv
     };
 
     if (isModalOpen) { 
-      document.body.classList.add('modal-open')
+      document.body.classList.add('is-modal-open')
     } else {
-      document.body.classList.remove('modal-open')
+      document.body.classList.remove('is-modal-open')
     }
 
     document.addEventListener("click", handleClick, true);

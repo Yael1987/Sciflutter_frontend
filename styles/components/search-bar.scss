@@ -1,0 +1,71 @@
+@use '../abstract/mixins';
+@use '../abstract/helpers';
+@use '../abstract/variables';
+
+$icon-size: 2.4rem;
+
+.c-search-bar{
+  width: 75%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-column-gap: variables.$space-lg;
+  align-items: center;
+  margin-inline: auto;
+
+  &__input, &__btn{
+    @extend %button-reset;
+  }
+
+  &__bar, &__btn{
+    box-shadow: variables.$shadow--small;
+  }
+
+  &__bar{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: variables.$space-base;
+    border: variables.$border-normal;
+    padding: variables.$space-sm variables.$space-base;
+    transition: border 0.3s ease;
+
+    &:focus-within{
+      border: variables.$border-normal;
+      border-color: var(--color--main-base);
+
+      label{
+        color: var(--color--main-base);
+      }
+    }
+  } 
+
+  &__icon{
+    height: $icon-size;
+    width: $icon-size;
+    color: inherit;
+  }
+
+  &__label{
+    display: grid;
+    place-content: center;
+    transition: color 0.3s ease;
+    cursor: pointer;
+  }
+
+  &__input{
+    font-size: variables.$text--md;
+  }
+
+  &__btn{
+    @extend .e-btn_new-lines;
+    font-weight: variables.$text-weight--medium;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color--text-base);
+    color: var(--color--text-white);
+
+    &:hover{
+      color: var(--color--main-base);
+    }
+  }
+}

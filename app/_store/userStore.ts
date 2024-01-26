@@ -1,11 +1,14 @@
 import { create } from "zustand"
-import { User } from "../_interfaces/api"
+import type { ArticlePreview, LoggedUser } from "../_interfaces/api"
 import { getLoggedUser } from "../_actions/userActions"
 import createAlertSlice, { type AlertStore } from "./alertSlice";
+import { getSavedArticles } from "../_actions/featuresActions";
 
 export interface UserStore {
-  user: User | null;
-  setUser: (newUser: User) => void;
+  user: LoggedUser | null;
+  savedArticles: ArticlePreview[] | null;
+  setUser: (newUser: LoggedUser) => void;
+  getSavedArticles: () => Promise<void>;
   initLoggedUser: () => Promise<boolean>;
   menuOpen: boolean;
   toogleMenuOpen: () => void;
@@ -14,12 +17,18 @@ export interface UserStore {
 
 export const useUserStore = create<UserStore & AlertStore>()((set, get, store) => ({
   user: null,
+  savedArticles: null,
   menuOpen: false,
-  setUser: (newData: User) => set(() => ({ user: { ...newData } })),
+  setUser: (newData: LoggedUser) => set(() => ({ user: { ...newData } })),
+  getSavedArticles: async () => {
+    const savedArticles: ArticlePreview[] = await getSavedArticles()
+
+    set(() => ({ savedArticles }))
+  },
   initLoggedUser: async () => {
     const { user } = get()
 
-    const loggedUser: User | null = await getLoggedUser()
+    const loggedUser: LoggedUser | null = await getLoggedUser()
 
     if(!loggedUser) return false
 

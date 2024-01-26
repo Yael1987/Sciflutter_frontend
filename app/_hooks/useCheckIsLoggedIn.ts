@@ -7,16 +7,21 @@ import { useRouter } from "next/navigation"
 
 const useCheckIsLoggedIn = (): void => {
   const initLoggedUser = useUserStore(useShallow((state: UserStore) => state.initLoggedUser))
-  const user = useUserStore((state: UserStore) => state.user)
+  const getSavedArticles = useUserStore(useShallow((state: UserStore) => state.getSavedArticles))
+  const { user, savedArticles } = useUserStore()
   const { refresh } = useRouter()
 
   const callInitUser = useCallback(async () => {
     if (!user) { 
       const userSetted = await initLoggedUser()
-      
+
       if(!userSetted) refresh()
     }
-  }, [initLoggedUser, refresh, user])
+
+    if (!savedArticles) {
+      await getSavedArticles();
+    }
+  }, [initLoggedUser, refresh, user, getSavedArticles, savedArticles])
 
   useEffect(() => {
     if (checkCookieExist() && !user){

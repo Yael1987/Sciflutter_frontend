@@ -1,0 +1,70 @@
+@use '../abstract/variables';
+@use '../abstract/mixins';
+@use '../abstract/helpers';
+
+$icon-size: 3.2rem;
+$avatar-size: 4rem;
+$btn-outline: 2px solid var(--color--main-base);
+
+.c-navbar-menu{
+  @include mixins.display-flex(row, variables.$space-xl, center, initial);
+
+  &__link{
+    @extend %link-base;
+    transition: color 0.3s ease;
+
+    &:hover{
+      color: var(--color--main-base);
+    }
+  }
+
+  &__signup{
+    @extend .c-navbar-menu__link;
+    @extend .e-btn_borders;
+    padding: variables.$space-sm variables.$space-base;
+  }
+
+  &__icon{
+    @include mixins.center-item;
+    width: $icon-size;
+    height: $icon-size;
+  }
+
+  &__avatar{
+    position: relative;
+    height: $avatar-size;
+    width: $avatar-size;
+    overflow: hidden;
+    border-radius: 50rem;
+
+    img{
+      @include mixins.cover-position-img;
+    }
+  }
+}
+
+/* MODIFiERS */
+
+.is-active{
+  @extend %button-disable;
+  color: var(--color--main-base);
+
+  &::before{
+    outline: $btn-outline;
+  }
+
+  &:hover{
+    &::before{
+      opacity: 1;
+    }
+
+    &::after{
+      opacity: 0;
+    }
+  }
+}
+
+.is-active_img{
+  @extend .is-active;
+  outline: $btn-outline;
+}

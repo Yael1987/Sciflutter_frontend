@@ -13,8 +13,7 @@ interface Props{
 }
 
 const ProfilePage: React.FC<Props> = async ({ user }) => {  
-  const apiResponse = await checkAuthorFollow(user._id)
-  const followButton = apiResponse.data.follow ? (
+  const followButton = await checkAuthorFollow(user._id) ? (
     <button className="btn btn--unfollow">
       Dejar de seguir <i className="ph ph-user-minus"></i>
     </button>

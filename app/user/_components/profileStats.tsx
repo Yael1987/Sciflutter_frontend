@@ -8,8 +8,7 @@ interface Props{
 }
 
 const ProfileStats: React.FC<Props> = async ({ userId }) => {
-  const apiResponse = await getUserStats(userId)
-  const stats = await apiResponse.data.userStats[0];
+  let stats = await getUserStats(userId)
 
   return (
     <ul className="profile__stats">

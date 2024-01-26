@@ -1,4 +1,4 @@
-@import '../abstract/variables';
+@use '../abstract/variables';
 
 .alert{
   position: fixed;
@@ -19,16 +19,16 @@
   }
 
   &--error{
-    background-color: rgba($color--util-2, 0.5);
-    color: $color--util-2--20;
+    background-color: rgba(variables.$color--error-dark, 0.5);
+    color: variables.$color--error-dark;
   }
   &--success{
-    background-color: rgba($color--util-0, 0.5);
-    color: $color--util-0--20;
+    background-color: rgba(variables.$color--success-base, 0.5);
+    color: variables.$color--success-dark;
   }
   &--warn{
-    background-color: rgba($color--util-1, 0.3);
-    color: $color--util-1--20;
+    background-color: rgba(variables.$color--warn-base, 0.3);
+    color: variables.$color--warn-dark;
   }
 
   &-display{

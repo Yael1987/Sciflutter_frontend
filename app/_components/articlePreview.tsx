@@ -1,16 +1,26 @@
 import Image from 'next/image';
 
 import '@/styles/components/article-preview.scss'
-import { ArticlePreviewI } from '../_interfaces';
-import { ArrowRight, BookmarkSimple } from '@phosphor-icons/react/dist/ssr';
+import type { ArticlePreview as ArticlePreviewI } from "../_interfaces/api";
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 
-import Button from './button';
 import ButtonLink from './buttonLink';
 import { formatDate } from '../_utils/dateUtils';
+import dynamic from 'next/dynamic';
+import { BookmarkSimple } from '@phosphor-icons/react/dist/ssr/BookmarkSimple';
 
 interface Props {
   article: ArticlePreviewI
 }
+
+const DynamicBookmark = dynamic(() => import("./bookmarkCard"), {
+  loading: () => (
+    <div className="article-preview__bookmark">
+      <BookmarkSimple size={40} className="icon--bookmark" />
+    </div>
+  ),
+  ssr: false,
+});
 
 const ArticlePreview: React.FC<Props> = ({ article }) => {
   return (
@@ -47,15 +57,14 @@ const ArticlePreview: React.FC<Props> = ({ article }) => {
             </div>
           </div>
 
-          <ButtonLink href={`/articles/${article.id}`} type="outline">
-            Leer articulo <ArrowRight size={32} weight="regular" className="icon--btn" />
+          <ButtonLink href={`/articles/${article._id}`} type="outline">
+            Leer articulo{" "}
+            <ArrowRight size={32} weight="regular" className="icon--btn" />
           </ButtonLink>
         </div>
       </div>
 
-      <Button className="article-preview__bookmark">
-        <BookmarkSimple size={40} className="icon--bookmark" />
-      </Button>
+      <DynamicBookmark articleId={article._id} />
     </li>
   );
 }

@@ -1,77 +1,26 @@
-"use client"
-import React, { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
 import Image from 'next/image'
-
-import { ArrowRight, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
-
-import Button from "./button";
 
 import logoMain from '@/public/img/logos/main.svg'
 import '@/styles/components/mainSearch.scss'
+import SearchBar from './searchBar';
 
 const MainSearch: React.FC = () => {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const { push } = useRouter()
-  const [searchInput, setSearchInput] = useState<string>(searchParams.get("search")?.toString() ?? "")
-
-  const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    
-    setSearchInput(value)
-  }
-
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    const params = new URLSearchParams(searchParams)
-
-    if (searchInput) {
-      params.set("search", searchInput)
-      params.delete("page")
-    } else {
-      params.delete("search");
-    }
-
-    push(`${pathname}?${params.toString()}`, { scroll: false });
-  }
-
   return (
-    <section className='main-search'>
+    <section className="b-main-search">
       <Image
         src={logoMain}
-        alt='Main logo'
-        className='main-search__logo'
+        alt="Main logo"
+        className="b-main-search__logo"
         style={{
-          width: 'auto'
+          width: "auto",
         }}
       />
 
-      <form className='main-search__search' onSubmit={handleSearch}>
-        <label htmlFor='main-search'>
-          <MagnifyingGlass
-            size={32}
-            weight='light'
-            className='main-search__search-icon'
-          />
-        </label>
-
-        <input
-          className='main-search__search-input'
-          type='search'
-          name='main-search'
-          id='main-search'
-          placeholder='Buscar un tema o autor...'
-          value={searchInput}
-          onChange={handleUserInput}
-        />
-
-        <Button className="btn--main-search"> Buscar <ArrowRight size={32} weight='light' className='btn--main-search__icon' /></Button>
-      </form>
+      <div className='b-main-search__bar'>
+        <SearchBar />
+      </div>
     </section>
-  )
+  );
 }
 
 export default MainSearch

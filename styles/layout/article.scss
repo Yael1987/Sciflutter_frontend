@@ -27,6 +27,7 @@
 
         &__text{
           @include flexDisplay(col, 0.8rem, initial, center);
+          
           strong {
             display: inline-block;
             font-size: 2rem;

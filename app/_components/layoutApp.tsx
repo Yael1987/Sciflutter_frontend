@@ -9,7 +9,7 @@ const LayoutApp: React.FC<Props> = ({ children }) => {
   useCheckIsLoggedIn()
 
   return (  
-    <main className="container container--main">
+    <main className="l-container_main">
       {children}
     </main>
   );

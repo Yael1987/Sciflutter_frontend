@@ -11,12 +11,12 @@ interface Props{
 
 const Header: React.FC<Props> = ({ children }) => {
   return (
-    <header className="header">
-      <div className="header__navigation">
+    <header className="l-header">
+      <div className="l-header__navigation">
         <ButtonLink type="icon" href="/">
           <Image
             src={textLogo}
-            className="header__navigation-logo"
+            className="l-header__logo"
             alt="Sciflutter logo"
             style={{
               width: "auto",

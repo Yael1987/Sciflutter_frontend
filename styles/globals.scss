@@ -1,6 +1,6 @@
-@import './abstract/variables';
-@import './abstract/mixins';
-@import './abstract/buttons';
+@use './abstract/variables';
+@use './pages/main.scss';
+@forward './abstract/variables';
 
 *{
   padding: 0;
@@ -12,38 +12,66 @@ html{
   font-size: 62.5%;
 }
 
+.light{
+  --color--main-dark--2: #{variables.$color--main-dark--2};
+  --color--main-dark--1: #{variables.$color--main-dark--1};
+  --color--main-base: #{variables.$color--main-base};
+
+  --color--background: #{variables.$color--background};
+
+  --color--lines: #{variables.$color--lines};
+
+  --color--text-emphasys: #{variables.$color--text-emphasys};
+  --color--text-base: #{variables.$color--text-base};
+  --color--text-light: #{variables.$color--text-light};
+  --color--text-white: #{variables.$color--text-white};
+
+  --color--error-dark: #{variables.$color--error-dark};
+  --color--error-base: #{variables.$color--error-base};
+
+  --color--warn-dark: #{variables.$color--warn-dark};
+  --color--warn-base: #{variables.$color--warn-base};
+
+  --color--success-dark: #{variables.$color--success-dark};
+  --color--success-base: #{variables.$color--success-base};
+}
+
+.dark{
+  --color--main-base: #{variables.$dark-color--main-base};
+
+  --color--background: #{variables.$dark-color--background};
+
+  --color--lines: #{variables.$dark-color--lines};
+
+  --color--text-base: #{variables.$dark-color--text-base};
+  --color--text-white: #{variables.$dark-color--text-white};
+}
+
 body{
-  background-color: $color--grey-0;
-  color: $color--black-0;
+  background-color: var(--color--background);
+  color: var(--color--text-base);
   position: relative;
   overflow-x: hidden;
+  font-size: variables.$text--base;
+}
 
-  &.modal-open{
-    overflow: hidden;
-    position: fixed;
-  }
+.is-modal-open{
+  overflow: hidden;
+  position: fixed;
 }
 
 .heading--secondary{
-  font-size: 2.5rem;
-  font-weight: 400;
+  font-size: variables.$text--lg;
+  font-weight: variables.$text-weight--regular
 }
 
 .container{
   display: flex;
   flex-direction: column;
 
-  &--main{
-    width: 80%;
-    max-width: 100%;
-    align-items: center;
-    margin: auto;
-    padding: 12.8rem 0 14.8rem;
-    gap: 12rem;
-  }
-
   &--empty{
-    padding: 6.4rem 0;
+    @extend .container;
+    padding: variables.$space-3xl 0;
   }
 
   &--buttons{
@@ -51,7 +79,7 @@ body{
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 1fr;
-    padding: 0 2.4rem;
-    column-gap: 2.4rem;
+    padding: 0 variables.$space-lg;
+    column-gap: variables.$space-lg;
   }
 }
