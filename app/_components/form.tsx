@@ -1,5 +1,5 @@
 "use client"
-import React, { createContext, useContext, useEffect, useMemo } from "react"
+import React, { createContext, useContext, useEffect } from "react"
 import { useFormState, useFormStatus } from "react-dom"
 import { useShallow } from "zustand/react/shallow"
 import { permanentRedirect } from "next/navigation"
@@ -50,8 +50,8 @@ export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction }) => {
 
   return (
     <FormContext.Provider value={{ formAction, message: state.message, success: state.success }}>
-      <section className="form-section">
-        <Image src={largeLogo} alt="Main logo" className="form-section__img" />
+      <section className="l-form-section">
+        <Image src={largeLogo} alt="Main logo" className="l-form-section__img" />
         
         {children}
       </section>
@@ -61,7 +61,7 @@ export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction }) => {
 
 export const FormContainer: React.FC<BaseComponent> = ({children}) => {
   return (
-    <div className="form">
+    <div className="c-form">
       {children}
     </div>
   )
@@ -69,9 +69,9 @@ export const FormContainer: React.FC<BaseComponent> = ({children}) => {
 
 export const Header: React.FC<HeaderProps> = ({ description, title }) => {
   return (
-    <div className="form-header">
-      <h2 className="form-header__main">{title}</h2>
-      <p className="form-header__text">
+    <div className="c-form-header">
+      <h2 className="c-form-header__heading">{title}</h2>
+      <p>
         {description}
       </p>
     </div>
@@ -82,7 +82,7 @@ export const Form: React.FC<BaseComponent> = ({ children }) => {
   const {formAction} = useContext(FormContext)
 
   return (
-    <form className="form-formulary" action={formAction}>
+    <form className="c-form-formulary" action={formAction}>
       {children}
     </form>
   );
@@ -90,7 +90,7 @@ export const Form: React.FC<BaseComponent> = ({ children }) => {
 
 export const MoreOptions: React.FC<BaseComponent> = ({ children }) => {
   return (
-    <div className="form-section__links">
+    <div className="l-form-section__links">
       {children}
     </div>
   );
@@ -98,7 +98,7 @@ export const MoreOptions: React.FC<BaseComponent> = ({ children }) => {
 
 export const Link: React.FC<BaseComponent> = ({ children }) => {
   return (
-    <p className="form-section__link">
+    <p className="l-form-section__link">
       {children}
     </p>
   )
@@ -110,11 +110,15 @@ export const SubmitButton: React.FC<BaseComponent> = ({children}) => {
   return (
     <button
       className={clsx(
-        "form-formulary__button",
-        pending && "form-formulary__button--pending"
+        "c-form-formulary__button",
+        pending && "is-pending"
       )}
     >
-      {pending ? "Verificando..." : children}
+      {pending ? "Verifying..." : children}
     </button>
   );
+}
+
+export const FormGroup: React.FC<BaseComponent> = ({ children }) => {
+  return <div className="c-form-formulary__group">{children}</div>;
 }

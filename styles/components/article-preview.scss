@@ -1,78 +1,95 @@
-@import '../abstract/mixins';
-@import '../abstract/variables';
-@import '../abstract/buttons';
-@import '../abstract/icons';
+@use '../abstract/animations';
+@use '../abstract/helpers';
+@use '../abstract/mixins';
+@use '../abstract/variables';
 
-.article-preview{
-  &-card{
-    position: relative;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 1.6rem;
-    box-shadow: $shadow--medium;
-    // border-top-left-radius: 25px;
-    // border-bottom-right-radius: 25px;
+$author-image-size: 4rem;
+$icon-size: 2.4rem;
 
-    overflow: hidden;
-  }
-
-  &-img{
-    width: 100%;
+.c-article-preview{
+  position: relative;
+  width: 100%;
+  max-width: 120rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  column-gap: variables.$space-md;
+  box-shadow: variables.$shadow--medium;
+  overflow: hidden;
+  
+  &__img{
     position: relative;
 
     img{
-      position: absolute;
       width: 100%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); 
+      object-fit: cover;
+      object-position: center;
+      aspect-ratio: 3/4;
+      @include mixins.center-absolute;
     }
   }
 
-  &-text-box{
-    @include flexDisplay(col, 2.4rem, initial, center);
-    padding: 2.4rem 4.8rem;
+  &__text-box{
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    row-gap: variables.$space-xl;
+    padding: variables.$space-xl variables.$space-2xl;
 
     h4{
-      font-size: 2rem;
-      font-weight: 500;
-      color: $color--main-80;
-      text-align: center;
+      font-size: variables.$text--md;
+      font-weight: variables.$text-weight--medium;
+      color: var(--color--main-dark--2);
     }
 
     p{
-      font-size: 1.6rem;
-      line-height: 1.6;
       text-align: center;
-      font-weight: 400;
+      line-height: 1.6;
     }
   }
 
-  &-footer{
+  &__footer{
     width: 100%;
-    @include flexDisplay(row, unset, center, space-between);
+    @include mixins.display-flex(row, initial, center, space-between);
   }
 
-  &-author{
-    @include flexDisplay(row, 1.2rem, center, initial);
+  &__author{
+    display: inherit;
+    align-items: center;
+    gap: variables.$space-base;
 
     img{
-      width: 4rem;
-      height: 4rem;
+      width: $author-image-size;
+      height: $author-image-size;
       border-radius: 50%;
     }
 
-    &__info p:nth-child(1){
-      font-weight: 500;
-      color: $color--main-0;
+    &-info p:first-child{
+      font-weight: variables.$text-weight--medium;
+      color: var(--color--main-base);
     }
   }
 
   &__bookmark{
+    @extend %button-reset;
     position: absolute;
-    color: $color--main-0;
+    color: var(--color--main-base);
     top: 0;
     right: 0;
   }
+
+  &__icon{
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+.is-loading{
+  pointer-events: none;
+  color: var(--color--text-base);
+}
+
+.has-one{
+  justify-content: center;
 }

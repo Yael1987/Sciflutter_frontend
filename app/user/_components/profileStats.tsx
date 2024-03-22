@@ -11,21 +11,21 @@ const ProfileStats: React.FC<Props> = async ({ userId }) => {
   let stats = await getUserStats(userId)
 
   return (
-    <ul className="profile__stats">
-      <li className="profile__stat">
-        <Heart size={56} className="profile__stat-icon" weight="light" />
+    <ul className="c-profile__stats">
+      <li className="c-profile__stat">
+        <Heart size={56} className="c-profile__stat-icon" weight="light" />
 
         <p>{stats.likes}</p>
       </li>
 
-      <li className="profile__stat">
-        <PenNib size={56} className="profile__stat-icon" weight="light" />
+      <li className="c-profile__stat">
+        <PenNib size={56} className="c-profile__stat-icon" weight="light" />
 
         <p>{stats.articles}</p>
       </li>
 
-      <li className="profile__stat">
-        <Users size={56} className="profile__stat-icon" weight="light" />
+      <li className="c-profile__stat">
+        <Users size={56} className="c-profile__stat-icon" weight="light" />
 
         <p>{stats.followers}</p>
       </li>

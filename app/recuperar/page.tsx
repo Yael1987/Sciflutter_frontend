@@ -1,4 +1,4 @@
-import { Header as FormHeader, FormContainer, FormHOC, Form, SubmitButton } from '../_components/form'
+import { Header as FormHeader, FormContainer, FormHOC, Form, SubmitButton, FormGroup } from '../_components/form'
 import { requestResetPassword } from '../_actions/authActions'
 
 const Page = () => {
@@ -11,19 +11,18 @@ const Page = () => {
         />
 
         <Form>
-          <div className="form-formulary-group">
-            <label className="form-formulary__label" htmlFor="email">
+          <FormGroup>
+            <label htmlFor="email">
               Email
             </label>
             <input
               type="email"
               placeholder="Proporciona un correo electronico"
-              className="form-formulary__input"
               name="email"
               id="email"
               required
             />
-          </div>
+          </FormGroup>
 
           <SubmitButton>Enviar email de recuperación</SubmitButton>
         </Form>

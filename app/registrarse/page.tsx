@@ -1,4 +1,4 @@
-import { Form, FormContainer, FormHOC, Header as FormHeader, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton } from '../_components/form';
+import { Form, FormContainer, FormGroup, FormHOC, Header as FormHeader, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton } from '../_components/form';
 import { signup } from '../_actions/authActions';
 import ButtonLink from '../_components/buttonLink';
 
@@ -12,65 +12,62 @@ const Page: React.FC = async () => {
         />
 
         <Form>
-          <div className="form-formulary-group">
-            <label className="form-formulary__label" htmlFor='name'>Nombre</label>
+          <FormGroup>
+            <label htmlFor="name">Nombre</label>
             <input
               type="text"
               placeholder="Introduce tu primer nombre"
-              className="form-formulary__input"
-              name='name'
-              id='name'
+              name="name"
+              id="name"
               required
             />
-          </div>
+          </FormGroup>
 
-          <div className="form-formulary-group">
-            <label className="form-formulary__label" htmlFor='lastName'>Apellido</label>
+          <FormGroup>
+            <label htmlFor="lastName">Apellido</label>
             <input
               type="text"
               placeholder="Introduce tu apellido"
-              className="form-formulary__input"
-              name='lastName'
-              id='lastName'
+              name="lastName"
+              id="lastName"
               required
             />
-          </div>
+          </FormGroup>
 
-          <div className="form-formulary-group">
-            <label className="form-formulary__label" htmlFor='email'>Email</label>
+          <FormGroup>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               placeholder="Proporciona un correo electronico"
-              className="form-formulary__input"
-              name='email'
-              id='email'
+              name="email"
+              id="email"
               required
             />
-          </div>
+          </FormGroup>
 
-          <div className="form-formulary-group">
-            <label className="form-formulary__label" htmlFor='password'>Contraseña</label>
+          <FormGroup>
+            <label htmlFor="password">Contraseña</label>
             <input
               type="password"
               placeholder="Tu contraseña"
-              className="form-formulary__input"
-              name='password'
-              id='password'
+              name="password"
+              id="password"
               required
             />
-          </div>
+          </FormGroup>
 
-          <div className="form-formulary-group">
-            <label className="form-formulary__label" htmlFor='passwordConfirm'>Confirma tu contraseña</label>
+          <FormGroup>
+            <label htmlFor="passwordConfirm">
+              Confirma tu contraseña
+            </label>
             <input
               type="password"
               placeholder="Confirma tu contraseña"
-              className="form-formulary__input"
-              name='passwordConfirm'
-              id='passwordConfirm'
+              name="passwordConfirm"
+              id="passwordConfirm"
               required
             />
-          </div>
+          </FormGroup>
 
           <FormSubmitButton>Crear cuenta</FormSubmitButton>
         </Form>

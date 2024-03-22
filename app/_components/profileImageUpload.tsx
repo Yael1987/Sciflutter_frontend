@@ -4,9 +4,9 @@ import ReactCrop, { Crop, PercentCrop, PixelCrop, centerCrop, convertToPixelCrop
 
 import Image from 'next/image';
 
-import Button from './button';
-
-import { X } from '@phosphor-icons/react';
+import ModalBox from './modalBox';
+import ModalHeader from './modalHeader';
+import ModalButtons from './modalButtons';
 
 import "react-image-crop/dist/ReactCrop.css";
 import '@/styles/components/crop-image.scss'
@@ -114,14 +114,8 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setU
   };
 
   return (
-    <div className="crop-image">
-      <div className="crop-image__header">
-        <p className="crop-image__header-title">Prepara tu foto</p>
-
-        <Button className="crop-image__header-close" onClick={onCancel}>
-          <X width={32} className="crop-image__header-close__icon" />
-        </Button>
-      </div>
+    <ModalBox>
+      <ModalHeader onCancel={onCancel} title="Prepara tu foto" />
 
       <div>
         <ReactCrop
@@ -129,7 +123,9 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setU
           circularCrop
           keepSelection
           aspect={1}
-          onChange={(pixelCrop: PixelCrop, percentCrop: PercentCrop) => setCrop(percentCrop)}
+          onChange={(pixelCrop: PixelCrop, percentCrop: PercentCrop) =>
+            setCrop(percentCrop)
+          }
         >
           <Image
             src={imgSrc}
@@ -140,8 +136,8 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setU
             width={800}
             height={420}
             style={{
-              width: 'auto',
-              maxHeight: '100%'
+              width: "auto",
+              maxHeight: "100%",
             }}
           />
         </ReactCrop>
@@ -159,22 +155,8 @@ const ProfileImageUpload: React.FC<Props> = ({ imgSrc, onCropImg, onCancel, setU
         )}
       </div>
 
-      <div className="crop-image__buttons">
-        <button
-          className="crop-image__button crop-image__button--cancel"
-          onClick={onCancel}
-        >
-          Cancelar
-        </button>
-
-        <button
-          onClick={handleCropImage}
-          className="crop-image__button crop-image__button--accept"
-        >
-          Crop image
-        </button>
-      </div>
-    </div>
+      <ModalButtons onAccept={handleCropImage} onCancel={onCancel} acceptText='Cortar foto'/>
+    </ModalBox>
   );
 }
 

@@ -1,9 +1,9 @@
-import "@/styles/components/skeletons.scss";
+import "@/styles/skeletons/page.scss";
 
 const PageSkeleton: React.FC = () => {
   return (
-    <div className='skeleton--page'>
-      <div className='skeleton--page__body'>
+    <div className='s-page'>
+      <div>
       </div>
     </div>
   );

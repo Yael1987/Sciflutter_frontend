@@ -1,54 +1,67 @@
-@import '../abstract/mixins';
-@import '../abstract/variables';
+@use '../abstract/helpers';
+@use '../abstract/mixins';
+@use '../abstract/variables';
 
-.author-card{
-  @include flexDisplay(col, 1.2rem, center, center);
-  font-size: 1.6rem;
-  padding: 2.4rem 4.8rem;
-  box-shadow: $shadow--medium;
+$max-width-card: 35rem;
+$author-img-size: 14rem;
+$icon-size: 2.4rem;
+
+.c-author-card{
+  max-width: $max-width-card;
+  padding: variables.$space-xl variables.$space-2xl;
+  box-shadow: variables.$shadow--small;
+  // border: 1px solid var(--color--text-base);
+  // border-style: ridge;
   text-align: center;
-  // border-top-left-radius: 25px;
-  // border-bottom-right-radius: 25px;
-  width: 100%;
-  max-width: 35rem;
+
+  &, &__stats, &__stat{
+    width: 100%;
+    display: grid;
+    justify-items: center;
+  }
+
+  &, &__stats{
+    row-gap: variables.$space-md;
+  }
 
   &__img{
-    height: 14.4rem;
+    width: $author-img-size;
+    height: $author-img-size;
     border-radius: 50%;
   }
 
   &__heading{
-    font-size: 2rem;
-    font-weight: 500;
-    border-bottom: 2px solid $color--main-0;
+    width: 100%;
+    font-size: variables.$text--md;
+    font-weight: variables.$text-weight--medium;
+    border-bottom: 1px solid var(--color--main-base);
   }
 
   &__discipline{
-    color: $color--main-0;
-    font-weight: 500;
+    color: var(--color--main-base);
+    line-height: 0.3;
+    font-weight: variables.$text-weight--medium;
   }
 
   &__stats{
-    @include flexDisplay(col, 1.6rem, initial, center);
-    padding: 1.6rem 0;
-    width: 100%
+    grid-template-columns: 100%;
+    padding: variables.$space-md 0;
   }
 
   &__stat{
-    @include flexDisplay(row, 1.6rem, center, space-between);
-    width: 100%;
-
-    &-icon{
-      font-size: 2.5rem;
-      color: $color--main-0;
-    }
+    grid-template-columns: 3rem 1fr 3rem;
+    align-items: center;
+    column-gap: variables.$space-md;
+    font-weight: variables.$text-weight--regular;
+    color: var(--color--main-base);
 
     &-label{
-      font-weight: 500;
+      color: var(--color--text-base);
     }
+  }
 
-    &-count{
-      font-weight: 500;
-    }
+  &__icon{
+    width: $icon-size;
+    height: $icon-size;
   }
 }

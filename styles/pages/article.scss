@@ -1,0 +1,13 @@
+@use '../abstract/variables';
+
+.l-article{
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  row-gap: variables.$space-4xl;
+  padding: variables.$space-lg 0 variables.$space-3xl;
+
+  &__body{
+    width: 80%;
+  }
+}

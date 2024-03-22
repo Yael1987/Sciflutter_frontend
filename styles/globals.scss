@@ -1,6 +1,5 @@
 @use './abstract/variables';
-@use './pages/main.scss';
-@forward './abstract/variables';
+@use './abstract/typography';
 
 *{
   padding: 0;
@@ -34,6 +33,15 @@ html{
 
   --color--success-dark: #{variables.$color--success-dark};
   --color--success-base: #{variables.$color--success-base};
+
+  --color--skeleton--dark: #{variables.$color--skeleton--dark};
+  --color--skeleton--base: #{variables.$color--skeleton--base};
+
+  --ck-color-base-background: #{variables.$color--background};
+  --ck-color-text: #{variables.$color--text-base};
+  // --ck-color-toolbar-background: #{variables.$dark-color--background};
+  --ck-color-focus-border: #{variables.$color--main-base};
+  --ck-focus-ring: 1px solid var(--ck-color-focus-border);
 }
 
 .dark{
@@ -58,28 +66,4 @@ body{
 .is-modal-open{
   overflow: hidden;
   position: fixed;
-}
-
-.heading--secondary{
-  font-size: variables.$text--lg;
-  font-weight: variables.$text-weight--regular
-}
-
-.container{
-  display: flex;
-  flex-direction: column;
-
-  &--empty{
-    @extend .container;
-    padding: variables.$space-3xl 0;
-  }
-
-  &--buttons{
-    width: 100%;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 variables.$space-lg;
-    column-gap: variables.$space-lg;
-  }
 }

@@ -14,12 +14,13 @@ interface Props{
 
 const Page: React.FC<Props> = async ({ params }) => {
   const apiResponse = await getUser(params.userId)
+  
   revalidateTag('users')
 
-  if(!apiResponse.success && !apiResponse.user) return <p>Usuario no encontrado</p>
+  if (!apiResponse.success && !apiResponse.user) return <p>Usuario no encontrado</p>
 
   return (
-    <DynamicProfile user={(apiResponse.user as User)} />
+    <DynamicProfile user={apiResponse.user!} />
   )
 }
 

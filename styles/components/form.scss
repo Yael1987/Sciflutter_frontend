@@ -1,121 +1,97 @@
-@import '../abstract/variables';
-@import '../abstract/mixins';
+@use '../abstract/animations';
+@use '../abstract/helpers';
+@use '../abstract/variables';
 
-.form{
-  @include flexDisplay(col, 4.8rem, initial, center);
-  padding: 3.2rem 4.8rem;
-  box-shadow: $shadow--medium;
+.c-form{
+  display: grid;
+  row-gap: variables.$space-2xl;
+  justify-items: center;
+  padding: variables.$space-xl variables.$space-2xl;
+  box-shadow: variables.$shadow--medium;
   width: 45%;
-
-  &--modal{
-    width: 100%;
-    box-shadow: none;
-    padding: 0 2.4rem;
-    gap: 2.4rem;
-    
-    .form-formulary{
-
-      &-group{
-        text-align: center;
-      }
-
-      &__button{
-        width: 100%;
-      }
-    }
-  }
-
-  &-notification{
-    font-size: 1.8rem;
-    font-weight: 500;
-    padding: 1.2rem 2.4rem;
-    text-align: center;
-    background-color: rgba($color--util-0--20, 0.3);
-    color: $color--util-0;
-
-    &--error{
-      background-color: rgba($color--util-2, 0.3);
-      color: $color--util-2--20;
-    }
-  }
 
   &-header{
     max-width: 40rem;
     text-align: center;
 
-    &__main{
-      font-size: 3.125rem;
-      color: $color--main-0;
+    &__heading{
+      font-size: variables.$text--xl;
+      color: var(--color--main-base);
       font-weight: 400;
-      margin-bottom: 1.2rem;
+      margin-bottom: variables.$space-base;
     }
-
-    &__text{
-      color: $color--black-0;
-      font-size: 1.6rem;
-      font-weight: 400;
-    }
-  }
-
-  &__message{
-    font-size: 1.6rem;
-    color: $color--util-2--20;
-    font-weight: 500;
   }
 
   &-formulary{
     width: 100%;
-    @include flexDisplay(col, 3.2rem, initial, center);
+    display: grid;
+    row-gap: variables.$space-xl;
+    justify-items: center;
 
-    &-group{
+    &__group{
       width: 100%;
-    }
+      font-size: variables.$text--md;
 
-    &__label{
-      display: inline-block;
-      font-size: 2rem;
-      font-weight: 400;
-      margin-bottom: 0.8rem;
-      cursor: pointer;
-    }
-
-    &__input{
-      display: block;
-      width: 100%;
-      font-size: 2rem;
-      margin-bottom: 2.4rem;
-      background-color: transparent;
-      border: none;
-      border-bottom: 1px solid $color--black-0;
-      padding: 0 0.8rem;
-      cursor: pointer;
-
-      &:focus{
-        outline: none;
+      label{
+        display: inline-block;
+        margin-bottom: variables.$space-sm;
+        cursor: pointer;
       }
 
-      &:last-child{
-        margin-bottom: 0;
-      }
+      input{
+        @extend %button-reset;
+        display: block;
+        width: 100%;
+        margin-bottom: variables.$space-lg;
+        border-bottom: variables.$border-normal;
+        padding: variables.$space-sm;
+        transition: border-bottom-color variables.$a-time--normal ease;
 
-      &::placeholder{
-        color: $color--black-10;
+        &:focus{
+          border-bottom-color: var(--color--main-base);
+        }
+
+        &:last-child{
+          margin-bottom: 0;
+        }
+
+        &::placeholder{
+          color: var(--color--text-light);
+        }
       }
     }
 
     &__button{
-      padding: 1.2rem 2.4rem;
-      color: $color--grey-0;
-      background-color: $color--main-0;
-      border: none;
-      font-size: 2rem;
+      @extend %button-reset;
+      @extend %a-btn_borders;
+      padding: variables.$space-base variables.$space-lg;
+      color: var(--color--text-base);
+      font-size: variables.$text--base;
       font-weight: 500;
-      cursor: pointer;
+    }
+  }
+}
 
-      &--pending{
-        background-color: $color--black-10;
-      }
+.is-pending{
+  @extend %button-disable;
+  background-color: var(--color--text-light);
+  color: var(--color--text-white);
+  
+  &:hover{
+    background-color: var(--color--text-light);
+    box-shadow: none;
+    color: var(--color--text-white);
+
+    &::before{
+      opacity: 1;
     }
 
+    &::after{
+      opacity: 0;
+    }
+  }
+
+  &:active{
+    transform: translateY(3px)
   }
 }

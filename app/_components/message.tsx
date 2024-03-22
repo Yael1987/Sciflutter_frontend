@@ -1,10 +1,17 @@
-import { BaseComponent } from '../_interfaces/components'
-
 import '@/styles/components/message.scss'
+import '@/styles/layout/container-empty.scss'
 
-const Message: React.FC<BaseComponent> = ({ children }) => {
+interface Props{
+  message: string,
+  subMessage?: string
+}
+
+const Message: React.FC<Props> = ({ message, subMessage = "" }) => {
   return (
-    <p className='message'>{children}</p>
+    <div className='l-container-empty'>
+      <p className='c-message'>{message}</p>
+      {subMessage && <p className='c-message_sub'>{subMessage}</p>}
+    </div>
   )
 }
 

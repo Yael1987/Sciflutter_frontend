@@ -3,15 +3,16 @@ import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
 
 import Image from 'next/image'
+import Link from 'next/link';
 
-import ButtonLink from "./buttonLink";
+import { UserStore, useUserStore } from "../_store/userStore";
+
+import { LoggedUser } from "../_interfaces/api"
+
+import { BookmarksSimple, Chats, DotsThreeOutline, FilePlus } from "@phosphor-icons/react";
 
 import '@/styles/components/navbar-menu.scss'
 
-import { LoggedUser } from "../_interfaces/api"
-import { UserStore, useUserStore } from "../_store/userStore";
-import { BookmarksSimple, Chats, DotsThreeOutline, FilePlus } from "@phosphor-icons/react";
-import Button from './button';
 
 const NavBarUser: React.FC = () => { 
   const pathname = usePathname()
@@ -20,7 +21,7 @@ const NavBarUser: React.FC = () => {
 
   return (
     <nav className="c-navbar-menu">
-      <ButtonLink
+      <Link
         type="icon"
         href="/saves"
         className={clsx(
@@ -33,9 +34,9 @@ const NavBarUser: React.FC = () => {
           weight="light"
           className="c-navbar-menu__icon"
         />
-      </ButtonLink>
+      </Link>
 
-      <ButtonLink
+      <Link
         type="icon"
         href="/drafts"
         className={clsx(
@@ -44,9 +45,9 @@ const NavBarUser: React.FC = () => {
         )}
       >
         <FilePlus size={32} weight="light" className="c-navbar-menu__icon" />
-      </ButtonLink>
+      </Link>
 
-      <ButtonLink
+      <Link
         type="icon"
         href="/chats"
         className={clsx(
@@ -55,9 +56,9 @@ const NavBarUser: React.FC = () => {
         )}
       >
         <Chats size={32} weight="light" className="c-navbar-menu__icon" />
-      </ButtonLink>
+      </Link>
 
-      <ButtonLink
+      <Link
         type="icon"
         href={`/user/${user._id}`}
         className={clsx(
@@ -75,15 +76,15 @@ const NavBarUser: React.FC = () => {
           width={45}
           height={45}
         />
-      </ButtonLink>
+      </Link>
 
-      <Button className="c-navbar-menu__link" onClick={toogleMenuOpen}>
+      <button className="c-navbar-menu__btn" onClick={toogleMenuOpen}>
         <DotsThreeOutline
           size={32}
           weight="light"
           className="c-navbar-menu__icon"
         />
-      </Button>
+      </button>
     </nav>
   );
 }

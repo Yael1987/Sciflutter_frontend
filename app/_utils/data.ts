@@ -1,7 +1,10 @@
-import { ArticlePreviewI, AuthorsPreviewI } from '../_interfaces';
+// import { ArticlePreviewI, AuthorsPreviewI } from '../_interfaces';
+
+import { ArticlePreview, UserPreview } from "../_interfaces/api";
+
 
 export const user = {
-  id: '654efd985706e11f3f758ad5',
+  _id: '654efd985706e11f3f758ad5',
   name: 'Joselin',
   lastName: 'Hernandez',
   role: 'author',
@@ -15,10 +18,10 @@ export const user = {
   discipline: 'medicina'
 }
 
-export const sampleMoreArticles: ArticlePreviewI[] = [
+export const sampleMoreArticles: ArticlePreview[] = [
   {
     author: {
-      id: "1",
+      _id: "1",
       name: 'Neftali',
       lastName: 'Guadarrama',
       photos: {
@@ -31,11 +34,11 @@ export const sampleMoreArticles: ArticlePreviewI[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.',
     image: '/img/articles-main/Panda.jpg',
     createdAt: '2023-11-25T21:42:03.253Z',
-    id: '1',
+    _id: '1',
   },
   {
     author: {
-      id: "2",
+      _id: "2",
       name: 'Nahomi',
       lastName: 'Zavala',
       photos: {
@@ -48,11 +51,11 @@ export const sampleMoreArticles: ArticlePreviewI[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.',
     image: '/img/articles-main/Educacion.jpg',
     createdAt: '2023-10-25T21:42:03.253Z',
-    id: '2',
+    _id: '2',
   },
   {
     author: {
-      id: "3",
+      _id: "3",
       name: 'Renata',
       lastName: 'Villalobos',
       photos: {
@@ -65,18 +68,17 @@ export const sampleMoreArticles: ArticlePreviewI[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.',
     image: '/img/articles-main/Pastillas.jpg',
     createdAt: '2023-11-13T21:42:03.253Z',
-    id: '3',
+    _id: '3',
   },
 ];
 
-export const sampleMoreAuthors: AuthorsPreviewI[] = [
+export const sampleMoreAuthors: UserPreview[] = [
   {
-    id: "1",
+    _id: "1",
     name: "Neftali",
     lastName: "Guadarrama",
     photos: {
-      profile: "/img/users/user-6.png",
-      cover: "/img/covers/Cover-2.jpg",
+      profile: "/img/users/user-6.png"
     },
     discipline: "biologia",
     followers: 200,
@@ -84,12 +86,11 @@ export const sampleMoreAuthors: AuthorsPreviewI[] = [
     articles: 7,
   },
   {
-    id: "2",
+    _id: "2",
     name: "Nahomi",
     lastName: "Zavala",
     photos: {
-      profile: "/img/users/user-5.jpg",
-      cover: "/img/covers/Cover-2.jpg",
+      profile: "/img/users/user-5.jpg"
     },
     discipline: "pedagogia",
     followers: 174,
@@ -97,12 +98,11 @@ export const sampleMoreAuthors: AuthorsPreviewI[] = [
     articles: 6,
   },
   {
-    id: "3",
+    _id: "3",
     name: "Renata",
     lastName: "Villalobos",
     photos: {
-      profile: "/img/users/user-13.jpg",
-      cover: "/img/covers/Cover-9.png",
+      profile: "/img/users/user-13.jpg"
     },
     discipline: "medicina",
     followers: 428,
@@ -110,12 +110,11 @@ export const sampleMoreAuthors: AuthorsPreviewI[] = [
     articles: 8,
   },
   {
-    id: "4",
+    _id: "4",
     name: "Paola",
     lastName: "Rodriguez",
     photos: {
-      profile: "/img/users/user-4.png",
-      cover: "/img/covers/Cover-8.png",
+      profile: "/img/users/user-4.png"
     },
     discipline: "medicina",
     followers: 502,
@@ -124,10 +123,10 @@ export const sampleMoreAuthors: AuthorsPreviewI[] = [
   },
 ];
 
-export const sampleArticlesPreview: ArticlePreviewI[] = [
+export const sampleArticlesPreview: ArticlePreview[] = [
   {
     author: {
-      id: "1",
+      _id: "1",
       name: "Neftali",
       lastName: "Guadarrama",
       photos: {
@@ -140,11 +139,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Panda.jpg",
     createdAt: "2023-11-25T21:42:03.253Z",
-    id: "1",
+    _id: "1",
   },
   {
     author: {
-      id: "2",
+      _id: "2",
       name: "Nahomi",
       lastName: "Zavala",
       photos: {
@@ -157,11 +156,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Educacion.jpg",
     createdAt: "2023-10-25T21:42:03.253Z",
-    id: "2",
+    _id: "2",
   },
   {
     author: {
-      id: "3",
+      _id: "3",
       name: "Renata",
       lastName: "Villalobos",
       photos: {
@@ -174,11 +173,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2023-11-13T21:42:03.253Z",
-    id: "3",
+    _id: "3",
   },
   {
     author: {
-      id: "3",
+      _id: "3",
       name: "Renata",
       lastName: "Villalobos",
       photos: {
@@ -191,11 +190,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2022-11-13T21:42:03.253Z",
-    id: "4",
+    _id: "4",
   },
   {
     author: {
-      id: "8",
+      _id: "8",
       name: "Roberto",
       lastName: "Estrada",
       photos: {
@@ -208,11 +207,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2020-10-02T21:42:03.253Z",
-    id: "5",
+    _id: "5",
   },
   {
     author: {
-      id: "1",
+      _id: "1",
       name: "Neftali",
       lastName: "Guadarrama",
       photos: {
@@ -225,11 +224,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2023-09-01T21:42:03.253Z",
-    id: "6",
+    _id: "6",
   },
   {
     author: {
-      id: "1",
+      _id: "1",
       name: "Neftali",
       lastName: "Guadarrama",
       photos: {
@@ -242,11 +241,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2021-07-15T21:42:03.253Z",
-    id: "7",
+    _id: "7",
   },
   {
     author: {
-      id: "2",
+      _id: "2",
       name: "Nahomi",
       lastName: "Zavala",
       photos: {
@@ -254,16 +253,16 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       },
     },
     discipline: "pedagogia",
-    name: "La necesidad de ver mas alla en la educacion y dejar de repetir metodos obsoletos.",
+    name: "La neces_idad de ver mas alla en la educacion y dejar de repetir metodos obsoletos.",
     resume:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2022-10-08T21:42:03.253Z",
-    id: "8",
+    _id: "8",
   },
   {
     author: {
-      id: "6",
+      _id: "6",
       name: "Yael",
       lastName: "De Jesus",
       photos: {
@@ -276,11 +275,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2023-02-20T21:42:03.253Z",
-    id: "9",
+    _id: "9",
   },
   {
     author: {
-      id: "1",
+      _id: "1",
       name: "Neftali",
       lastName: "Guadarrama",
       photos: {
@@ -293,45 +292,45 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2023-01-22T21:42:03.253Z",
-    id: "10",
+    _id: "10",
   },
   {
     author: {
-      id: "7",
+      _id: "7",
       name: "Nahayeli",
-      lastName: "Isidro",
+      lastName: "Is_idro",
       photos: {
         profile: "/img/users/user-2.jpg",
       },
     },
     discipline: "psicologia",
-    name: "La esquizofrenia, los mitos y realidades detras de este trastorno mental",
+    name: "La esquizofrenia, los mitos y real_idades detras de este trastorno mental",
     resume:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2023-06-01T21:42:03.253Z",
-    id: "11",
+    _id: "11",
   },
   {
     author: {
-      id: "7",
+      _id: "7",
       name: "Nahayeli",
-      lastName: "Isidro",
+      lastName: "Is_idro",
       photos: {
         profile: "/img/users/user-2.jpg",
       },
     },
     discipline: "psicologia",
-    name: "La latente necesidad de la terapia en la sociedad actual",
+    name: "La latente neces_idad de la terapia en la sociedad actual",
     resume:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2020-09-10T21:42:03.253Z",
-    id: "12",
+    _id: "12",
   },
   {
     author: {
-      id: "9",
+      _id: "9",
       name: "Diana",
       lastName: "Almanzar",
       photos: {
@@ -344,11 +343,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2023-08-21T21:42:03.253Z",
-    id: "13",
+    _id: "13",
   },
   {
     author: {
-      id: "8",
+      _id: "8",
       name: "Roberto",
       lastName: "Estrada",
       photos: {
@@ -361,28 +360,28 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2022-05-28T21:42:03.253Z",
-    id: "14",
+    _id: "14",
   },
   {
     author: {
-      id: "7",
+      _id: "7",
       name: "Nahayeli",
-      lastName: "Isidro",
+      lastName: "Is_idro",
       photos: {
         profile: "/img/users/user-2.jpg",
       },
     },
     discipline: "psicologia",
-    name: "La creciente desinformacion acerca de los trastornos debido a las redes sociales",
+    name: "La creciente desinformacion acerca de los trastornos deb_ido a las redes sociales",
     resume:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2023-05-02T21:42:03.253Z",
-    id: "15",
+    _id: "15",
   },
   {
     author: {
-      id: "5",
+      _id: "5",
       name: "Joselin",
       lastName: "Hernandez",
       photos: {
@@ -395,11 +394,11 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2022-09-20T21:42:03.253Z",
-    id: "16",
+    _id: "16",
   },
   {
     author: {
-      id: "9",
+      _id: "9",
       name: "Diana",
       lastName: "Almanzar",
       photos: {
@@ -407,23 +406,22 @@ export const sampleArticlesPreview: ArticlePreviewI[] = [
       },
     },
     discipline: "pedagogia",
-    name: "Como la educacion individualista ha afectado severamente el desarrollo de la sociedad",
+    name: "Como la educacion indiv_idualista ha afectado severamente el desarrollo de la sociedad",
     resume:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquamerat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh, Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vulputate ipsum ac vehicula sagittis. Aliquam erat ligula, sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi nibh.",
     image: "/img/articles-main/Pastillas.jpg",
     createdAt: "2022-03-19T21:42:03.253Z",
-    id: "17",
+    _id: "17",
   },
 ];
 
-export const sampleAuthorsPreview: AuthorsPreviewI[] = [
+export const sampleAuthorsPreview: UserPreview[] = [
   {
-    id: "1",
+    _id: "1",
     name: "Neftali",
     lastName: "Guadarrama",
     photos: {
-      profile: "/img/users/user-6.png",
-      cover: "/img/covers/Cover-2.jpg"
+      profile: "/img/users/user-6.png"
     },
     discipline: "biologia",
     followers: 200,
@@ -431,12 +429,11 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     articles: 7,
   },
   {
-    id: "2",
+    _id: "2",
     name: "Nahomi",
     lastName: "Zavala",
     photos: {
-      profile: "/img/users/user-5.jpg",
-      cover: "/img/covers/Cover-2.jpg"
+      profile: "/img/users/user-5.jpg"
     },
     discipline: "pedagogia",
     followers: 174,
@@ -444,12 +441,11 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     articles: 6,
   },
   {
-    id: "3",
+    _id: "3",
     name: "Renata",
     lastName: "Villalobos",
     photos: {
-      profile: "/img/users/user-13.jpg",
-      cover: "/img/covers/Cover-9.png"
+      profile: "/img/users/user-13.jpg"
     },
     discipline: "medicina",
     followers: 428,
@@ -457,12 +453,11 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     articles: 8,
   },
   {
-    id: "4",
+    _id: "4",
     name: "Paola",
     lastName: "Rodriguez",
     photos: {
-      profile: "/img/users/user-4.png",
-      cover: "/img/covers/Cover-8.png"
+      profile: "/img/users/user-4.png"
     },
     discipline: "medicina",
     followers: 502,
@@ -470,12 +465,11 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     articles: 7,
   },
   {
-    id: "5",
+    _id: "5",
     name: "Joselin",
     lastName: "Hernandez",
     photos: {
-      profile: "/img/users/ari.jpg",
-      cover: "/img/covers/Cover-4.png"
+      profile: "/img/users/ari.jpg"
     },
     discipline: "medicina",
     followers: 502,
@@ -483,12 +477,11 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     articles: 7,
   },
   {
-    id: "6",
+    _id: "6",
     name: "Yael",
     lastName: "De Jesus",
     photos: {
-      profile: "/img/users/user-1.jpg",
-      cover: "/img/cover/Cover-2.jpg"
+      profile: "/img/users/user-1.jpg"
     },
     discipline: "tecnologia",
     followers: 502,
@@ -496,12 +489,11 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     articles: 7,
   },
   {
-    id: "7",
+    _id: "7",
     name: "Nahayeli",
-    lastName: "Isidro",
+    lastName: "Is_idro",
     photos: {
-      profile: "/img/users/user-2.jpg",
-      cover: "/img/cover/cover-1.png"
+      profile: "/img/users/user-2.jpg"
     },
     discipline: "psicologia",
     followers: 502,
@@ -509,12 +501,11 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     articles: 7,
   },
   {
-    id: "8",
+    _id: "8",
     name: "Roberto",
     lastName: "Estrada",
     photos: {
-      profile: "/img/users/user-7.jpg",
-      cover: "/img/cover/Cover-2.jpg"
+      profile: "/img/users/user-7.jpg"
     },
     discipline: "medicina",
     followers: 502,
@@ -522,12 +513,11 @@ export const sampleAuthorsPreview: AuthorsPreviewI[] = [
     articles: 7,
   },
   {
-    id: "9",
+    _id: "9",
     name: "Diana",
     lastName: "Almanzar",
     photos: {
-      profile: "/img/users/user-9.png",
-      cover: "/img/covers/cover-6.png"
+      profile: "/img/users/user-9.png"
     },
     discipline: "tecnologia",
     followers: 502,

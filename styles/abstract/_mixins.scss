@@ -24,7 +24,7 @@
   }
 }
 
-@mixin center-absolute(){
+@mixin center-absolute{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -54,4 +54,10 @@
   width: 100%;
   display: grid;
   place-content: center;
+}
+
+@mixin center-flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

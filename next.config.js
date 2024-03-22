@@ -6,6 +6,11 @@ const cookieObj = {
   key: 'token_sciflutter'
 }
 
+const adminCookie = {
+  type: 'cookie',
+  key: 'sciflutter_admin'
+}
+
 const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
@@ -73,9 +78,27 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/drafts",
+        missing: [cookieObj],
+        destination: "/login",
+        permanent: true,
+      },
+      {
+        source: "/saves",
+        missing: [cookieObj],
+        destination: "/login",
+        permanent: true,
+      },
+      {
         source: "/settings/(.*)",
         missing: [cookieObj],
         destination: "/login",
+        permanent: true,
+      },
+      {
+        source: "/requests",
+        missing: [adminCookie, cookieObj],
+        destination: "/",
         permanent: true,
       },
       {

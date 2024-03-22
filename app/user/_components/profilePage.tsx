@@ -1,38 +1,27 @@
-import { User } from '@/app/_interfaces/api'
-import React from 'react'
+import dynamic from 'next/dynamic'
+
+import type { User } from '@/app/_interfaces/api'
+
+import { checkAuthorFollow } from '@/app/_actions/featuresActions'
+import { checkCookieExist } from '@/app/_actions/authActions'
+
 import Profile from './profile'
 import ProfileContent from './profileContent'
-import dynamic from 'next/dynamic'
-import { checkCookieExist } from '@/app/_actions/authActions'
-import { checkAuthorFollow } from '@/app/_actions/featuresActions'
 
-const DynamicProfileButtons = dynamic(() => import('./profileButtons'), {ssr: false})
+const DynamicProfileButtons = dynamic(() => import('./profileButtons'), { ssr: false })
 
 interface Props{
   user: User
 }
 
-const ProfilePage: React.FC<Props> = async ({ user }) => {  
-  const followButton = await checkAuthorFollow(user._id) ? (
-    <button className="btn btn--unfollow">
-      Dejar de seguir <i className="ph ph-user-minus"></i>
-    </button>
-  ) : (
-    <button className="btn btn--follow">
-      Seguir autor <i className="ph ph-user-plus"></i>
-    </button>
-  );
+const ProfilePage: React.FC<Props> = async ({ user }) => { 
+  const isFollow = await checkAuthorFollow(user._id);
 
   return (
     <>
       <Profile user={user}>
         {checkCookieExist() && (
-          <DynamicProfileButtons user={user}>
-            {followButton}
-            <a href="/chats" className="btn btn-link btn-link--main">
-              Mensaje <i className="ph ph-chat"></i>
-            </a>
-          </DynamicProfileButtons>
+          <DynamicProfileButtons user={user} follow={isFollow} />
         )}
       </Profile>
 

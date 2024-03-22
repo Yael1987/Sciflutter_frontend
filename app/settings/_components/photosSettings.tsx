@@ -1,4 +1,4 @@
-import { Window as ModalWindow } from '@/app/_components/modal';
+import ModalWindow from '@/app/_components/modalWindow';
 import ProfileImageUpload from '@/app/_components/profileImageUpload';
 import { useSettingsContext } from '@/app/_store/settingsContext';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
   const [previewImg, setPreviewImg] = useState("")
   const [isOpenModal, setIsOpenModal] = useState(false)
   
-  const { addPicture } = useSettingsContext()
+  const { addPicture, deletePicture } = useSettingsContext()
 
   const handleOnClickOverlay = () => {
     setIsOpenModal(state => !state)
@@ -40,6 +40,14 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
     setIsOpenModal(true)
   };
 
+  const onDeleteProfile = (e) => {
+    e.preventDefault();
+
+    setProfileImg("/img/default.jpg");
+    deletePicture("/img/default.jpg", "profile");
+    setIsOpenModal(false);
+  };
+
   const onSelectNewCover = (e: React.FormEvent<HTMLInputElement>) => {
     const file = (e.target as HTMLInputElement).files?.[0];
 
@@ -56,6 +64,13 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
 
     reader.readAsDataURL(file);
   }
+
+  const onDeleteCover = (e) => {
+    e.preventDefault();
+    setCoverImg("/img/default-cover.png");
+    deletePicture("/img/default-cover.png", "cover");
+    setIsOpenModal(false);
+  };
 
   const handleCropImg = (cropedImg: any) => {
     setProfileImg(cropedImg)
@@ -80,27 +95,47 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
           height={126}
         />
 
-        <div>
-          <input
-            type="file"
-            accept="image/*"
-            name="selectProfile"
-            id="selectProfile"
-            className="user-settings-photo__upload-input"
-            onChange={onSelectNewProfile}
-          />
-          <label
-            htmlFor="selectProfile"
-            className="user-settings-photo__upload-label"
-          >
-            Subir foto
-          </label>
+        <div className="user-settings-photo__btns">
+          <div>
+            <button
+              className="user-settings-photo__btn"
+              onClick={onDeleteProfile}
+              disabled={profileImg === "/img/default.jpg"}
+            >
+              Borrar foto
+            </button>
+          </div>
+
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              name="selectProfile"
+              id="selectProfile"
+              className="user-settings-photo__upload-input"
+              onChange={onSelectNewProfile}
+            />
+            <label
+              htmlFor="selectProfile"
+              className="user-settings-photo__upload-label"
+            >
+              Subir foto
+            </label>
+          </div>
         </div>
       </div>
 
-      <ModalWindow isModalOpen={isOpenModal} onClickOverlay={handleOnClickOverlay}>
+      <ModalWindow
+        isModalOpen={isOpenModal}
+        onClickOverlay={handleOnClickOverlay}
+      >
         {previewImg && (
-          <ProfileImageUpload imgSrc={previewImg} onCropImg={handleCropImg} onCancel={handleCancelCrop} setUpdateProfileImg={addNewProfileImg}/>
+          <ProfileImageUpload
+            imgSrc={previewImg}
+            onCropImg={handleCropImg}
+            onCancel={handleCancelCrop}
+            setUpdateProfileImg={addNewProfileImg}
+          />
         )}
       </ModalWindow>
 
@@ -113,21 +148,34 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
           height={141}
         />
 
-        <div>
-          <input
-            type="file"
-            accept="image/*"
-            name="selectCover"
-            id="selectCover"
-            className="user-settings-photo__upload-input"
-            onChange={onSelectNewCover}
-          />
-          <label
-            htmlFor="selectCover"
-            className="user-settings-photo__upload-label"
-          >
-            Subir foto
-          </label>
+        <div className="user-settings-photo__btns">
+          <div>
+            <button
+              className="user-settings-photo__btn"
+              onClick={onDeleteCover}
+              disabled={coverImg === "/img/default-cover.png"}
+            >
+              Borrar foto
+            </button>
+          </div>
+
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              name="selectCover"
+              id="selectCover"
+              className="user-settings-photo__upload-input"
+              onChange={onSelectNewCover}
+            />
+            
+            <label
+              htmlFor="selectCover"
+              className="user-settings-photo__upload-label"
+            >
+              Subir foto
+            </label>
+          </div>
         </div>
       </div>
     </>

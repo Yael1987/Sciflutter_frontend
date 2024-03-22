@@ -34,7 +34,7 @@ $color--background: #f5f5f5;
 $color--lines: #000814;
 
 $color--text-emphasys: #2e1800;
-$color--text-base: #000814;
+$color--text-base: rgb(0, 8, 20);
 $color--text-light: #343a40;
 $color--text-white: #f5f5f5;
 
@@ -46,6 +46,11 @@ $color--warn-base: #fab005;
 
 $color--success-dark: #0e3c67;
 $color--success-base: #135089;
+
+$color--overlay: rgba($color--text-base, 0.3);
+
+$color--skeleton--dark: #f5f5f5;
+$color--skeleton--base: #ececec;
 
 /* UI COLORS DARKMODE */
 $dark-color--main-base: #e9851a;
@@ -107,3 +112,10 @@ $_color-border: var(--color--lines);
 $border-thin: 1px solid $_color-border;
 $border-normal: 2px solid $_color-border;
 $border-bold: 3px solid $_color-border;
+
+$a-time--short: 0.2s;
+$a-time--normal: 0.3s;
+$a-time--long: 0.4s;
+
+$padding-8x12: $space-sm $space-base;
+

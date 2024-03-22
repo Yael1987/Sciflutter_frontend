@@ -21,9 +21,9 @@ const NavBar = () => {
   }, [user, initUser])
 
   if (!loading && user) {
-    return <NavBarUser />
+    return <NavBarUser/>
   } else {
-    return <NavBarSkeleton />;
+    return <NavBarSkeleton/>;
   }
 }
 

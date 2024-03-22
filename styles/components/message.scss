@@ -1,5 +1,13 @@
-.message{
-  font-size: 1.8rem;
-  font-weight: 400;
+@use '../abstract/variables';
+
+.c-message{
+  font-size: variables.$text--md;
+  font-weight: 500;
   line-height: 1.6;
+  text-align: center;
+
+  &_sub{
+    @extend .c-message;
+    font-weight: variables.$text-weight--regular;
+  }
 }

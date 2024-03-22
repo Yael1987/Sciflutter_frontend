@@ -8,8 +8,12 @@ import { useSettingsContext } from "@/app/_store/settingsContext"
 import UserSettingsSkeleton from "@/app/_skeletons/userSettingsSkeleton"
 import PhotosSettingsSkeleton from "@/app/_skeletons/photosSettingsSkeleton"
 
+import SettingsGroup from "./settingsGroup"
+import SettingsButton from "./settingsButton"
+import Notification from "@/app/_components/notification"
+
 import "@/styles/components/user-settings.scss";
-import "@/styles/components/settings.scss";
+import "@/styles/layout/settings.scss";
 
 const DynamicPhotosSettings = dynamic(() => import('./photosSettings'), { ssr: true, loading: () => <PhotosSettingsSkeleton /> })
 
@@ -21,103 +25,94 @@ const UserSettings: React.FC = () => {
   if (!user) return <UserSettingsSkeleton />;
   
   return (
-    <form
-      action={requestDataUpdate}
-      className="settings-section-main--container"
-    >
+    <form action={requestDataUpdate} className="l-settings">
       {user.status === "unconfirmed" && (
-        <div className="settings__warn">
-          Por favor confirma tu cuenta para poder cambiar tus datos
-        </div>
+        <Notification type="warning">
+          Please confirm your account to change your data
+        </Notification>
       )}
 
-      <p className="settings-section-heading--main">User</p>
+      <p className="l-settings__heading">User</p>
 
-      <div className="settings">
-        <div className="settings__group">
-          <p className="settings__title">Fotos</p>
+      <div className="l-settings__content">
+        <SettingsGroup>
+          <p>Fotos</p>
 
-          <div className="settings__photos">
+          <div className="photos">
             <DynamicPhotosSettings photos={user.photos} />
           </div>
-        </div>
+        </SettingsGroup>
 
-        <div className="settings__row">
-          <div className="settings__group">
-            <label className="settings__title" htmlFor="name">
-              Nombre
-            </label>
+        <div className="l-settings__row">
+          <SettingsGroup>
+            <label htmlFor="name">Nombre</label>
             <input
               type="text"
               defaultValue={user.name}
               id="name"
               name="name"
-              className="settings__input"
+              className="input"
             />
-          </div>
+          </SettingsGroup>
 
-          <div className="settings__group">
-            <label className="settings__title" htmlFor="lastName">
-              Apellido
-            </label>
+          <SettingsGroup>
+            <label htmlFor="lastName">Apellido</label>
             <input
               type="text"
               defaultValue={user.lastName}
               id="lastName"
               name="lastName"
-              className="settings__input"
+              className="input"
             />
-          </div>
+          </SettingsGroup>
         </div>
       </div>
 
       {user.role === "author" && (
         <>
-          <div className="settings__line"></div>
+          <div className="l-settings__line"></div>
 
-          <p className="settings-section-heading--main">Autor</p>
+          <p className="l-settings__heading">Autor</p>
 
-          <div className="settings">
-            <div className="settings__row">
-              <div className="settings__group settings__group--single">
-                <label className="settings__title" htmlFor="discipline">
-                  Disciplina
-                </label>
+          <div className="l-settings__content">
+            <div className="l-settings__row">
+              <SettingsGroup type="single">
+                <label htmlFor="discipline">Disciplina</label>
                 <input
                   type="text"
                   defaultValue={user.discipline ?? ""}
                   id="discipline"
                   name="discipline"
-                  className="settings__input"
+                  className="input"
                   placeholder="Selecciona tu disciplina"
                 />
-              </div>
+              </SettingsGroup>
             </div>
 
-            <div className="settings__row">
-              <div className="settings__group">
-                <label className="settings__title" htmlFor="discipline">
-                  Descripcion
-                </label>
+            <div className="l-settings__row">
+              <SettingsGroup>
+                <label htmlFor="discipline">Descripcion</label>
                 <textarea
                   name="description"
                   id="description"
                   cols={30}
                   rows={3}
                   defaultValue={user.description ?? ""}
-                  className="settings__input"
+                  className="input"
                   placeholder="Escribe una descripcion breve"
                 />
-              </div>
+              </SettingsGroup>
             </div>
           </div>
         </>
       )}
 
-      <div className="settings__submit-container">
-        <button className={clsx("settings__button", pending && "loading")}>
+      <div className="l-settings__submit">
+        <SettingsButton
+          className={clsx(pending && "loading")}
+        >
           {pending ? "Guardando..." : "Guardar cambios"}
-        </button>
+        </SettingsButton>
       </div>
     </form>
   );

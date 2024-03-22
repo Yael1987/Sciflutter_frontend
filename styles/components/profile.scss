@@ -1,36 +1,43 @@
-@import '../abstract/variables';
-@import '../abstract/mixins';
+@use '../abstract/variables';
+@use '../abstract/mixins';
 
-.profile{
+$profile-img-size: 24rem;
+$icon-size: 5.6rem;
+$pictures-margin: 12rem;
+
+.c-profile{
   width: 100%;
-  @include flexDisplay(col, initial, initial, center);
+  display: grid;
+  justify-items: center;
 
   &__pictures{
     width: 100%;
     position: relative;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 12rem;
+    display: grid;
+    justify-items: center;
+    margin-bottom: $pictures-margin;
   }
 
   &__picture{
-    overflow: hidden;
-
-    img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+    &_cover, &_profile{
+      overflow: hidden;
+      
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
     }
 
-    &--cover{
+    &_cover{
       width: 90%;
       aspect-ratio: 16/9;
     }
 
-    &--profile{
-      width: 24rem;
-      height: 24rem;
+    &_profile{
+      width: $profile-img-size;
+      height: $profile-img-size;
       border-radius: 50%;
       position: absolute;
       bottom: 0;
@@ -40,22 +47,24 @@
   }
 
   &__info{
-    @include flexDisplay(col, 3.2rem, initial, center);
+    display: grid;
+    row-gap: variables.$space-xl;
+    justify-items: center;
     min-width: 50%;
     max-width: 100%;
-    box-shadow: $shadow--big;
-    padding: 4.8rem 6.4rem;
+    box-shadow: variables.$shadow--big;
+    padding: variables.$space-2xl variables.$space-3xl;
 
     &-name{
-      font-size: 6.104rem;
-      font-weight: 300;
-      border-bottom: 2px solid $color--main-0;
+      font-size: variables.$text--3xl;
+      font-weight: variables.$text-weight--light;
+      border-bottom: 2px solid var(--color--main-base);
     }
 
     &-discipline{
-      font-size: 2rem;
-      color: $color--main-0;
-      font-weight: 400;
+      font-size: variables.$text--md;
+      color: var(--color--main-base);
+      font-weight: variables.$text-weight--regular;
       text-align: center;
       line-height: 2;
     }
@@ -63,19 +72,24 @@
 
   &__stats{
     width: 100%;
-    @include flexDisplay(row, auto, center, space-between);
+    list-style: none;
+    @include mixins.display-flex(row, auto, center, space-between);
   }
 
   &__stat{
-    @include flexDisplay(col, 1.2rem, initial, center);
+    display: grid;
+    row-gap: variables.$space-base;
+    justify-items: center;
+
     &-icon{
-      width: 5.6rem;
-      fill: $color--main-0;
+      width: $icon-size;
+      height: $icon-size;
+      fill: var(--color--main-base);
     }
 
     p{
-      font-weight: 300;
-      font-size: 3.906rem;
+      font-weight: variables.$text-weight--light;
+      font-size: variables.$text--2xl;
     }
   }
 }

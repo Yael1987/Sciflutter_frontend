@@ -1,9 +1,21 @@
-import React from 'react'
+import { HeadingSecondary } from '../_components/headings';
 
-const Page = () => {
+import '@/styles/pages/drafts.scss'
+import Drafts from './_components/drafts';
+import Articles from './_components/articles';
+
+const Page = async () => {
   return (
-    <div>Drafts</div>
-  )
+    <section className="l-drafts">
+      <HeadingSecondary>My drafts</HeadingSecondary>
+
+      <Drafts />
+
+      <HeadingSecondary>My articles</HeadingSecondary>
+
+      <Articles />
+    </section>
+  );
 }
 
 export default Page

@@ -12,9 +12,11 @@ const useCheckIsLoggedIn = (): void => {
   const { refresh } = useRouter()
 
   const callInitUser = useCallback(async () => {
+    if (!(await checkCookieExist())) return;
+
     if (!user) { 
       const userSetted = await initLoggedUser()
-
+      
       if(!userSetted) refresh()
     }
 
@@ -24,10 +26,8 @@ const useCheckIsLoggedIn = (): void => {
   }, [initLoggedUser, refresh, user, getSavedArticles, savedArticles])
 
   useEffect(() => {
-    if (checkCookieExist() && !user){
-      callInitUser()
-    }
-  }, [callInitUser, user, refresh])
+    callInitUser()
+  }, [callInitUser, user])
 }
 
 export default useCheckIsLoggedIn

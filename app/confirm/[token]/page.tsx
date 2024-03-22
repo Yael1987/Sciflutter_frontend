@@ -18,8 +18,7 @@ const Page: React.FC<Props> = async ({ params }) => {
   if(apiResponse.success) return (
     <>
       <Notification type="success">
-        Tu cuenta ha sido confirmada con exito, ahora puedes utilizar todas las
-        funcionalidades de Sciflutter
+        {apiResponse.message}
       </Notification>
 
       <ButtonLink href="/" type="outline"><ArrowLeft size={32}/> Volver al inicio</ButtonLink>

@@ -1,5 +1,5 @@
 import React from 'react'
-import "@/styles/layout/aside.scss";
+import "@/styles/components/prev-list.scss";
 
 interface Props{
   type: 'authors' | 'articles',
@@ -8,7 +8,7 @@ interface Props{
 
 const CardsList: React.FC<Props> = ({ children, type }) => {
   return (
-    <ul className={`more-${type}__list`}>
+    <ul className={`b-prev-list_${type}`}>
       {children}
     </ul>
   )

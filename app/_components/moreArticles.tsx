@@ -1,23 +1,21 @@
 import React from 'react'
 
-import ArticlePreview from './articlePreview'
 
-import '@/styles/layout/aside.scss'
+import '@/styles/layout/more.scss'
 
 import { sampleMoreArticles } from '../_utils/data'
 import { HeadingSecondary } from './headings'
-import CardsList from './cardsList'
+import ArticlePreviewList from './articlePreviewList'
+import { ArticlePreview } from '../_interfaces/api'
 
 const MoreArticles: React.FC = () => {
+  // const sampleArt: ArticlePreview[] = [];
+
   return (
-    <aside className="more-articles">
+    <aside className="l-more">
       <HeadingSecondary>Mas articulos</HeadingSecondary>
 
-      <CardsList type="articles">
-        {sampleMoreArticles.map((article) => (
-          <ArticlePreview key={article.id} article={article} />
-        ))}
-      </CardsList>
+      <ArticlePreviewList articleList={sampleMoreArticles} emptyMessage='There are no recommended articles'/>
     </aside>
   );
 }

@@ -57,7 +57,7 @@ export const getUserStats = async (userId: string): Promise<UserStats> => {
   return data.data.stats!
 }
 
-export const updateUserData = async (formData: FormData): Promise<{success: boolean, message: string, user?: User}> => {
+export const updateUserData = async (formData: FormData): Promise<{success: boolean, message: string, user?: LoggedUser}> => {
   const response = await fetch(`${process.env.BACKEND_URL}/users/me`, {
     method: "PATCH",
     headers: {
@@ -71,7 +71,48 @@ export const updateUserData = async (formData: FormData): Promise<{success: bool
 
   if (!data.success) return { success: data.success, message: data.message }
   
-  return { success: data.success, message: data.message, user: (data.data as User) }
+  return { success: data.success, message: data.message, user: (data.data as LoggedUser) }
+}
+
+export const deactivateAccount = async (password: string): Promise<ApiErrorResponse | ApiSuccessResponse> => {
+  const formData = {
+    password
+  }
+
+  const response = await fetch(`${process.env.BACKEND_URL}/users/me/deactivateAccount`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${await getToken()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData)
+  });
+
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json();
+
+  return data
+}
+
+export const deleteAccount = async (password: string): Promise<ApiErrorResponse | ApiSuccessResponse> => {
+  const formData = {
+    password,
+  };
+
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/users/me/`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }
+  );
+
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json();
+
+  return data;
 }
 
 export const changePassword = async (formData: { password: string, newPassword: string, newPasswordConfirm: string }): Promise<ApiErrorResponse | ApiSuccessResponse>  => {

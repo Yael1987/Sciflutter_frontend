@@ -1,22 +1,17 @@
 import React from 'react'
 
-import "@/styles/layout/aside.scss";
+import "@/styles/layout/more.scss";
 
 import { sampleMoreAuthors } from '../_utils/data';
-import AuthorCard from './authorCard';
 import { HeadingSecondary } from './headings';
-import CardsList from './cardsList';
+import AuthorCardList from './authorCardList';
 
 const MoreAuthors: React.FC = () => {
   return (
-    <aside className="more-authors">
+    <aside className="l-more">
       <HeadingSecondary>Descubre autores</HeadingSecondary>
 
-      <CardsList type="authors">
-        {sampleMoreAuthors.map((author) => (
-          <AuthorCard key={author.id} author={author} />
-        ))}
-      </CardsList>
+      <AuthorCardList authorsList={sampleMoreAuthors} emptyMessage='No users recommended found'/>
     </aside>
   );
 }

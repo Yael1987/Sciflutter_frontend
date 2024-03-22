@@ -32,6 +32,7 @@ export interface LoggedUser extends User{
   email: string;
   twoStepsAuthentication: boolean;
   status: string;
+  isAdmin: boolean;
 }
 
 export interface ArticlePreview{
@@ -51,11 +52,29 @@ export interface ArticlePreview{
   createdAt: string
 }
 
+export interface DraftPreview{
+  _id: string,
+  name: string,
+  image: string,
+  resume: string,
+  author: string,
+  discipline: string,
+  createdAt: string
+}
+
 export interface Article extends ArticlePreview{
   likes: number,
   introduction: string,
   content: string,
   bibliography: string
+}
+
+export interface Draft extends DraftPreview {
+  introduction: string;
+  content?: string;
+  bibliography?: string;
+  images: string[];
+  requested: boolean
 }
 
 export interface ApiResponseBase {
@@ -69,16 +88,19 @@ export interface ApiErrorResponse extends ApiResponseBase {
 }
 
 export interface ApiSuccessResponse extends ApiResponseBase {
-  success: true,
-  results?: number,
+  success: true;
+  results?: number;
   data: {
     user?: User | LoggedUser;
     users?: UserPreview[];
     article?: Article;
+    draft?: Draft;
+    drafts?: DraftPreview[];
     articles?: ArticlePreview[];
     saves?: ArticlePreview[];
-    follow?: boolean
-    stats?: UserStats
+    follow?: boolean;
+    like?: boolean;
+    stats?: UserStats;
   };
   token?: string;
 }

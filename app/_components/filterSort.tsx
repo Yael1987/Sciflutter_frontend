@@ -44,12 +44,12 @@ const FilterSort: React.FC<Props> = ({ articles }) => {
   }
 
   return (
-    <div className="filter-sort">
-      <div className="filters">
-        <div className="filter-sort-item">
-          <p className="filter-sort-item__title">Año</p>
+    <div className="c-filter-sort">
+      <div className="c-filter-sort__filters">
+        <div className="c-filter-sort__item">
+          <p className="c-filter-sort__item-title">Year</p>
           <select
-            className="filter-sort-item__options"
+            className="c-filter-sort__item-options"
             defaultValue={searchParams.get("year") ?? ""}
             onChange={(e) => handleSelectOption(e, "year")}
           >
@@ -62,10 +62,10 @@ const FilterSort: React.FC<Props> = ({ articles }) => {
           </select>
         </div>
 
-        <div className="filter-sort-item">
-          <p className="filter-sort-item__title">Mes</p>
+        <div className="c-filter-sort__item">
+          <p className="c-filter-sort__item-title">Month</p>
           <select
-            className="filter-sort-item__options"
+            className="c-filter-sort__item-options"
             defaultValue={searchParams.get("month") ?? ""}
             onChange={(e) => handleSelectOption(e, "month")}
           >
@@ -78,10 +78,10 @@ const FilterSort: React.FC<Props> = ({ articles }) => {
           </select>
         </div>
 
-        <div className="filter-sort-item">
-          <p className="filter-sort-item__title">Discipline</p>
+        <div className="c-filter-sort__item">
+          <p className="c-filter-sort__item-title">Discipline</p>
           <select
-            className="filter-sort-item__options"
+            className="c-filter-sort__item-options"
             defaultValue={searchParams.get('discipline') ?? ""}
             onChange={(e) => handleSelectOption(e, "discipline")}
           >
@@ -96,10 +96,10 @@ const FilterSort: React.FC<Props> = ({ articles }) => {
       </div>
 
       <div className="sort">
-        <div className="filter-sort-item">
-          <p className="filter-sort-item__title">Ordenar por</p>
+        <div className="c-filter-sort__item">
+          <p className="c-filter-sort__item-title">Sort by</p>
 
-          <select className="filter-sort-item__options">
+          <select className="c-filter-sort__item-options">
             {SORT_OPTIONS.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.name}

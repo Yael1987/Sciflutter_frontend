@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import { HeadingSecondary } from "../_components/headings";
 
-import '@/styles/layout/saves.scss'
 import SavesList from "./_components/savesList";
+
+import '@/styles/pages/saves.scss'
 
 export const metadata: Metadata = {
   title: 'Saves'
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 const Page: React.FC = async () => {
   return (
-    <section className="saves">
+    <section className="l-saves">
       <HeadingSecondary>Mis favoritos</HeadingSecondary>
 
       <SavesList />

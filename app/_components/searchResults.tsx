@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+"use client"
+import { useEffect, useState } from 'react'
 
 import FilterSort from './filterSort'
-
-import { getSearchedArticles } from '../_utils/getData'
-
-import '@/styles/layout/results.scss'
 import ArticlesResults from './articlesResults'
 import AuthorsResults from './authorsResults'
+
+import { getSearchedArticles } from '../_utils/getData'
 import { filterArticles, filterAuthors } from '../_utils/filter'
+
+import '@/styles/layout/results.scss'
+import SearchResume from './searchResume'
+import Message from './message'
 
 interface Props{
   searchQuery: string,
@@ -29,24 +32,19 @@ const SearchResults: React.FC<Props> = ({ searchQuery, filters }) => {
   }, [searchQuery])
 
   return (
-    <section className="results-section">
-      <div className="results-resume">
-        <p className="results-resume__search">
-          Resultados para &quot;{searchQuery}&quot;
-        </p>
+    <section className="l-results">
+      <SearchResume
+        searchQuery={searchQuery}
+        articlesResults={filteredArticles.length}
+        authorsResults={filteredAuthors.length}
+      />
 
-        <p className="results-resume__count">
-          {filteredArticles.length} articulos, {filteredAuthors.length} autores
-        </p>
-      </div>
-
-      {(articles?.length !== 0 && authors?.length !== 0) && <FilterSort articles={articles ?? []} />}
+      {articles?.length !== 0 && authors?.length !== 0 && (
+        <FilterSort articles={articles ?? []} />
+      )}
 
       {filteredArticles.length === 0 && filteredAuthors.length === 0 ? (
-        <div>
-          <p className='results__message'>Al parecer no hubo coincidencias para los parametros de busqueda.</p>
-          <p className='results__message-sub'>Por favor intente con otros parametros.</p>
-        </div>
+        <Message message='Al parecer no hubo coincidencias para los parametros de busqueda.' subMessage='Por favor intente con otros parametros.'/>
       ) : (
         <>
           {filteredArticles.length !== 0 && (

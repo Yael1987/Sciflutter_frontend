@@ -1,32 +1,32 @@
-import '@/styles/components/skeletons.scss'
+import '@/styles/skeletons/article-preview.scss'
 
 const ArticlePreviewSkeleton = () => {
   return (
-    <li className="skeleton--article-prev-card">
-      <div className="skeleton--article-prev-img">
-        <img />
+    <li className="s-article-preview">
+      <div className="s-article-preview__img">
+        <div></div>
       </div>
 
-      <div className="skeleton--article-prev-text-box">
-        <div className="title"></div>
-        <div className="resume"></div>
+      <div className="s-article-preview__text-box">
+        <div className="s-article-preview__title"></div>
+        <div className="s-article-preview__resume"></div>
 
-        <div className="skeleton--article-prev-footer">
-          <div className="skeleton--article-prev-author">
-            <div className="author-picture"></div>
+        <div className="s-article-preview__footer">
+          <div className="s-article-preview__author">
+            <div className="s-article-preview__author-picture"></div>
 
-            <div className="skeleton--article-prev-author__info">
-              <div className="author-name"></div>
+            <div>
+              <div className="s-article-preview__info-name"></div>
 
-              <div className="publish"></div>
+              <div></div>
             </div>
           </div>
 
-          <div className="button"></div>
+          <div className="s-article-preview__button"></div>
         </div>
       </div>
 
-      <div></div>
+      <div className="s-article-preview__bookmark"></div>
     </li>
   );
 }

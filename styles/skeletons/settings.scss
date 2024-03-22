@@ -1,0 +1,20 @@
+@use '../abstract/animations';
+
+.s-settings{
+  &__input{
+    @extend %a-skeleton;
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    line-height: 1.6;
+    font-size: 1.8rem;
+    color: transparent;
+  }
+
+  &__container{
+    width: 100%;
+    display: grid;
+    row-gap: 2.4rem;
+    justify-items: start;
+    align-content: start;
+  }
+}

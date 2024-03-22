@@ -1,6 +1,0 @@
-@import '../abstract/mixins';
-
-.saves{
-  width: 120rem;
-  @include flexDisplay(col, 5.6rem, initial, center);
-}

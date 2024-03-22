@@ -1,28 +1,28 @@
-@import '../abstract/variables';
-@import '../abstract/mixins';
+@use '../abstract/variables';
+@use '../abstract/helpers';
 
-.article-index{
-  @include flexDisplay(col, 2.4rem, initial, end);
-  padding: 0 2.4rem;
+.c-article-index{
+  &, &__list{
+    display: grid;
+    justify-items: end;
+  }
+
+  row-gap: variables.$space-md;
+  padding: 0 variables.$space-lg;
 
   &__header{
-    font-size: 2.5rem;
-    font-weight: 400;
-    color: $color--main-0;
+    font-size: variables.$text--lg;
+    font-weight: variables.$text-weight--regular;
+    color: var(--color--main-base);
   }
 
   &__list{
     list-style: none;
-    @include flexDisplay(col, 1.6rem, initial, end);
+    row-gap: variables.$space-md;
 
     &-link{
-      &,
-      &:link,
-      &:visited{
-        text-decoration: none;
-        color: $color--black-0;
-        font-size: 1.6rem;
-      }
+      @extend %link-base;
+      @extend %link-text-hover;
     }
   }
 }

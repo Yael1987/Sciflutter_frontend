@@ -1,19 +1,17 @@
-import React from 'react'
-
-import '@/styles/components/skeletons.scss'
+import '@/styles/skeletons/profile.scss'
 
 const ProfileSkeleton: React.FC = () => {
   return (
-    <div className='skeleton--profile'>
-      <div className='skeleton--profile__pictures'>
-        <div className="skeleton--profile__picture skeleton--profile__picture--cover">
+    <div className='s-profile'>
+      <div className='s-profile__pictures'>
+        <div className="s-profile__picture s-profile__picture_cover">
         </div>
 
-        <div className="skeleton--profile__picture skeleton--profile__picture--profile">
+        <div className="s-profile__picture s-profile__picture_profile">
         </div>
       </div>
 
-      <div className='skeleton--profile__info'></div>
+      <div className='s-profile__info'></div>
     </div>
   )
 }

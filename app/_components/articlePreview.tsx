@@ -1,13 +1,17 @@
+import dynamic from 'next/dynamic';
+
 import Image from 'next/image';
 
-import '@/styles/components/article-preview.scss'
 import type { ArticlePreview as ArticlePreviewI } from "../_interfaces/api";
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 
-import ButtonLink from './buttonLink';
-import { formatDate } from '../_utils/dateUtils';
-import dynamic from 'next/dynamic';
 import { BookmarkSimple } from '@phosphor-icons/react/dist/ssr/BookmarkSimple';
+
+import LinkSimple from './linkSimple';
+
+import { formatDate } from '../_utils/dateUtils';
+
+import '@/styles/components/article-preview.scss'
+import { checkCookieExist } from '../_actions/authActions';
 
 interface Props {
   article: ArticlePreviewI
@@ -15,8 +19,8 @@ interface Props {
 
 const DynamicBookmark = dynamic(() => import("./bookmarkCard"), {
   loading: () => (
-    <div className="article-preview__bookmark">
-      <BookmarkSimple size={40} className="icon--bookmark" />
+    <div className="c-article-preview__bookmark is-loading">
+      <BookmarkSimple size={40} className="c-article-preview__icon"/>
     </div>
   ),
   ssr: false,
@@ -24,8 +28,8 @@ const DynamicBookmark = dynamic(() => import("./bookmarkCard"), {
 
 const ArticlePreview: React.FC<Props> = ({ article }) => {
   return (
-    <li className="article-preview-card">
-      <div className="article-preview-img">
+    <li className="c-article-preview">
+      <div className="c-article-preview__img">
         <Image
           src={article.image}
           alt="article preview image"
@@ -35,12 +39,12 @@ const ArticlePreview: React.FC<Props> = ({ article }) => {
         />
       </div>
 
-      <div className="article-preview-text-box">
+      <div className="c-article-preview__text-box">
         <h4>{article.name}</h4>
         <p>{article.resume}</p>
 
-        <div className="article-preview-footer">
-          <div className="article-preview-author">
+        <div className="c-article-preview__footer">
+          <div className="c-article-preview__author">
             <Image
               src={article.author.photos.profile}
               alt="author picture"
@@ -48,7 +52,7 @@ const ArticlePreview: React.FC<Props> = ({ article }) => {
               height={40}
             />
 
-            <div className="article-preview-author__info">
+            <div className="c-article-preview__author-info">
               <p>
                 {article.author.name} {article.author.lastName}
               </p>
@@ -57,14 +61,11 @@ const ArticlePreview: React.FC<Props> = ({ article }) => {
             </div>
           </div>
 
-          <ButtonLink href={`/articles/${article._id}`} type="outline">
-            Leer articulo{" "}
-            <ArrowRight size={32} weight="regular" className="icon--btn" />
-          </ButtonLink>
+          <LinkSimple href={`/article/${article._id}`}>Leer Articulo</LinkSimple>
         </div>
       </div>
 
-      <DynamicBookmark articleId={article._id} />
+      {checkCookieExist() && <DynamicBookmark articleId={article._id} />}
     </li>
   );
 }

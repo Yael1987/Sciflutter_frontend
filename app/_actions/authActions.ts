@@ -1,8 +1,9 @@
 "use server"
 
 import { cookies } from "next/headers"
+import Cookies from "js-cookie";
 import type { FormState } from "../_interfaces"
-import type { ApiErrorResponse, ApiResponseBase, ApiSuccessResponse } from "../_interfaces/api";
+import type { ApiErrorResponse, ApiResponseBase, ApiSuccessResponse, LoggedUser } from "../_interfaces/api";
 
 export const signup = async (prevState: FormState, formData: FormData): Promise<FormState> => {
   const response = await fetch(`${process.env.BACKEND_URL}/users/signup`, {
@@ -22,7 +23,7 @@ export const signup = async (prevState: FormState, formData: FormData): Promise<
     cookies().set("token_sciflutter", data.token, cookieOptions);
     return {
       success: data.success,
-      user: data.data.user,
+      user: data.data.user as LoggedUser,
     };
   } else {
     return {
@@ -35,7 +36,8 @@ export const signup = async (prevState: FormState, formData: FormData): Promise<
 export const login = async (prevState: FormState, formData: FormData): Promise<FormState> => {
   const response = await fetch(`${process.env.BACKEND_URL}/users/login`, {
     method: "POST",
-    body: formData
+    body: formData,
+    cache: 'no-store'
   });
 
   const data: ApiErrorResponse | ApiSuccessResponse = await response.json();
@@ -44,14 +46,16 @@ export const login = async (prevState: FormState, formData: FormData): Promise<F
     const cookieOptions = {
       expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       httpOnly: true,
-      samesite: null
+      samesite: true
     };
 
     cookies().set("token_sciflutter", data.token, cookieOptions);
 
+    if ((data.data.user as LoggedUser).isAdmin) cookies().set("sciflutter_admin", data.data.user?._id!, cookieOptions);
+
     return {
       success: data.success,
-      user: data.data.user,
+      user: (data.data.user as LoggedUser),
       message: data.message
     }
   } else { 
@@ -115,5 +119,14 @@ export const setCookieToken = (token: string): void => {
 }
 
 export const signout = (): void => {
+  if(cookies().has('sciflutter_admin')) cookies().delete("sciflutter_admin");
   cookies().delete('token_sciflutter')
+}
+
+export const getTokenClient = (): string | null => {
+  const token = Cookies.get('token_sciflutter')
+
+  if (!token) return null
+
+  return token
 }

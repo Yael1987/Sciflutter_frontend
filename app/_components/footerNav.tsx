@@ -45,18 +45,18 @@ const FOOTER_NAV_LINKS: NavLinks[] = [
 
 const FooterNav: React.FC = () => {
   return (
-    <nav className="footer-nav">
+    <nav className="l-footer__nav">
       {FOOTER_NAV_LINKS.map((links) => (
-        <div className="footer-nav__col" key={links.category}>
-          <p className="footer-nav__col-title">{links.category}</p>
+        <div className="l-footer__nav-col" key={links.category}>
+          <p className="l-footer__nav-col-title">{links.category}</p>
 
-          <ul className="footer-nav__list">
+          <ul className="c-footer-list">
             {links.links.map((link) => (
               <li key={link.tag}>
                 <ButtonLink
                   href={link.link}
                   type="icon"
-                  className="footer-nav__list-link"
+                  className="c-footer-list__link"
                 >
                   {link.tag}
                 </ButtonLink>

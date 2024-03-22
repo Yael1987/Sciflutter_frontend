@@ -1,39 +1,38 @@
 "use client"
-import ButtonLink from "@/app/_components/buttonLink";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
+
+import Link from "next/link";
 
 import "@/styles/components/settings-menu.scss";
-import clsx from "clsx";
 
 const MenuSettings: React.FC = () => {
   const pathname = usePathname().split('/').at(-1)
 
   return (
-    <ul className="settings-menu">
+    <ul className="c-settings-menu">
       <li>
-        <ButtonLink
+        <Link
           href="/settings"
-          type="icon"
           className={clsx(
-            "settings-menu__link",
-            pathname === "settings" && "settings-menu__link--active"
+            "c-settings-menu__link",
+            pathname === "settings" && "c-settings-menu__link_active"
           )}
         >
-          Perfil
-        </ButtonLink>
+          Public
+        </Link>
       </li>
 
       <li>
-        <ButtonLink
+        <Link
           href="/settings/seguridad"
-          type="icon"
           className={clsx(
-            "settings-menu__link",
-            pathname === "seguridad" && "settings-menu__link--active"
+            "c-settings-menu__link",
+            pathname === "seguridad" && "c-settings-menu__link_active"
           )}
         >
-          Seguridad
-        </ButtonLink>
+          Security
+        </Link>
       </li>
     </ul>
   );

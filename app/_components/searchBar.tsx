@@ -9,7 +9,7 @@ import '@/styles/components/search-bar.scss'
 const SearchBar: React.FC = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const {push} = useRouter();
+  const { push } = useRouter();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchInput, setSearchInput] = useState<string>(

@@ -18,13 +18,13 @@ const Layout: React.FC<BaseComponent> = ({ children }) => {
   revalidateTag('logged-user')
 
   return (
-    <section className="settings-section">
-      <h3 className="settings-section-heading">Configuracion</h3>
+    <section className="l-settings-section">
+      <h3 className="l-settings-section__heading">Configuracion</h3>
 
-      <div className="settings-section-container">
+      <div className="l-settings-section__container">
         <DynamicSettingsMenu />
 
-        <div className="settings-section-main">
+        <div className="l-settings-section__main">
           <SettingsProvider>
             {children}
           </SettingsProvider>

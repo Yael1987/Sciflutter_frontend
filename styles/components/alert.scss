@@ -1,4 +1,7 @@
 @use '../abstract/variables';
+@use '../abstract/mixins';
+
+$icon-size: 3.2rem;
 
 .alert{
   position: fixed;
@@ -7,31 +10,71 @@
   width: 100%;
   max-width: 50rem;
   transform: translateX(-50%);
-  padding: 2.4rem 4.8rem;
-  transition: all 0.5s ease;
+  padding: variables.$space-md variables.$space-xl;
+  background-color: var(--color--background);
+  color: var(--color--text-base);
+  border: solid 1px;
   z-index: 7;
+  display: flex;
+  gap: variables.$space-xl;
+  align-items: center;
+  transition: all variables.$a-time--long ease;
 
   p{
-    font-size: 1.8rem;
+    font-size: variables.$text--md;
     color: inherit;
     text-align: center;
-    font-weight: 500;
+    font-weight: variables.$text--md;
   }
 
-  &--error{
-    background-color: rgba(variables.$color--error-dark, 0.5);
-    color: variables.$color--error-dark;
+  &__icon-box{
+    padding: 1.2rem;
+    border-radius: 5px
   }
-  &--success{
-    background-color: rgba(variables.$color--success-base, 0.5);
-    color: variables.$color--success-dark;
-  }
-  &--warn{
-    background-color: rgba(variables.$color--warn-base, 0.3);
-    color: variables.$color--warn-dark;
+  
+  &__icon{
+    @include mixins.center-grid;
+    width: $icon-size;
+    height: $icon-size;
   }
 
-  &-display{
-    top: 0;
+  &_error{
+    border-color: variables.$color--error-dark;
+
+    .alert__icon-box{
+      background-color: rgba(variables.$color--error-dark, 0.3);
+    }
+
+    .alert__icon{
+      color: variables.$color--error-dark;
+    }
   }
+
+  &_success{
+    border-color: variables.$color--success-dark;
+
+    .alert__icon-box{
+      background-color: rgba(variables.$color--success-base, 0.3);
+    }
+
+    .alert__icon{
+      color: variables.$color--success-dark;
+    }
+  }
+
+  &_warn{
+    border-color: variables.$color--warn-dark;
+
+    .alert__icon-box{
+      background-color: rgba(variables.$color--warn-base, 0.3);
+    }
+    
+    .alert__icon{
+      color: variables.$color--warn-dark;
+    }
+  }
+}
+
+.is-display{
+  top: 0;
 }

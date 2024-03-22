@@ -1,0 +1,24 @@
+@use '../abstract/animations';
+@use '../abstract/variables';
+@use '../abstract/mixins';
+@use '../components/user-settings.scss';
+
+.s-settings-photo{
+  @include mixins.display-flex(row, 1.6rem, center, center);
+
+  &_profile, &_cover{
+    @extend %a-skeleton;
+  }
+
+  &_profile{
+    @extend .user-settings-photo__profile-img;
+  }
+
+  &_cover{
+    @extend .user-settings-photo__cover-img;
+  }
+
+  &__label{
+    @extend .user-settings-photo__upload-label;
+  }
+}

@@ -1,9 +1,9 @@
-"use client"
 import React, { Suspense } from 'react'
 import MainSearch from './_components/mainSearch'
 import MoreArticles from './_components/moreArticles'
 import MoreAuthors from './_components/moreAuthors'
 import SearchResults from './_components/searchResults'
+import dynamic from 'next/dynamic'
 
 interface Props {
   searchParams: {
@@ -13,6 +13,8 @@ interface Props {
     discipline?: string;
   };
 }
+
+const DynamicSearchResults = dynamic(()=> import('./_components/searchResults'))
 
 const Home: React.FC<Props> = ({ searchParams }) => {
   const filters = {
@@ -26,9 +28,7 @@ const Home: React.FC<Props> = ({ searchParams }) => {
       <MainSearch />
 
       {searchParams.search && (
-        <Suspense>
-          <SearchResults searchQuery={searchParams.search} filters={filters} />
-        </Suspense>
+        <DynamicSearchResults searchQuery={searchParams.search} filters={filters} />
       )}
 
       <MoreArticles />

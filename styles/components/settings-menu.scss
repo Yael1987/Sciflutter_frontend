@@ -1,34 +1,26 @@
-@import '../abstract/mixins';
-@import '../abstract/variables';
+@use '../abstract/helpers';
+@use '../abstract/variables';
 
-.settings-menu{
-  padding: 1.6rem 2.4rem;
+.c-settings-menu{
+  padding: variables.$space-md variables.$space-lg;
   list-style: none;
-  @include flexDisplay(col, 1.6rem, flex-start, initial);
+  display: grid;
+  row-gap: variables.$space-md;
+  justify-content: start;
+  align-content: start;
 
   li{
-    font-size: 1.8rem;
+    font-size: variables.$text--md
   }
 
   &__link{
-    &,
-    &:link,
-    &:visited{
-      text-decoration: none;
-      color: $color--black-0
-    }
+    @extend %link-base;
+    @extend %link-text-hover;
 
-    &:hover{
-      color: $color--main-0;
-    }
-
-    &--active{
-      &,
-      &:link,
-      &:visited{
-        color: $color--main-0;
-        pointer-events: none;
-      }
+    &_active{
+      @extend .c-settings-menu__link;
+      color: var(--color--main-base);
+      @extend %button-disable;
     }
   }
 }

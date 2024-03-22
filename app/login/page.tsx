@@ -1,5 +1,5 @@
 import ButtonLink from "../_components/buttonLink"
-import { FormHOC, FormContainer, Header as FormHeader, Form, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton } from "../_components/form";
+import { FormHOC, FormContainer, Header as FormHeader, Form, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton, FormGroup } from "../_components/form";
 import { login } from "../_actions/authActions";
 
 const Page: React.FC = async () => {
@@ -12,33 +12,29 @@ const Page: React.FC = async () => {
         />
 
         <Form>
-          <div className="form-formulary-group">
-            <label className="form-formulary__label" htmlFor="email">
-              Email
-            </label>
+          <FormGroup>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               placeholder="Proporciona un correo electronico"
-              className="form-formulary__input"
               name="email"
               id="email"
               required
             />
-          </div>
+          </FormGroup>
 
-          <div className="form-formulary-group">
-            <label className="form-formulary__label" htmlFor="password">
+          <FormGroup>
+            <label htmlFor="password">
               Contraseña
             </label>
             <input
               type="password"
               placeholder="Tu contraseña"
-              className="form-formulary__input"
               name="password"
               id="password"
               required
             />
-          </div>
+          </FormGroup>
 
           <FormSubmitButton>Iniciar sesión</FormSubmitButton>
         </Form>

@@ -1,4 +1,4 @@
-import { User } from "./api"
+import { LoggedUser, User } from "./api"
 
 export interface ArticlePreviewI {
   author: {
@@ -39,5 +39,5 @@ export interface SearchResultsI {
 export interface FormState {
   success: boolean,
   message?: string,
-  user?: User
+  user?: LoggedUser
 }

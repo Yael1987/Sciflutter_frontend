@@ -1,37 +1,29 @@
-@import '../abstract/mixins';
-@import '../abstract/variables';
+@use '../abstract/variables';
 
-.settings-section{
+.l-settings-section{
   width: 100%;
-  @include flexDisplay(col, 2.4rem, flex-start, initial);
-  border-left: solid 1px $color--black-0;
-  border-right: solid 1px $color--black-0;
+  display: grid;
+  row-gap: variables.$space-lg;
+  justify-items: start;
+  border-left: variables.$border-thin;
+  border-right: variables.$border-thin;
 
-  &-heading{
-    padding: 1.6rem 2.4rem;
-    font-size: 2rem;
-    font-weight: 400;
-
-    &--main{
-      font-size: 1.8rem;
-      color: $color--main-10;
-      font-weight: 500;
-    }
+  &__heading, &__main{
+    padding: variables.$space-md variables.$space-lg;
   }
 
-  &-container{
+  &__heading{
+    font-size: variables.$text--md;
+    font-weight: variables.$text-weight--regular;
+  }
+
+  &__container{
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 3fr;
   }
 
-  &-main{
-    padding: 1.6rem 2.4rem;
-    border-left: solid 1px $color--black-0;
-
-    &--container{
-      width: 100%;
-      @include flexDisplay(col, 2.4rem, flex-start, flex-start);
-    }
+  &__main{
+    border-left: variables.$border-thin;
   }
 }

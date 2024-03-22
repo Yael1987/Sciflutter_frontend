@@ -13,7 +13,18 @@
   }
 }
 
+%link-text-hover{
+  &:hover{
+    color: var(--color--main-base);
+  }
+
+  &:active{
+    color: var(--color--main-dark--1);
+  }
+}
+
 %button-reset{
+  display: block;
   font-size: inherit;
   line-height: normal;
   font-family: inherit;
@@ -28,124 +39,4 @@
 %button-disable{
   cursor: not-allowed;
   pointer-events: nones;
-}
-
-.e-btn_borders{
-  position: relative;
-  transition: color 0.5s, transform 0.2s, background-color 0.2s;
-  border: 2px solid transparent;
-
-  &::before, &::after{
-    @include mixins.pseudo-absolute_full;
-  }
-
-  &::before{
-    outline: 2px solid var(--color--text-base);
-    transition: opacity 0.3s, border 0.3s;
-  }
-
-  &::after{
-    background-color: transparent;
-    outline: 2px solid var(--color--main-base);
-    opacity: 0;
-    z-index: -1;
-    transform: scaleX(1.1) scaleY(1.3);
-    transition: transform 0.3s, opacity 0.3s;
-  }
-
-  &:hover{
-    background-color: transparent;
-    box-shadow: none;
-    color: var(--color--main-base);
-
-    &::before{
-      opacity: 0;
-    }
-
-    &::after{
-      opacity: 1;
-      transform: scaleX(1) scaleY(1);
-    }
-  }
-
-  &:active{
-    transform: translateY(3px)
-  }
-}
-
-.e-btn_new-lines{
-  position: relative;
-  display: inline-block;
-  transition: all 0.3s ease;
-
-  span {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    padding: 0.8rem 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-
-    &::before,
-    &::after{
-      position: absolute;
-      content: "";
-      left: 0;
-      bottom: 0;
-      background: var(--color--main-base);
-      transition: all 0.3s ease;
-    }
-
-    &::before{
-      height: 0%;
-      width: 2px;
-    }
-
-    &::after{
-      width: 0%;
-      height: 2px;
-    }
-
-    &:hover{
-      &::after{
-        width: 100%;
-      }
-
-      &::before{
-        height: 100%;
-      }
-    }
-  }
-
-  &::after,
-  &::before{
-    position: absolute;
-    content: "";
-    right: 0;
-    top: 0;
-    background: var(--color--main-base);
-    transition: all 0.3s ease;
-  }
-
-  &::before{
-    height: 0%;
-    width: 2px;
-  }
-
-  &::after{
-    width: 0%;
-    height: 2px;
-  }
-
-  &:hover{
-    &::after{
-      width: 100%;
-    }
-
-    &::before{
-      height: 100%;
-    }
-  }
 }

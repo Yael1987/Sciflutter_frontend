@@ -5,6 +5,8 @@ interface Props {
   children: React.ReactNode
 }
 
+import '@/styles/pages/main.scss'
+
 const LayoutApp: React.FC<Props> = ({ children }) => {
   useCheckIsLoggedIn()
 

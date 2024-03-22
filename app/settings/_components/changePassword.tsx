@@ -1,14 +1,18 @@
-import { useUserStore } from "@/app/_store/userStore";
-import dynamic from "next/dynamic";
 import { useState } from "react";
-import ConfirmModal from "./confirmModal";
-import { changePassword, getToken } from "@/app/_actions/userActions";
-import { ApiErrorResponse, ApiSuccessResponse } from "@/app/_interfaces/api";
+import dynamic from "next/dynamic";
+
 import { setCookieToken } from "@/app/_actions/authActions";
+import { changePassword } from "@/app/_actions/userActions";
 
-const DynamicModalWindow = dynamic(() => import('@/app/_components/modal'), { ssr: false })
+import { useUserStore } from "@/app/_store/userStore";
 
-const FORM_FIELDS = ['password', 'newPassword', 'newPasswordConfirm']
+import type { ApiErrorResponse, ApiSuccessResponse } from "@/app/_interfaces/api";
+
+import SettingsGroup from "./settingsGroup";
+import SettingsButton from "./settingsButton";
+import ConfirmChanges from "../../_components/confirmChanges";
+
+const DynamicModalWindow = dynamic(() => import('@/app/_components/modalWindow'), { ssr: false })
 
 const ChangePassword: React.FC = () => {
   const { setAlert } = useUserStore();
@@ -18,7 +22,7 @@ const ChangePassword: React.FC = () => {
 
   return (
     <form
-      className="settings__col"
+      className="l-settings__col"
       action={(formData: FormData) => {
         if (!formData.get("newPassword") || !formData.get("newPasswordConfirm"))
           return setAlert("error", "Todos los campos con obligatorios");
@@ -26,7 +30,7 @@ const ChangePassword: React.FC = () => {
         if ((formData.get("newPassword") as string).length < 8)
           return setAlert(
             "error",
-            "La contraseña debe tener al menos 8 caracteres"
+            "Password must be at least 8 characters long"
           );
 
         if (formData.get("newPassword") !== formData.get("newPasswordConfirm"))
@@ -35,11 +39,11 @@ const ChangePassword: React.FC = () => {
         setConfirmPasswordOpen(true);
       }}
     >
-      <p className="settings-section-heading--main">Cambiar contraseña</p>
+      <p className="l-settings__heading">Cambiar contraseña</p>
 
-      <div className="settings__row">
-        <div className="settings__group">
-          <label className="settings__title" htmlFor="newPassword">
+      <div className="l-settings__row">
+        <SettingsGroup>
+          <label htmlFor="newPassword">
             Nueva contraseña (8 caracteres minimo)
           </label>
           <input
@@ -47,7 +51,7 @@ const ChangePassword: React.FC = () => {
             placeholder="***********"
             id="newPassword"
             name="newPassword"
-            className="settings__input"
+            className="input"
             value={newPassword}
             onChange={(e) => {
               if (e.target.value === " ") return;
@@ -55,18 +59,16 @@ const ChangePassword: React.FC = () => {
               setNewPassword(e.target.value);
             }}
           />
-        </div>
+        </SettingsGroup>
 
-        <div className="settings__group">
-          <label className="settings__title" htmlFor="newPasswordConfirm">
-            Confirmar nueva contraseña
-          </label>
+        <SettingsGroup>
+          <label htmlFor="newPasswordConfirm">Confirmar nueva contraseña</label>
           <input
             type="password"
             placeholder="***********"
             id="newPasswordConfirm"
             name="newPasswordConfirm"
-            className="settings__input"
+            className="input"
             value={newPasswordConfirm}
             onChange={(e) => {
               if (e.target.value === " ") return;
@@ -74,33 +76,40 @@ const ChangePassword: React.FC = () => {
               setNewPasswordConfirm(e.target.value.trim());
             }}
           />
-        </div>
+        </SettingsGroup>
       </div>
 
-      <div className="settings__submit-container">
-        <button className="settings__button">Cambiar contraseña</button>
+      <div className="l-settings__submit">
+        <SettingsButton>Cambiar contraseña</SettingsButton>
       </div>
 
-      <DynamicModalWindow isModalOpen={confirmPasswordOpen} onClickOverlay={() => setConfirmPasswordOpen(false)}>
-        <ConfirmModal
+      <DynamicModalWindow
+        isModalOpen={confirmPasswordOpen}
+        onClickOverlay={() => setConfirmPasswordOpen(false)}
+      >
+        <ConfirmChanges
           onClick={async (password: string) => {
             const formData = {
               password,
               newPassword,
-              newPasswordConfirm
-            }
+              newPasswordConfirm,
+            };
 
-            const apiResponse: ApiSuccessResponse | ApiErrorResponse = await changePassword(formData)
+            const apiResponse: ApiSuccessResponse | ApiErrorResponse =
+              await changePassword(formData);
 
-            setAlert(apiResponse.success ? "success" : 'error', apiResponse.message)
+            setAlert(
+              apiResponse.success ? "success" : "error",
+              apiResponse.message
+            );
 
             if (apiResponse.success && apiResponse.token) {
-              setCookieToken(apiResponse.token)
-              setConfirmPasswordOpen(false)
+              setCookieToken(apiResponse.token);
+              setConfirmPasswordOpen(false);
             }
           }}
-
-          onCancel={()=>setConfirmPasswordOpen(false)}
+          onCancel={() => setConfirmPasswordOpen(false)}
+          title="Confirm new password"
         />
       </DynamicModalWindow>
     </form>

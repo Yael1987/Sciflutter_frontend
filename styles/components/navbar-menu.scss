@@ -1,6 +1,7 @@
 @use '../abstract/variables';
 @use '../abstract/mixins';
 @use '../abstract/helpers';
+@use '../abstract/animations';
 
 $icon-size: 3.2rem;
 $avatar-size: 4rem;
@@ -9,19 +10,23 @@ $btn-outline: 2px solid var(--color--main-base);
 .c-navbar-menu{
   @include mixins.display-flex(row, variables.$space-xl, center, initial);
 
-  &__link{
-    @extend %link-base;
-    transition: color 0.3s ease;
+  &__link, &__btn{
+    @extend %link-text-hover;
+    transition: color variables.$a-time--short ease;
+  }
 
-    &:hover{
-      color: var(--color--main-base);
-    }
+  &__link{
+    @extend %link-base; 
+  }
+
+  &__btn{
+    @extend %button-reset;
   }
 
   &__signup{
     @extend .c-navbar-menu__link;
-    @extend .e-btn_borders;
-    padding: variables.$space-sm variables.$space-base;
+    @extend %a-btn_borders;
+    padding: variables.$padding-8x12;
   }
 
   &__icon{

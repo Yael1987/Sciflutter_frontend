@@ -1,7 +1,4 @@
 import '@/styles/components/profile.scss'
-import { Heart } from '@phosphor-icons/react/dist/ssr/Heart'
-import { PenNib } from '@phosphor-icons/react/dist/ssr/PenNib'
-import { Users } from '@phosphor-icons/react/dist/ssr/Users'
 import Image from 'next/image'
 import { User } from '@/app/_interfaces/api'
 import ProfileStats from './profileStats'
@@ -12,23 +9,24 @@ interface Props {
 
 const Profile: React.FC<Props> = ({ user, children }) => {
   return (
-    <section className="profile">
-      <div className="profile__pictures">
-        <div className="profile__picture profile__picture--cover">
+    <section className="c-profile">
+      <div className="c-profile__pictures">
+        <div className="c-profile__picture_cover">
           <Image src={user.photos.cover} alt='user cover picture' width={1200} height={600}/>
         </div>
 
-        <div className="profile__picture profile__picture--profile">
+        <div className="c-profile__picture_profile">
           <Image src={user.photos.profile} alt='user profile picture' width={250} height={250}/>
         </div>
       </div>
 
-      <div className="profile__info">
-        <div className="profile__text">
-          <h1 className="profile__info-name">
+      <div className="c-profile__info">
+        <div className="c-profile__text">
+          <h1 className="c-profile__info-name">
             {user.name} {user.lastName}
           </h1>
-          <h1 className="profile__info-discipline">{user.discipline}</h1>
+          
+          {user.discipline && <p className="c-profile__info-discipline">{user.discipline}</p>}
         </div>
 
         {user.role === 'author' && (

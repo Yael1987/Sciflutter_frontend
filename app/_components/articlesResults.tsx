@@ -6,6 +6,7 @@ import { type ArticlePreviewI } from '../_interfaces';
 import ArticlePreview from './articlePreview';
 import Pagination from './pagination';
 import { useRouter, useSearchParams } from 'next/navigation';
+import ArticlePreviewList from './articlePreviewList';
 
 interface Props {
   articles: ArticlePreviewI[]
@@ -29,15 +30,11 @@ const ArticlesResults: React.FC<Props> = ({ articles }) => {
 
   return (
     <>
-      <div className="results-articles">
-        <ul className="more-articles__list">
-          {articles.map((article) => (
-            <ArticlePreview key={article.id} article={article} />
-          ))}
-        </ul>
+      <div className="l-results-articles">
+        <ArticlePreviewList articleList={articles} emptyMessage=''/>
       </div>
 
-      <Pagination pages={pages}/>
+      <Pagination pages={pages} />
     </>
   );
 }
