@@ -1,3 +1,4 @@
+"use client"
 import { BellSimple, BellSimpleRinging } from "@phosphor-icons/react"
 import NotificationsList from "./notificationsList"
 import { useCallback, useEffect, useState } from "react"

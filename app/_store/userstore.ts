@@ -6,8 +6,8 @@ export type UserState = {
 };
 
 export type CounterActions = {
-  decrementCount: () => void;
-  incrementCount: () => void;
+  // decrementCount: () => void;
+  // incrementCount: () => void;
 };
 
 export type CounterStore = UserState & CounterActions;
@@ -21,7 +21,7 @@ export const createCounterStore = (
 ) => {
   return createStore<CounterStore>()((set) => ({
     ...initState,
-    decrementCount: () => set((state) => ({ count: state.count - 1 })),
-    incrementCount: () => set((state) => ({ count: state.count + 1 })),
+    // decrementCount: () => set((state) => ({ count: state.count - 1 })),
+    // incrementCount: () => set((state) => ({ count: state.count + 1 })),
   }));
 };

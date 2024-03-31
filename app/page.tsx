@@ -1,8 +1,8 @@
-import React, { Suspense } from 'react'
+import dynamic from 'next/dynamic'
+
 import MainSearch from './_components/mainSearch'
 import MoreArticles from './_components/moreArticles'
 import MoreAuthors from './_components/moreAuthors'
-import dynamic from 'next/dynamic'
 
 interface Props {
   searchParams: {

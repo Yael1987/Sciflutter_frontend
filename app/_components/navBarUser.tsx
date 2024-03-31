@@ -1,3 +1,4 @@
+"use client"
 import clsx from 'clsx'
 
 import { usePathname } from 'next/navigation'
@@ -5,20 +6,24 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link';
 
-import { UserStore, useUserStore } from "../_store/userStore";
+import { useUserStore } from "../_store/userStore";
 
-import { LoggedUser } from "../_interfaces/api"
+import type { LoggedUser } from "../_interfaces/api"
 
 import { BookmarksSimple, DotsThreeOutline, FilePlus } from "@phosphor-icons/react";
 
 import '@/styles/components/navbar-menu.scss'
 import { NotificationProvider } from '../_store/notificationsContext';
 import NotificationsButton from './notificationsButton';
+import { FC } from 'react';
 
+interface Props{
+  user: LoggedUser
+}
 
-const NavBarUser: React.FC = () => { 
+const NavBarUser: FC<Props> = ({ user }) => {
   const pathname = usePathname()
-  const user = useUserStore((state: UserStore) => state.user) as LoggedUser
+  // const user = useUserStore((state: UserStore) => state.user) as LoggedUser
   const { toogleMenuOpen } = useUserStore()
 
   return (

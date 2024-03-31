@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useRef } from 'react'
+"use client"
+import { createContext, useContext, useRef } from 'react'
 import { type StoreApi, useStore } from 'zustand'
 import { type NotificationStore, createNotificationStore } from './notificationStore'
 
