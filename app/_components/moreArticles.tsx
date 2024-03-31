@@ -1,21 +1,17 @@
-import React from 'react'
-
-
 import '@/styles/layout/more.scss'
 
-import { sampleMoreArticles } from '../_utils/data'
 import { HeadingSecondary } from './headings'
 import ArticlePreviewList from './articlePreviewList'
-import { ArticlePreview } from '../_interfaces/api'
+import { getMoreArticles } from '../_actions/articleActions'
 
-const MoreArticles: React.FC = () => {
-  // const sampleArt: ArticlePreview[] = [];
+const MoreArticles: React.FC = async () => {
+  const moreArticles = await getMoreArticles()
 
   return (
     <aside className="l-more">
       <HeadingSecondary>Mas articulos</HeadingSecondary>
 
-      <ArticlePreviewList articleList={sampleMoreArticles} emptyMessage='There are no recommended articles'/>
+      <ArticlePreviewList articleList={moreArticles} emptyMessage='There are no recommended articles'/>
     </aside>
   );
 }

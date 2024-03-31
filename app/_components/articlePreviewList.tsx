@@ -4,7 +4,7 @@ import ArticlePreviewSkeleton from '../_skeletons/articlePreviewSkeleton';
 import { ArticlePreview } from '../_interfaces/api';
 import Message from './message';
 
-const DynamicArticlePreview = dynamic(() => import('./articlePreview'), { loading: () => <ArticlePreviewSkeleton /> })
+const DynamicArticlePreview = dynamic(() => import('./articlePreview'), { loading: () => <ArticlePreviewSkeleton />, ssr: false })
 
 interface Props{
   articleList: ArticlePreview[];

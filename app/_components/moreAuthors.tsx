@@ -1,17 +1,17 @@
-import React from 'react'
-
 import "@/styles/layout/more.scss";
 
-import { sampleMoreAuthors } from '../_utils/data';
 import { HeadingSecondary } from './headings';
 import AuthorCardList from './authorCardList';
+import { getMoreAuthors } from "../_actions/userActions";
 
-const MoreAuthors: React.FC = () => {
+const MoreAuthors: React.FC = async () => {
+  const moreAuthors = await getMoreAuthors()
+
   return (
     <aside className="l-more">
       <HeadingSecondary>Descubre autores</HeadingSecondary>
 
-      <AuthorCardList authorsList={sampleMoreAuthors} emptyMessage='No users recommended found'/>
+      <AuthorCardList authorsList={moreAuthors} emptyMessage='No users recommended found'/>
     </aside>
   );
 }

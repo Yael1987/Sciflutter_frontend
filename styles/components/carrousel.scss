@@ -52,3 +52,11 @@ $icon-size: 4rem;
   @extend %button-disable;
   color: var(--color--text-base);
 }
+
+.has-no-btns{
+  grid-template-columns: 1fr;
+}
+
+.has-center-items{
+  justify-content: center;
+}

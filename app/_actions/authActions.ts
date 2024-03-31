@@ -108,6 +108,12 @@ export const checkCookieExist = (): boolean => {
   return Boolean(token)
 }
 
+export const checkAdminCookieExist = (): boolean => {
+  const token = cookies().get('sciflutter_admin')
+
+  return Boolean(token)
+}
+
 export const setCookieToken = (token: string): void => {
   const cookieOptions = {
     expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),

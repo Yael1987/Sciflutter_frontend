@@ -2,6 +2,7 @@ import { create } from "zustand"
 import type { ArticlePreview, LoggedUser } from "../_interfaces/api"
 import { getLoggedUser } from "../_actions/userActions"
 import createAlertSlice, { type AlertStore } from "./alertSlice";
+import createSocketSlice, { type SocketStore } from "./socketSlice";
 import { getSavedArticles } from "../_actions/featuresActions";
 
 export interface UserStore {
@@ -15,7 +16,7 @@ export interface UserStore {
   clearUser: () => void;
 }
 
-export const useUserStore = create<UserStore & AlertStore>()((set, get, store) => ({
+export const useUserStore = create<UserStore & AlertStore & SocketStore>()((set, get, store) => ({
   user: null,
   savedArticles: null,
   menuOpen: false,
@@ -26,7 +27,7 @@ export const useUserStore = create<UserStore & AlertStore>()((set, get, store) =
     set(() => ({ savedArticles }))
   },
   initLoggedUser: async () => {
-    const { user } = get()
+    const { user, initSocket } = get()
 
     const loggedUser: LoggedUser | null = await getLoggedUser()
 
@@ -34,11 +35,13 @@ export const useUserStore = create<UserStore & AlertStore>()((set, get, store) =
 
     if (user && user._id === loggedUser?._id) return true
 
+    await initSocket()
     set(() => ({ user: loggedUser }))
 
     return true
   },
   clearUser: () => set(() => ({ user: null })),
   toogleMenuOpen: () => set(state => ({ menuOpen: !state.menuOpen })),
-  ...createAlertSlice(set, get, store)
+  ...createAlertSlice(set, get, store),
+  ...createSocketSlice(set, get, store)
 }))

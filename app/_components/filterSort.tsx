@@ -1,31 +1,37 @@
 "use client"
-import React from 'react'
 
-import { ArticlePreviewI } from '../_interfaces'
-
-import { getMonth } from '../_utils/dateUtils'
 import '@/styles/components/filter-sort.scss'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { ArticlePreview, UserPreview } from '../_interfaces/api'
 
 const SORT_OPTIONS = [
-  { value: "year", name: "Mas reciente" },
-  { value: "-year", name: "Mas antiguo" },
-  { value: "alphabetic", name: "A-Z" },
-  { value: "-aplhabetic", name: "Z-A" }
-]
+  {value: "createdAt", name: "Mas reciente"},
+  {value: "-createdAt", name: "Mas antiguo"},
+  {value: "name", name: "A-Z"},
+  {value: "-name", name: "Z-A"},
+];
 
 interface Props{
-  articles: ArticlePreviewI[]
+  articleFilters: {
+    disciplines: string[],
+    years: number[]
+  },
+  authorFilters: string[]
 }
 
-const FilterSort: React.FC<Props> = ({ articles }) => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const {replace} = useRouter();
-
-  const years = Array.from(new Set(articles.map(article => new Date(article.createdAt).getFullYear().toString())))
-  const months = Array.from(new Set(articles.map(article => getMonth(article.createdAt))))
-  const disciplines = Array.from(new Set(articles.map(article => article.discipline)))
+const FilterSort: React.FC<Props> = ({ articleFilters, authorFilters }) => {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
+  
+  const disciplines = Array.from(
+    new Set(
+      [
+        ...articleFilters.disciplines,
+        ...authorFilters
+      ]
+    )
+  );
 
   const changeFilter = (filter: string, value: string) => {
     const params = new URLSearchParams(searchParams);
@@ -54,25 +60,9 @@ const FilterSort: React.FC<Props> = ({ articles }) => {
             onChange={(e) => handleSelectOption(e, "year")}
           >
             <option value="">---</option>
-            {years.map((year) => (
+            {articleFilters.years.map((year) => (
               <option value={year} key={year}>
                 {year}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="c-filter-sort__item">
-          <p className="c-filter-sort__item-title">Month</p>
-          <select
-            className="c-filter-sort__item-options"
-            defaultValue={searchParams.get("month") ?? ""}
-            onChange={(e) => handleSelectOption(e, "month")}
-          >
-            <option value="">---</option>
-            {months.map((month) => (
-              <option value={month} key={month}>
-                {month}
               </option>
             ))}
           </select>
@@ -82,15 +72,16 @@ const FilterSort: React.FC<Props> = ({ articles }) => {
           <p className="c-filter-sort__item-title">Discipline</p>
           <select
             className="c-filter-sort__item-options"
-            defaultValue={searchParams.get('discipline') ?? ""}
+            defaultValue={searchParams.get("discipline") ?? ""}
             onChange={(e) => handleSelectOption(e, "discipline")}
           >
             <option value="">---</option>
-            {disciplines.map((discipline) => (
-              <option value={discipline} key={discipline}>
-                {discipline}
-              </option>
-            ))}
+            {disciplines.length > 0 &&
+              disciplines.map((discipline) => (
+                <option value={discipline!} key={discipline}>
+                  {discipline}
+                </option>
+              ))}
           </select>
         </div>
       </div>
@@ -99,7 +90,10 @@ const FilterSort: React.FC<Props> = ({ articles }) => {
         <div className="c-filter-sort__item">
           <p className="c-filter-sort__item-title">Sort by</p>
 
-          <select className="c-filter-sort__item-options">
+          <select
+            className="c-filter-sort__item-options"
+            onChange={(e) => handleSelectOption(e, "sort")}
+          >
             {SORT_OPTIONS.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.name}

@@ -1,12 +1,10 @@
 import Image from 'next/image'
 
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr/ArrowRight'
 import { PenNib } from '@phosphor-icons/react/dist/ssr/PenNib'
 import { Heart } from '@phosphor-icons/react/dist/ssr/Heart'
 import { Users } from '@phosphor-icons/react/dist/ssr/Users'
 
 import '@/styles/components/author-card.scss'
-import Link from 'next/link'
 import { UserPreview } from '../_interfaces/api'
 import LinkSimple from './linkSimple'
 
@@ -58,7 +56,7 @@ const AuthorCard: React.FC<Props> = ({ author }) => {
         />
       </Link> */}
 
-      <LinkSimple href={`/users/${author._id}`}>Ver perfil</LinkSimple>
+      <LinkSimple href={`/user/${author._id}`}>Ver perfil</LinkSimple>
     </li>
   );
 }

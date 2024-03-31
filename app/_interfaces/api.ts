@@ -35,6 +35,21 @@ export interface LoggedUser extends User{
   isAdmin: boolean;
 }
 
+export interface Request {
+  _id: string,
+  requester: {
+    _id: string,
+    name: string,
+    lastName: string
+  },
+  status: string,
+  type: string,
+  date: string,
+  article?: string,
+  draft?: string,
+  message?: string
+}
+
 export interface ArticlePreview{
   _id: string,
   name: string,
@@ -77,6 +92,16 @@ export interface Draft extends DraftPreview {
   requested: boolean
 }
 
+export interface Notification {
+  _id: string,
+  user: string,
+  title: string,
+  message: string,
+  read: boolean,
+  type: ['error', 'success', 'warning'],
+  createdAt: string
+}
+
 export interface ApiResponseBase {
   success: boolean,
   message: string
@@ -90,6 +115,7 @@ export interface ApiErrorResponse extends ApiResponseBase {
 export interface ApiSuccessResponse extends ApiResponseBase {
   success: true;
   results?: number;
+  pages?: number;
   data: {
     user?: User | LoggedUser;
     users?: UserPreview[];
@@ -101,6 +127,9 @@ export interface ApiSuccessResponse extends ApiResponseBase {
     follow?: boolean;
     like?: boolean;
     stats?: UserStats;
+    request?: Request;
+    requests?: Request[];
+    notifications?: Notification[]
   };
   token?: string;
 }

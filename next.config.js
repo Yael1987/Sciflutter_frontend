@@ -102,6 +102,17 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/request",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/request/:requestId",
+        missing: [adminCookie, cookieObj],
+        destination: "/",
+        permanent: true,
+      },
+      {
         source: "/settings/((?!seguridad).*)",
         destination: "/settings/",
         permanent: true,

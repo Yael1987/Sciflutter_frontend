@@ -12,7 +12,7 @@ const BookmarkCard: React.FC<Props> = ({ articleId }) => {
   const { savedArticles, getSavedArticles, setAlert } = useUserStore()
   
   if (!savedArticles) return (
-    <button className="article-preview__bookmark">
+    <button className="c-article-preview__bookmark">
       <BookmarkSimple
         size={40}
         className="c-article-preview__icon"

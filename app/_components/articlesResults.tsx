@@ -1,22 +1,19 @@
 "use client"
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
-import { type ArticlePreviewI } from '../_interfaces';
-
-import ArticlePreview from './articlePreview';
 import Pagination from './pagination';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ArticlePreviewList from './articlePreviewList';
+import { ArticlePreview } from '../_interfaces/api';
 
 interface Props {
-  articles: ArticlePreviewI[]
+  articles: ArticlePreview[],
+  pages: number
 }
 
-const ArticlesResults: React.FC<Props> = ({ articles }) => {
+const ArticlesResults: React.FC<Props> = ({ articles, pages }) => {
   const { push } = useRouter()
   const searchParams = useSearchParams()
-
-  const pages = Math.ceil(articles.length / 2)
 
   useEffect(() => {
     if (!searchParams.get("page")) {
@@ -34,7 +31,7 @@ const ArticlesResults: React.FC<Props> = ({ articles }) => {
         <ArticlePreviewList articleList={articles} emptyMessage=''/>
       </div>
 
-      <Pagination pages={pages} />
+      {pages > 1 && <Pagination pages={pages} />}
     </>
   );
 }

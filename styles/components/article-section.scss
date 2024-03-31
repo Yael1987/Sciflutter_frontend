@@ -2,9 +2,10 @@
 @use '../abstract/mixins';
 
 .article-section{
-  @include mixins.display-flex(column, variables.$space-md, initial, flex-start);
-
+  
   div{
+    @include mixins.display-flex(column, variables.$space-md, initial, center);
+    text-align: start;
     width: 100%;
   }
 
@@ -22,6 +23,7 @@
   }
   
   img{
+    max-width: 100%;
     height: auto;
   }
 }

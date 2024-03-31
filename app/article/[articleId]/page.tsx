@@ -1,6 +1,6 @@
 import { revalidateTag } from 'next/cache'
 
-import { getArticle } from '@/app/_actions/articleActions'
+import { getArticle, getRequestedArticle } from '@/app/_actions/articleActions'
 
 import ArticleHeader from '../_components/articleHeader'
 import ArticleResume from '../_components/articleResume'
@@ -8,6 +8,7 @@ import ArticleBody from '../_components/articleBody'
 
 // import '@/styles/layout/article.scss'
 import '@/styles/pages/article.scss'
+import { checkAdminCookieExist } from '@/app/_actions/authActions'
 
 interface Props{
   params: {
@@ -18,7 +19,10 @@ interface Props{
 const Page: React.FC<Props> = async ({ params }) => {
   // const article = getArticleById(params.articleId)
   revalidateTag("articles")
-  const article = await getArticle(params.articleId)
+  let article
+
+  if(checkAdminCookieExist()) article = await getRequestedArticle(params.articleId);
+  else article = await getArticle(params.articleId)
 
   if(!article) return <p>Articulo no encontrado</p>
 

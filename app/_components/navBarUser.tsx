@@ -9,9 +9,11 @@ import { UserStore, useUserStore } from "../_store/userStore";
 
 import { LoggedUser } from "../_interfaces/api"
 
-import { BookmarksSimple, Chats, DotsThreeOutline, FilePlus } from "@phosphor-icons/react";
+import { BookmarksSimple, DotsThreeOutline, FilePlus } from "@phosphor-icons/react";
 
 import '@/styles/components/navbar-menu.scss'
+import { NotificationProvider } from '../_store/notificationsContext';
+import NotificationsButton from './notificationsButton';
 
 
 const NavBarUser: React.FC = () => { 
@@ -46,17 +48,10 @@ const NavBarUser: React.FC = () => {
       >
         <FilePlus size={32} weight="light" className="c-navbar-menu__icon" />
       </Link>
-
-      <Link
-        type="icon"
-        href="/chats"
-        className={clsx(
-          "c-navbar-menu__link",
-          pathname === "/chats" && "is-active"
-        )}
-      >
-        <Chats size={32} weight="light" className="c-navbar-menu__icon" />
-      </Link>
+      
+      <NotificationProvider>
+        <NotificationsButton />
+      </NotificationProvider>
 
       <Link
         type="icon"

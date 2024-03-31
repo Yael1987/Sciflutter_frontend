@@ -18,7 +18,7 @@ import ArticlePreviewSkeleton from "@/app/_skeletons/articlePreviewSkeleton";
 
 import '@/styles/components/my-article.scss'
 
-const DynamicArticlePreview = dynamic(() => import("@/app/_components/articlePreview"), { loading: () => <ArticlePreviewSkeleton />, ssr: false });
+const DynamicArticlePreview = dynamic(() => import("@/app/_components/articlePreview"), { loading: () => <ArticlePreviewSkeleton /> });
 
 const DynamicModalWindow = dynamic(() => import('@/app/_components/modalWindow'), { ssr: false })
 

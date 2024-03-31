@@ -1,5 +1,6 @@
 @use '../abstract/variables';
 @use '../abstract/mixins';
+@use '../abstract/helpers';
 
 .l-requests-table{
   width: 100%;
@@ -35,6 +36,11 @@
 
     td:last-child{
       text-align: center;
+    }
+
+    a{
+      @extend %link-base;
+      @extend %link-text-hover;
     }
   }
 }

@@ -9,14 +9,14 @@ import AuthorCard from './authorCard';
 import { UserPreview } from '../_interfaces/api';
 
 import '@/styles/components/carrousel.scss'
+import clsx from 'clsx';
 
 interface Props {
-  children?: React.ReactNode;
   showButtons: boolean;
   itemsList: UserPreview[];
 }
 
-const Carrousel: React.FC<Props> = ({ children, showButtons, itemsList }) => {
+const Carrousel: React.FC<Props> = ({ showButtons, itemsList }) => {
   const [isDragStart, setIsDragStart] = useState(false)
   const [dragStartX, setDragStartX] = useState(0);
   const [dragStartScrollLeft, setDragStartScrollLeft] = useState(0);
@@ -74,10 +74,10 @@ const Carrousel: React.FC<Props> = ({ children, showButtons, itemsList }) => {
   }
 
   return (
-    <div className="c-carrousel">
+    <div className={clsx("c-carrousel", !showButtons && 'has-no-btns')}>
       {showButtons && (
         <button
-        onClick={scrollLeft}
+          onClick={scrollLeft}
           className="c-carrousel__btn"
         >
           <CaretLeft size={48} />
@@ -85,18 +85,18 @@ const Carrousel: React.FC<Props> = ({ children, showButtons, itemsList }) => {
       )}
 
       {/* <div className="c-carrousel__list-wrapper"> */}
-      <ul
-        className="c-carrousel__list"
-        onMouseDown={dragStart}
-        onMouseUp={dragStop}
-        onMouseMove={dragging}
-        ref={carouselRef}
-      >
-        {itemsList.length > 0 &&
-          itemsList.map((author: UserPreview) => (
-            <AuthorCard author={author} key={author.id} />
-          ))}
-      </ul>
+        <ul
+          className={clsx("c-carrousel__list", !showButtons && 'has-center-items')}
+          onMouseDown={dragStart}
+          onMouseUp={dragStop}
+          onMouseMove={dragging}
+          ref={carouselRef}
+        >
+          {itemsList.length > 0 &&
+            itemsList.map((author: UserPreview) => (
+              <AuthorCard author={author} key={author._id} />
+            ))}
+        </ul>
       {/* </div>  */}
 
       {showButtons && (

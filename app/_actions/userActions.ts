@@ -1,6 +1,6 @@
 "use server"
 import { cookies } from 'next/headers'
-import type { ApiErrorResponse, ApiSuccessResponse, LoggedUser, User, UserStats } from '../_interfaces/api'
+import type { ApiErrorResponse, ApiSuccessResponse, LoggedUser, User, UserPreview, UserStats } from '../_interfaces/api'
 import { revalidateTag } from 'next/cache'
 
 const defaultStats: UserStats = {
@@ -48,6 +48,33 @@ export const getUser = async (userId: string): Promise<{success: boolean, messag
   }
 }
 
+export const getSearchAuthors = async (search: string, queryString: string): Promise<UserPreview[]> => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/authors?name=${search}${queryString}`, { next: { tags: ['authors_results'], revalidate: 60 } })
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
+
+  if (!data.success) return []
+
+  return data.data.users!
+}
+
+export const getMoreAuthors = async (): Promise<UserPreview[]> => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/authors?limit=4`, { next: { tags: ['more_authors'], revalidate: 300 } })
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
+
+  if (!data.success) return []
+
+  return data.data.users!
+}
+
+export const getAuthorFilters = async (query: string) => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/filters?name=${query}`, { next: { tags: ['authors_results'], revalidate: 60 } })
+  const data = await response.json()
+
+  if (!data.success) return []
+
+  return data.data.disciplines!
+}
+
 export const getUserStats = async (userId: string): Promise<UserStats> => {
   const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}/stats`, { next: { tags: ['users-stats'] } })
   const data: ApiSuccessResponse | ApiErrorResponse = await response.json()
@@ -71,7 +98,7 @@ export const updateUserData = async (formData: FormData): Promise<{success: bool
 
   if (!data.success) return { success: data.success, message: data.message }
   
-  return { success: data.success, message: data.message, user: (data.data as LoggedUser) }
+  return { success: data.success, message: data.message, user: (data.data.user as LoggedUser) }
 }
 
 export const deactivateAccount = async (password: string): Promise<ApiErrorResponse | ApiSuccessResponse> => {

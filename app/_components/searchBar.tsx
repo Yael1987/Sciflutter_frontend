@@ -30,9 +30,15 @@ const SearchBar: React.FC = () => {
     if (searchInput) {
       params.set("search", searchInput);
       params.delete("page");
+      params.delete("sort");
+      params.delete("year");
+      params.delete("discipline");
     } else {
       params.delete("search");
       params.delete("page");
+      params.delete('sort')
+      params.delete('year')
+      params.delete('discipline')
     }
 
     push(`${pathname}?${params.toString()}`, { scroll: false });

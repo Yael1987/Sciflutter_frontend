@@ -4,12 +4,13 @@ import Link from 'next/link'
 
 interface Props{
   href: string,
-  children: React.ReactNode
+  children: React.ReactNode,
+  target?: string
 }
 
-const LinkSimple: React.FC<Props> = ({ href, children }) => {
+const LinkSimple: React.FC<Props> = ({ href, children, target = '_self' }) => {
   return (
-    <Link href={href} className="c-link-simple">
+    <Link href={href} className="c-link-simple" target={target}>
       {children}
       <ArrowRight size={32} weight="thin" className="c-link-simple__icon" />
     </Link>

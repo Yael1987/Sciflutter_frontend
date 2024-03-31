@@ -1,58 +1,54 @@
-"use client"
-import { useEffect, useState } from 'react'
-
 import FilterSort from './filterSort'
-import ArticlesResults from './articlesResults'
 import AuthorsResults from './authorsResults'
-
-import { getSearchedArticles } from '../_utils/getData'
-import { filterArticles, filterAuthors } from '../_utils/filter'
 
 import '@/styles/layout/results.scss'
 import SearchResume from './searchResume'
 import Message from './message'
+import ArticlesResults from './articlesResults'
+import { getArticleFilters, getSearchArticles } from '../_actions/articleActions'
+import { getAuthorFilters, getSearchAuthors } from '../_actions/userActions'
 
-interface Props{
-  searchQuery: string,
-  filters: {
-    year?: string | null,
-    month?: string | null,
-    discipline?: string | null
-  }
+interface Props {
+  articlesQueryString: string;
+  authorsQueryString: string;
+  searchQuery: string;
 }
 
-const SearchResults: React.FC<Props> = ({ searchQuery, filters }) => {
-  const [{ articles, authors }, setSearchResults] = useState(getSearchedArticles(searchQuery))
+const SearchResults: React.FC<Props> = async ({ articlesQueryString, authorsQueryString, searchQuery }) => {
+  const {articles, totalPages} = await getSearchArticles(
+    searchQuery,
+    articlesQueryString
+  );
+  const authors = await getSearchAuthors(
+    searchQuery,
+    authorsQueryString
+  );
 
-  let filteredArticles = filterArticles(articles ?? [], filters)
-  let filteredAuthors = filterAuthors(authors ?? [], filters.discipline ?? null)
-
-  useEffect(() => {
-    setSearchResults(getSearchedArticles(searchQuery))
-  }, [searchQuery])
+  const articleFilters = await getArticleFilters(searchQuery)
+  const authorFilters = await getAuthorFilters(searchQuery)
 
   return (
     <section className="l-results">
       <SearchResume
         searchQuery={searchQuery}
-        articlesResults={filteredArticles.length}
-        authorsResults={filteredAuthors.length}
+        articlesResults={articles.length}
+        authorsResults={authors.length}
       />
 
-      {articles?.length !== 0 && authors?.length !== 0 && (
-        <FilterSort articles={articles ?? []} />
+      {(articles?.length !== 0 || authors?.length !== 0) && (
+        <FilterSort articleFilters={articleFilters} authorFilters={authorFilters}/>
       )}
 
-      {filteredArticles.length === 0 && filteredAuthors.length === 0 ? (
+      {articles.length === 0 && authors.length === 0 ? (
         <Message message='Al parecer no hubo coincidencias para los parametros de busqueda.' subMessage='Por favor intente con otros parametros.'/>
       ) : (
         <>
-          {filteredArticles.length !== 0 && (
-            <ArticlesResults articles={filteredArticles} />
+          {articles.length !== 0 && (
+            <ArticlesResults articles={articles} pages={totalPages}/>
           )}
 
-          {filteredAuthors.length !== 0 && (
-            <AuthorsResults authors={filteredAuthors} />
+          {authors.length !== 0 && (
+            <AuthorsResults authors={authors} />
           )}
         </>
       )}

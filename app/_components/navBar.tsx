@@ -1,18 +1,20 @@
-"use client"
+'use client'
+import { type FC, useCallback, useEffect, useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
+
+import { type UserStore, useUserStore } from '../_store/userStore'
+
 import NavBarUser from './navBarUser'
 
 import NavBarSkeleton from '../_skeletons/navBarSkeleton'
-import { UserStore, useUserStore } from '../_store/userStore'
-import { useCallback, useEffect, useState } from 'react'
-import { useShallow } from 'zustand/react/shallow'
 
-const NavBar = () => {
+const NavBar: FC = () => {
   const user = useUserStore((state: UserStore) => state.user)
   const initLoggedUser = useUserStore(useShallow((state: UserStore) => state.initLoggedUser))
   const initUser = useCallback(
     async () => await initLoggedUser(),
     [initLoggedUser]
-  );
+  )
   const [loading, setLoading] = useState<boolean>(Boolean(user))
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const NavBar = () => {
   if (!loading && user) {
     return <NavBarUser/>
   } else {
-    return <NavBarSkeleton/>;
+    return <NavBarSkeleton/>
   }
 }
 

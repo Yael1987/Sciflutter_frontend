@@ -1,6 +1,5 @@
 import { getUser } from '@/app/_actions/userActions';
-import dynamic from 'next/dynamic';
-import { User } from '@/app/_interfaces/api';
+import dynamic from 'next/dynamic';;
 import ProfileSkeleton from '@/app/_skeletons/profileSkeleton';
 import { revalidateTag } from 'next/cache';
 

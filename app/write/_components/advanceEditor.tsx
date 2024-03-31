@@ -74,8 +74,8 @@ const setEditorConfig = (
       allow: [
         {
           name: /.*/,
-          classes: true,
           attributes: true,
+          classes: true,
           styles: true
         },
         {
@@ -103,6 +103,7 @@ const AdvanceEditor: React.FC<Props> = ({ handleAutosave, handleSetData, initial
       data={initialData}
       onChange={(event, editor) => {
         const data = editor.getData()
+        
         handleSetData(data)
       }}
     />
