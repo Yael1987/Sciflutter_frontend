@@ -3,7 +3,7 @@ import ModalBox from "@/app/_components/modalBox";
 import ModalButtons from "@/app/_components/modalButtons";
 import ModalGroup from "@/app/_components/modalGroup";
 import ModalHeader from "@/app/_components/modalHeader";
-import { useUserStore } from "@/app/_store/userStore";
+import { useAlertContext } from "@/app/_context/alertContext";
 import React, { useState } from "react";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 
 const ConfirmDelete: React.FC<Props> = ({ onCancel, onClick, title, children }) => {
   const [confirmText, setConfirmText] = useState('')
-  const { setAlert } = useUserStore()
+  const { setAlert } = useAlertContext(state => state)
 
   const handleAccept = () => {
     if (confirmText !== 'DELETE') {

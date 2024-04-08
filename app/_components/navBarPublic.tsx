@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 
-import ButtonLink from './buttonLink';
+import Link from 'next/link';
 
 import "@/styles/components/navbar-menu.scss";
 
@@ -11,7 +11,7 @@ const NavBarPublic: React.FC = () => {
 
   return (
     <nav className="c-navbar-menu">
-      <ButtonLink
+      <Link
         href="/login"
         type="icon"
         className={clsx(
@@ -20,9 +20,9 @@ const NavBarPublic: React.FC = () => {
         )}
       >
         Iniciar sesion
-      </ButtonLink>
+      </Link>
 
-      <ButtonLink
+      <Link
         href="/registrarse"
         type="icon"
         className={clsx(
@@ -31,7 +31,7 @@ const NavBarPublic: React.FC = () => {
         )}
       >
         Registrarse
-      </ButtonLink>
+      </Link>
     </nav>
   );
 }

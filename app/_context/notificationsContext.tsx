@@ -1,7 +1,7 @@
 "use client"
 import { createContext, useContext, useRef } from 'react'
 import { type StoreApi, useStore } from 'zustand'
-import { type NotificationStore, createNotificationStore } from './notificationStore'
+import { type NotificationStore, createNotificationStore } from '../_store/notificationStore'
 
 interface Props{
   children: React.ReactNode
@@ -24,12 +24,11 @@ export const NotificationProvider: React.FC<Props> = ({ children }) => {
 }
 
 export const useNotificationStore = <T,>( selector: (store: NotificationStore) => T, ): T => {
-  const counterStoreContext = useContext(NotificationsContext)
+  const notificationStoreContext = useContext(NotificationsContext)
 
-  if (!counterStoreContext) {
+  if (!notificationStoreContext) {
     throw new Error(`useNotificationStore must be use within NotificationStoreProvider`)
   }
 
-  return useStore(counterStoreContext, selector)
+  return useStore(notificationStoreContext, selector)
 }
-

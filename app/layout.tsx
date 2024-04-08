@@ -9,11 +9,16 @@ import type { LoggedUser } from './_interfaces/api'
 import Header from './_components/header'
 import Footer from './_components/footer'
 import NavBarPublic from './_components/navBarPublic'
-import ToogleMenu from './_components/toogleMenu'
+import BackButton from "./_components/backButton";
+import { ToogleMenu } from './_components/toogleMenu'
 
 import NavBarSkeleton from './_skeletons/navBarSkeleton'
 
 import { getLoggedUser } from './_actions/userActions'
+
+import { SideMenuProvider } from './_context/sideMenuContext'
+import { AlertProvider } from './_context/alertContext'
+import { SocketProvider } from './_context/socketContext'
 
 import '@/styles/globals.scss'
 import '@/styles/pages/main.scss'
@@ -41,17 +46,30 @@ const RootLayout: FC<Props> = async ({ children }) => {
   return (
     <html lang="en">
       <body className={`${montserrat.className} light`}>
-        <Header>
-          {!loggedUser ? <NavBarPublic /> : <DynamicNavBar user={loggedUser} />}
-        </Header>
+        <AlertProvider>
+          <SideMenuProvider>
+            <SocketProvider>
+              <Header>
+                {!loggedUser ? (
+                  <NavBarPublic />
+                ) : (
+                  <DynamicNavBar user={loggedUser} />
+                )}
+              </Header>
 
-        <main className="l-container_main">{children}</main>
+              <BackButton/>
+              <main className="l-container_main">
+                {children}
+              </main>
+            </SocketProvider>
 
-        <Footer />
+            <Footer />
 
-        <ToogleMenu />
+            {loggedUser && <ToogleMenu user={loggedUser} />}
 
-        <DynamicAlert />
+            <DynamicAlert />
+          </SideMenuProvider>
+        </AlertProvider>
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import { cookies } from "next/headers"
 import Cookies from "js-cookie";
 import type { FormState } from "../_interfaces"
 import type { ApiErrorResponse, ApiResponseBase, ApiSuccessResponse, LoggedUser } from "../_interfaces/api";
+import { revalidateTag } from "next/cache";
 
 export const signup = async (prevState: FormState, formData: FormData): Promise<FormState> => {
   const response = await fetch(`${process.env.BACKEND_URL}/users/signup`, {
@@ -102,7 +103,7 @@ export const confirmAccount = async (token: string): Promise<ApiErrorResponse | 
   return await response.json()
 }
 
-export const checkCookieExist = (): boolean => {
+export const checkCookieExist = async (): Promise<boolean> => {
   const token = cookies().get('token_sciflutter')
 
   return Boolean(token)
@@ -127,6 +128,8 @@ export const setCookieToken = (token: string): void => {
 export const signout = (): void => {
   if(cookies().has('sciflutter_admin')) cookies().delete("sciflutter_admin");
   cookies().delete('token_sciflutter')
+  revalidateTag('saves')
+  revalidateTag('loggedUser')
 }
 
 export const getTokenClient = (): string | null => {

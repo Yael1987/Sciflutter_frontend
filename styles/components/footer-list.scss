@@ -20,14 +20,15 @@ $color-link: variables.$color--text-white;
     }
   }
 
-  &__link{
+  &__link, &__btn{
     @extend %link-base;
+    @extend %link-text-hover;
     color: $color-link;
     font-weight: 300;
     transition: color variables.$a-time--short ease;
+  }
 
-    &:hover{
-      color: var(--color--main-base);
-    }
+  &__btn{
+    @extend %button-reset;
   }
 }

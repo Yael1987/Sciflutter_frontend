@@ -1,6 +1,18 @@
 @use '../abstract/animations';
+@use '../components/settings-group.scss';
+@use '../layout/settings.scss';
 
 .s-settings{
+  width: 100%;
+
+  &__heading{
+    @extend .l-settings__heading;
+  }
+
+  &__content{
+    @extend .l-settings__content;
+  }
+
   &__input{
     @extend %a-skeleton;
     width: 100%;
@@ -16,5 +28,21 @@
     row-gap: 2.4rem;
     justify-items: start;
     align-content: start;
+  }
+
+  &__group {
+    @extend .c-settings-group;
+  }
+
+  &__photos{
+    width: 100%;
+    display: grid;
+    row-gap: 2.4rem;
+    justify-content: center;
+    align-content: center;
+  }
+
+  &__row{
+    @extend .l-settings__row;
   }
 }

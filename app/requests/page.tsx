@@ -1,27 +1,15 @@
-import '@/styles/layout/requests-table.scss'
-import '@/styles/layout/requests-panel.scss'
-import '@/styles/components/requests-options.scss'
-import '@/styles/pages/requests.scss'
-import { HeadingSecondary } from '../_components/headings';
-import { Check } from '@phosphor-icons/react/dist/ssr/Check';
-import { ClockCountdown } from '@phosphor-icons/react/dist/ssr/ClockCountdown';
-import { X } from '@phosphor-icons/react/dist/ssr/X';
-import Pagination from '../_components/pagination';
 import { getRequestById, getRequests } from '../_actions/requestsActions';
+
+import { HeadingSecondary } from '../_components/headings';
+import Pagination from '../_components/pagination';
 import Message from '../_components/message';
-import { formatDate } from '../_utils/dateUtils';
 import SearchBar from './_components/searchBar';
 import FilterSort from './_components/filterSort';
+import RequestsTable from './_components/requestsTable';
 
-const ICONS: {
-  pending: React.ReactNode,
-  rejected: React.ReactNode,
-  approved: React.ReactNode,
-} = {
-  pending: <ClockCountdown size={24} />,
-  rejected: <X size={24} />,
-  approved: <Check size={24} />
-};
+import "@/styles/layout/requests-panel.scss";
+import "@/styles/components/requests-options.scss";
+import "@/styles/pages/requests.scss";
 
 interface Props{
   searchParams: {
@@ -61,32 +49,7 @@ const Page: React.FC<Props> = async ({ searchParams }) => {
           <FilterSort />
         </div>
 
-        <table className="l-requests-table">
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Request type</th>
-              <th>Requester</th>
-              <th>Request date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {requests.map((request) => (
-              <tr className={request.status} key={request._id}>
-                <th>
-                  {ICONS[request.status]} {request.status}
-                </th>
-                <td>{request.type}</td>
-                <td>{`${request.requester.name} ${request.requester.lastName}`}</td>
-                <td>{formatDate(request.date)}</td>
-                <td>
-                  <a href={`/request/${request._id}`}>VIEW</a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {requests.length > 0 && <RequestsTable requests={requests}/>}
 
         {requests.length === 0 && (
           <Message message="There is no requests found" />

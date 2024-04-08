@@ -2,8 +2,9 @@
 import dynamic from "next/dynamic"
 import clsx from "clsx"
 
-import { useUserStore } from "@/app/_store/userStore"
-import { useSettingsContext } from "@/app/_store/settingsContext"
+import { useSettingsContext } from "@/app/_context/settingsContext"
+
+import { useUserContext } from "@/app/_context/userContext"
 
 import UserSettingsSkeleton from "@/app/_skeletons/userSettingsSkeleton"
 import PhotosSettingsSkeleton from "@/app/_skeletons/photosSettingsSkeleton"
@@ -18,7 +19,7 @@ import "@/styles/layout/settings.scss";
 const DynamicPhotosSettings = dynamic(() => import('./photosSettings'), { ssr: true, loading: () => <PhotosSettingsSkeleton /> })
 
 const UserSettings: React.FC = () => {
-  const user = useUserStore(state => state.user)
+  const user = useUserContext(state => state.user)
 
   const { requestDataUpdate, pending } = useSettingsContext();
 

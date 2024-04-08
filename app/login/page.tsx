@@ -1,6 +1,6 @@
-import ButtonLink from "../_components/buttonLink"
 import { FormHOC, FormContainer, Header as FormHeader, Form, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton, FormGroup } from "../_components/form";
 import { login } from "../_actions/authActions";
+import Link from "next/link";
 
 const Page: React.FC = async () => {
   return (
@@ -43,16 +43,16 @@ const Page: React.FC = async () => {
       <FormMoreOptions>
         <FormLink>
           ¿Aun no tienes cuenta?{" "}
-          <ButtonLink href="/registrarse" type="icon">
+          <Link href="/registrarse" type="icon">
             Registrarse
-          </ButtonLink>
+          </Link>
         </FormLink>
 
         <FormLink>
           ¿Olvidaste tu contraseña?{" "}
-          <ButtonLink href="/recuperar" type="icon">
+          <Link href="/recuperar" type="icon">
             Recuperarla
-          </ButtonLink>
+          </Link>
         </FormLink>
       </FormMoreOptions>
     </FormHOC>

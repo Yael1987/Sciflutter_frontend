@@ -1,29 +1,32 @@
 "use client"
+import {
+  type FC,
+  type ReactNode,
+  useEffect,
+  useRef,
+  ButtonHTMLAttributes,
+} from "react";
+import { useShallow } from 'zustand/react/shallow'
+
 import clsx from 'clsx'
-import { useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 
-import { useUserStore } from '../_store/userStore'
+import { useSideMenuContext } from '../_context/sideMenuContext'
 
+import Link from 'next/link'
 import { Article, Gear, Question, SignOut, X } from '@phosphor-icons/react'
 
-import { signout } from '../_actions/authActions'
-
 import '@/styles/components/menu.scss'
-import Link from 'next/link'
+import { Logout } from "./buttons";
+import { LoggedUser } from "../_interfaces/api";
 
-const ToogleMenu: React.FC = () => {
-  const { menuOpen, user, toogleMenuOpen, clearUser, setAlert } = useUserStore()
+interface Props {
+  user: LoggedUser
+}
+
+export const ToogleMenu: FC<Props> = ({ user }) => {
+  const { menuOpen, toogleMenuOpen } = useSideMenuContext(state => state)
+
   const refMenu = useRef<HTMLElement>(null)
-  const { refresh } = useRouter()
-
-  const handleSignOut = () => {
-    signout()
-    clearUser()
-    toogleMenuOpen()
-    setAlert('success', 'Sesion cerrada')
-    refresh()
-  };
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -44,16 +47,19 @@ const ToogleMenu: React.FC = () => {
     }
   }, [refMenu, menuOpen, toogleMenuOpen])
 
-  return (      
-    <aside className={clsx("menu-aside", menuOpen && "menu-aside--open")} ref={refMenu}>
+  return (
+    <aside
+      className={clsx("menu-aside", menuOpen && "menu-aside--open")}
+      ref={refMenu}
+    >
       <div className="menu-aside__header">
         <p className="menu-aside__header-name">
           {user?.name} {user?.lastName}
         </p>
 
-        <button className="menu-aside__btn" onClick={toogleMenuOpen}>
+        <ToogleMenuButton className="menu-aside__btn">
           <X className="menu-aside__icon_close" size={24} />{" "}
-        </button>
+        </ToogleMenuButton>
       </div>
 
       <menu>
@@ -68,16 +74,18 @@ const ToogleMenu: React.FC = () => {
           </Link>
         </li>
 
-        {user?.isAdmin && (<li>
-          <Link
-            type="icon"
-            href="/requests"
-            className="menu-aside__link"
-            onClick={toogleMenuOpen}
-          >
-            Requests <Article size={20} className="menu-aside__icon" />
-          </Link>
-        </li>)}
+        {user?.isAdmin && (
+          <li>
+            <Link
+              type="icon"
+              href="/requests"
+              className="menu-aside__link"
+              onClick={toogleMenuOpen}
+            >
+              Requests <Article size={20} className="menu-aside__icon" />
+            </Link>
+          </li>
+        )}
 
         <li>
           <Link
@@ -91,13 +99,25 @@ const ToogleMenu: React.FC = () => {
         </li>
 
         <li>
-          <button className="menu-aside__btn" onClick={handleSignOut}>
+          <Logout className="menu-aside__btn" onClick={toogleMenuOpen}>
             Cerrar sesion <SignOut size={20} className="menu-aside__icon" />{" "}
-          </button>
+          </Logout>
         </li>
       </menu>
     </aside>
   );
 }
 
-export default ToogleMenu
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+  children: ReactNode
+}
+
+export const ToogleMenuButton: FC<ButtonProps> = ({ children, ...props }) => {
+  const toogleMenuOpen = useSideMenuContext(useShallow((state) => state.toogleMenuOpen))
+
+  return (
+    <button {...props} onClick={toogleMenuOpen}>
+      {children}
+    </button>
+  );
+}

@@ -1,8 +1,8 @@
 import ModalWindow from '@/app/_components/modalWindow';
 import ProfileImageUpload from '@/app/_components/profileImageUpload';
-import { useSettingsContext } from '@/app/_store/settingsContext';
+import { useSettingsContext } from '@/app/_context/settingsContext';
 import Image from 'next/image';
-import { useState } from 'react'
+import { type FormEvent, useState } from 'react'
 
 interface Props{
   photos: {
@@ -24,7 +24,7 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
     setIsOpenModal(state => !state)
   }
 
-  const onSelectNewProfile = (e: React.FormEvent<HTMLInputElement>) => {
+  const onSelectNewProfile = (e: FormEvent<HTMLInputElement>) => {
     const file = (e.target as HTMLInputElement).files?.[0];
 
     if (!file) return;
@@ -40,7 +40,7 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
     setIsOpenModal(true)
   };
 
-  const onDeleteProfile = (e) => {
+  const onDeleteProfile = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     setProfileImg("/img/default.jpg");
@@ -48,7 +48,7 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
     setIsOpenModal(false);
   };
 
-  const onSelectNewCover = (e: React.FormEvent<HTMLInputElement>) => {
+  const onSelectNewCover = (e: FormEvent<HTMLInputElement>) => {
     const file = (e.target as HTMLInputElement).files?.[0];
 
     if (!file) return;
@@ -65,14 +65,14 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
     reader.readAsDataURL(file);
   }
 
-  const onDeleteCover = (e) => {
+  const onDeleteCover = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setCoverImg("/img/default-cover.png");
     deletePicture("/img/default-cover.png", "cover");
     setIsOpenModal(false);
   };
 
-  const handleCropImg = (cropedImg: any) => {
+  const handleCropImg = (cropedImg: string) => {
     setProfileImg(cropedImg)
     setIsOpenModal(false)
   }

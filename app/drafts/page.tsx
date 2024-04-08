@@ -1,10 +1,16 @@
-import { HeadingSecondary } from '../_components/headings';
+import { getSavedArticlesId } from '../_actions/featuresActions';
 
-import '@/styles/pages/drafts.scss'
+import { SavesProvider } from '../_context/savesContext';
+
+import { HeadingSecondary } from '../_components/headings';
 import Drafts from './_components/drafts';
 import Articles from './_components/articles';
 
+import '@/styles/pages/drafts.scss'
+
 const Page = async () => {
+  const saves = await getSavedArticlesId()
+
   return (
     <section className="l-drafts">
       <HeadingSecondary>My drafts</HeadingSecondary>
@@ -13,7 +19,9 @@ const Page = async () => {
 
       <HeadingSecondary>My articles</HeadingSecondary>
 
-      <Articles />
+      <SavesProvider defaultValues={saves}>
+        <Articles />
+      </SavesProvider>
     </section>
   );
 }

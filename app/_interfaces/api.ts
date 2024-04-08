@@ -123,7 +123,6 @@ export interface ApiSuccessResponse extends ApiResponseBase {
     draft?: Draft;
     drafts?: DraftPreview[];
     articles?: ArticlePreview[];
-    saves?: ArticlePreview[];
     follow?: boolean;
     like?: boolean;
     stats?: UserStats;

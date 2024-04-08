@@ -4,17 +4,18 @@
 @use '../components/user-settings.scss';
 
 .s-settings-photo{
+  width: 100%;
   @include mixins.display-flex(row, 1.6rem, center, center);
 
-  &_profile, &_cover{
+  &__profile-img, &__cover-img{
     @extend %a-skeleton;
   }
 
-  &_profile{
+  &__profile-img{
     @extend .user-settings-photo__profile-img;
   }
 
-  &_cover{
+  &__cover-img{
     @extend .user-settings-photo__cover-img;
   }
 

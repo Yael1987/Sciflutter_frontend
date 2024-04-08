@@ -1,34 +1,19 @@
-"use client"
-import { useEffect } from 'react'
+import type { ReactNode } from 'react'
 
-import Pagination from './pagination';
-import { useRouter, useSearchParams } from 'next/navigation';
-import ArticlePreviewList from './articlePreviewList';
-import { ArticlePreview } from '../_interfaces/api';
+import dynamic from 'next/dynamic';
+
+const Pagination = dynamic(()=>import('./pagination'))
 
 interface Props {
-  articles: ArticlePreview[],
-  pages: number
+  pages: number,
+  children: ReactNode
 }
 
-const ArticlesResults: React.FC<Props> = ({ articles, pages }) => {
-  const { push } = useRouter()
-  const searchParams = useSearchParams()
-
-  useEffect(() => {
-    if (!searchParams.get("page")) {
-      const params = new URLSearchParams(searchParams);
-      
-      params.set("page", "1");
-      
-      push(`?${params.toString()}`, {scroll: false});
-    }
-  }, [push, searchParams])
-
+const ArticlesResults: React.FC<Props> = ({ pages, children }) => {
   return (
     <>
       <div className="l-results-articles">
-        <ArticlePreviewList articleList={articles} emptyMessage=''/>
+        {children}
       </div>
 
       {pages > 1 && <Pagination pages={pages} />}

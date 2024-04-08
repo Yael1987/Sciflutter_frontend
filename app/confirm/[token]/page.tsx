@@ -2,9 +2,10 @@
 import Notification from "@/app/_components/notification";
 
 import { confirmAccount } from "@/app/_actions/authActions";
-import ButtonLink from "@/app/_components/buttonLink";
-import Button from "@/app/_components/button";
+
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr/ArrowLeft";
+
+import Link from "next/link";
 
 interface Props {
   params: {
@@ -21,7 +22,7 @@ const Page: React.FC<Props> = async ({ params }) => {
         {apiResponse.message}
       </Notification>
 
-      <ButtonLink href="/" type="outline"><ArrowLeft size={32}/> Volver al inicio</ButtonLink>
+      <Link href="/"><ArrowLeft size={32}/> Volver al inicio</Link>
     </>
   );
 
@@ -31,7 +32,7 @@ const Page: React.FC<Props> = async ({ params }) => {
         {apiResponse.message}
       </Notification>
 
-      <ButtonLink href="/" type="outline"><ArrowLeft size={24}/> Volver al inicio</ButtonLink>
+      <Link href="/"><ArrowLeft size={24}/> Volver al inicio</Link>
     </>
   );
 };

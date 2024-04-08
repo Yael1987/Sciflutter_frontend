@@ -1,6 +1,5 @@
 "use client"
 import { likeArticle, unlikeArticle } from "@/app/_actions/featuresActions";
-import { useUserStore } from "@/app/_store/userStore";
 import { Heart } from "@phosphor-icons/react"
 import clsx from "clsx";
 import { useState } from "react";

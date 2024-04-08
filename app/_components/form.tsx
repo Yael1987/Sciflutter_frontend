@@ -1,38 +1,35 @@
 "use client"
-import React, { createContext, useContext, useEffect } from "react"
+import { type FC, createContext, useContext, useEffect } from "react"
 import { useFormState, useFormStatus } from "react-dom"
-import { useShallow } from "zustand/react/shallow"
-import { permanentRedirect } from "next/navigation"
 import clsx from "clsx"
 
-import { type UserStore, useUserStore} from "../_store/userStore";
+import { useShallow } from "zustand/react/shallow"
+import { permanentRedirect } from "next/navigation"
 
 import Image from "next/image";
 
-import type{ FormState } from "../_interfaces"
 import type { ContextValue, FormHOCProps, HeaderProps } from "../_interfaces/formCompound"
 import type { BaseComponent } from "../_interfaces/components"
 
-import { checkCookieExist } from "../_actions/authActions"
-
-import largeLogo from "@/public/img/logos/long.svg";
+import largeLogo from "@/public/img/logos/long-dark.svg";
 import "@/styles/layout/form-section.scss";
 import "@/styles/components/form.scss";
-import { AlertStore } from "../_store/alertSlice"
+import { useAlertContext } from "../_context/alertContext"
+import { useUserContext } from "../_context/userContext"
 
 
 const FormContext = createContext<ContextValue>({})
 
-const initialState: FormState = {
+const initialState = {
   success: false,
   message: ""
 }
 
-export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction }) => {
+export const FormHOC: FC<FormHOCProps>= ({ children, serverAction }) => {
   const [state, formAction] = useFormState(serverAction, initialState)
-  const setUser = useUserStore(useShallow((state: UserStore) => state.setUser));
-  const setAlert = useUserStore(useShallow((state: UserStore & AlertStore) => state.setAlert));
-  const { user } = useUserStore();
+  const setUser = useUserContext(useShallow(state => state.updateUser));
+  const setAlert = useAlertContext(useShallow(state => state.setAlert));
+  const { user } = useUserContext(state => state);
 
   useEffect(() => {
     if(!state.success) return setAlert('error', state.message!)
@@ -43,7 +40,7 @@ export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction }) => {
     }
 
     
-    if (checkCookieExist() && user) {
+    if (user) {
       permanentRedirect("/");
     }
   }, [state, setUser, user, setAlert]);
@@ -59,7 +56,7 @@ export const FormHOC: React.FC<FormHOCProps>= ({ children, serverAction }) => {
   );
 }
 
-export const FormContainer: React.FC<BaseComponent> = ({children}) => {
+export const FormContainer: FC<BaseComponent> = ({children}) => {
   return (
     <div className="c-form">
       {children}
@@ -67,7 +64,7 @@ export const FormContainer: React.FC<BaseComponent> = ({children}) => {
   )
 }
 
-export const Header: React.FC<HeaderProps> = ({ description, title }) => {
+export const Header: FC<HeaderProps> = ({ description, title }) => {
   return (
     <div className="c-form-header">
       <h2 className="c-form-header__heading">{title}</h2>
@@ -78,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({ description, title }) => {
   );
 }
 
-export const Form: React.FC<BaseComponent> = ({ children }) => {
+export const Form: FC<BaseComponent> = ({ children }) => {
   const {formAction} = useContext(FormContext)
 
   return (
@@ -88,7 +85,7 @@ export const Form: React.FC<BaseComponent> = ({ children }) => {
   );
 }
 
-export const MoreOptions: React.FC<BaseComponent> = ({ children }) => {
+export const MoreOptions: FC<BaseComponent> = ({ children }) => {
   return (
     <div className="l-form-section__links">
       {children}
@@ -96,7 +93,7 @@ export const MoreOptions: React.FC<BaseComponent> = ({ children }) => {
   );
 }
 
-export const Link: React.FC<BaseComponent> = ({ children }) => {
+export const Link: FC<BaseComponent> = ({ children }) => {
   return (
     <p className="l-form-section__link">
       {children}
@@ -104,7 +101,7 @@ export const Link: React.FC<BaseComponent> = ({ children }) => {
   )
 }
 
-export const SubmitButton: React.FC<BaseComponent> = ({children}) => {
+export const SubmitButton: FC<BaseComponent> = ({children}) => {
   const { pending } = useFormStatus()
 
   return (
@@ -119,6 +116,6 @@ export const SubmitButton: React.FC<BaseComponent> = ({children}) => {
   );
 }
 
-export const FormGroup: React.FC<BaseComponent> = ({ children }) => {
+export const FormGroup: FC<BaseComponent> = ({ children }) => {
   return <div className="c-form-formulary__group">{children}</div>;
 }

@@ -1,26 +1,36 @@
-import { useUserStore } from '@/app/_store/userStore';
-
-import '@/styles/components/editor.scss'
 import { useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import { type Draft } from '@/app/_interfaces/api';
+
+import { createDraft, updateDraft } from '@/app/_actions/draftsActions';
+
+import { useAlertContext } from '@/app/_context/alertContext';
+import { useUserContext } from '@/app/_context/userContext';
+
 import { useCurrentDraft } from './stepController';
 import WriteButtons from './writeButtons';
-import { Draft } from '@/app/_interfaces/api';
-import { createDraft, updateDraft } from '@/app/_actions/draftsActions';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import WriteGroup from './writeGroup';
+
+import '@/styles/components/editor.scss'
+import EditorContainer from './editorContainer';
 
 const SetBaseArticle = () => {
   const { currentDraft, updateCurrentDraftObj, handleNextStep, handlePrevStep } = useCurrentDraft()
-  const { setAlert, user } = useUserStore()
-  // const [id, setId] = useState(currentDraft?._id ?? null)
+  const { setAlert } = useAlertContext(state => state)
+  const { user } = useUserContext(state => state)
+
   const [name, setName] = useState(currentDraft?.name ?? '')
   const [discipline, setDiscipline] = useState(currentDraft?.discipline ?? '')
   const [resume, setResume] = useState(currentDraft?.resume ?? '')
+
   const id = currentDraft?._id ?? null;
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { push } = useRouter();
 
   const handleNext = async () => {
+    // Verify inputs
     if ([name, resume].includes('')) return setAlert('warn', 'All fields are required')
 
     if(!discipline && !user?.discipline) return setAlert('warn', 'A discipline is required')
@@ -34,8 +44,7 @@ const SetBaseArticle = () => {
     }
 
     if (!id) {
-      // const draft 
-      // Se creara el borrador
+      // If there is no id, create a new draft
       apiResponse = await createDraft(newData)
       const params = new URLSearchParams(searchParams);
 
@@ -64,53 +73,49 @@ const SetBaseArticle = () => {
 
   return (
     <>
-      <div className="c-editor">
-        <div className="c-editor__group">
-          <label htmlFor="draft-name" className="c-editor__label">
-            Nombra tu articulo
-          </label>
+      <EditorContainer>
+        <WriteGroup>
+          <label htmlFor="draft-name">Introduce the draft name</label>
           <input
             type="text"
             id="draft-name"
-            className="c-editor__input_text is-lg"
+            className="is-lg"
             required
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-        </div>
+        </WriteGroup>
 
-        <div className="c-editor__group">
-          <label htmlFor="draft-discipline" className="c-editor__label">
-            Escribe la disciplina
-          </label>
+        <WriteGroup>
+          <label htmlFor="draft-discipline">Select a discipline</label>
           <input
             type="text"
             id="draft-discipline"
-            className="c-editor__input_text is-md"
+            className="is-md"
             required
             name="discipline"
             value={discipline}
             onChange={(e) => setDiscipline(e.target.value)}
           />
-        </div>
+        </WriteGroup>
 
-        <div className="c-editor__group">
-          <label htmlFor="draft-resume" className="c-editor__label">
-            Escribe un resumen de tu articulo
+        <WriteGroup>
+          <label htmlFor="draft-resume">
+            Write an article resume for the preview card
           </label>
           <textarea
             name="resume"
             id="draft-resume"
             cols={30}
             rows={5}
-            className="c-editor__input_text is-base"
+            className="text is-base"
             required
             value={resume}
             onChange={(e) => setResume(e.target.value)}
           ></textarea>
-        </div>
-      </div>
+        </WriteGroup>
+      </EditorContainer>
 
       <WriteButtons
         handleNextStep={handleNext}

@@ -7,7 +7,7 @@ import type { ApiErrorResponse, ApiSuccessResponse } from "@/app/_interfaces/api
 import { signout } from "@/app/_actions/authActions";
 import { deactivateAccount, deleteAccount } from "@/app/_actions/userActions";
 
-import { useUserStore } from "@/app/_store/userStore";
+import { useAlertContext } from "@/app/_context/alertContext";
 
 import ChangePassword from "./changePassword";
 import SettingsGroup from "./settingsGroup";
@@ -23,7 +23,7 @@ const PrivacitySettings: React.FC = () => {
 
   const [confirmDisableOpen, setConfirmDisableOpen] = useState<boolean>(false)
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState<boolean>(false)
-  const { setAlert } = useUserStore()
+  const setAlert = useAlertContext(state =>state.setAlert)
 
   const handleDeactivateAccount = async (password: string) => {
     const apiResponse: ApiSuccessResponse | ApiErrorResponse =

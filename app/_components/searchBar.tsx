@@ -1,51 +1,30 @@
 "use client"
 
 import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { type FC, useRef } from "react";
 
 import '@/styles/components/search-bar.scss'
+import { useSearchBar } from "../_hooks/useSearchBar";
 
-const SearchBar: React.FC = () => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { push } = useRouter();
+const queryParams = [
+  'page',
+  'sort',
+  'year',
+  'discipline'
+]
 
+const SearchBar: FC = () => {
+  const { searchInput, handleSetSearchInput, handleSearchButton } = useSearchBar(queryParams)
   const inputRef = useRef<HTMLInputElement>(null);
-  const [searchInput, setSearchInput] = useState<string>(
-    searchParams.get("search")?.toString() ?? ""
-  );
 
   const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    setSearchInput(value);
-  };
-
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const params = new URLSearchParams(searchParams);
-
-    if (searchInput) {
-      params.set("search", searchInput);
-      params.delete("page");
-      params.delete("sort");
-      params.delete("year");
-      params.delete("discipline");
-    } else {
-      params.delete("search");
-      params.delete("page");
-      params.delete('sort')
-      params.delete('year')
-      params.delete('discipline')
-    }
-
-    push(`${pathname}?${params.toString()}`, { scroll: false });
+    handleSetSearchInput(value);
   };
 
   return (
-    <form className="c-search-bar" onSubmit={handleSearch}>
+    <form className="c-search-bar" onSubmit={handleSearchButton}>
       <div className="c-search-bar__bar">
         <label htmlFor="main-search" className="c-search-bar__label">
           <MagnifyingGlass

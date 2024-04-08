@@ -4,8 +4,6 @@ import dynamic from "next/dynamic"
 
 import { deleteArticle } from "@/app/_actions/articleActions";
 
-import { useUserStore } from "@/app/_store/userStore";
-
 import type { ArticlePreview } from "@/app/_interfaces/api";
 
 import { TrashSimple } from "@phosphor-icons/react/dist/ssr/TrashSimple";
@@ -17,8 +15,9 @@ import ConfirmDelete from "./confirmDelete";
 import ArticlePreviewSkeleton from "@/app/_skeletons/articlePreviewSkeleton";
 
 import '@/styles/components/my-article.scss'
+import { useAlertContext } from "@/app/_context/alertContext";
 
-const DynamicArticlePreview = dynamic(() => import("@/app/_components/articlePreview"), { loading: () => <ArticlePreviewSkeleton /> });
+const DynamicArticlePreview = dynamic(() => import("@/app/_components/articlePreview"), { loading: () => <ArticlePreviewSkeleton />, ssr: false });
 
 const DynamicModalWindow = dynamic(() => import('@/app/_components/modalWindow'), { ssr: false })
 
@@ -30,7 +29,7 @@ const ArticlesList: React.FC<Props> = ({ myArticles }) => {
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState<boolean>(false);
   const [selectedArticle, setSelectedArticle] = useState<string>("");
 
-  const {setAlert} = useUserStore();
+  const { setAlert } = useAlertContext(state => state);
 
   const handleDeleteDraft = async () => {
     const response = await deleteArticle(selectedArticle);

@@ -1,9 +1,10 @@
-import React from 'react'
+import Link from 'next/link';
 
-import Link from 'next/link'
+import { checkCookieExist } from '../_actions/authActions';
+
+import { BackToTop, Logout } from './buttons';
 
 import '@/styles/layout/footer.scss'
-import ButtonLink from './buttonLink';
 
 interface NavLinks {
   category: string,
@@ -12,38 +13,27 @@ interface NavLinks {
 
 const FOOTER_NAV_LINKS: NavLinks[] = [
   {
-    category: "Ayuda y soporte",
+    category: "Help & Support",
     links: [
-      { tag: "Preguntas frecuentes", link: "#" },
-      { tag: "Reportar un problema", link: "#" },
-      { tag: "Uso de cookies", link: "#" },
-      { tag: "Terminos y condiciones", link: "#" },
-      { tag: "Aviso de privacidad", link: "#" }
+      { tag: "FAQ", link: "#" },
+      { tag: "Report issue", link: "#" },
+      { tag: "Cookies", link: "#" },
+      { tag: "Terms and conditions", link: "#" },
+      { tag: "Privacity", link: "#" }
     ]
   },
   {
-    category: "Saber más",
+    category: "More",
     links: [
       { tag: "Landing page", link: "#" },
       { tag: "API", link: "#" },
-      { tag: "Desarrollo", link: "#" },
-      { tag: "Documentacion", link: "#" }
-    ]
-  },
-  {
-    category: "Cuenta",
-    links: [
-      { tag: "Inicio", link: "#" },
-      { tag: "Recuperacion", link: "#" },
-      { tag: "Conviertete en autor", link: "#" },
-      { tag: "Autores", link: "#" },
-      { tag: "Buscar articulo", link: "#" },
-      { tag: "Cerrar sesión", link: "#" }
+      { tag: "Repository", link: "#" },
+      { tag: "Documentation", link: "#" }
     ]
   }
 ];
 
-const FooterNav: React.FC = () => {
+const FooterNav: React.FC = async () => {
   return (
     <nav className="l-footer__nav">
       {FOOTER_NAV_LINKS.map((links) => (
@@ -53,18 +43,52 @@ const FooterNav: React.FC = () => {
           <ul className="c-footer-list">
             {links.links.map((link) => (
               <li key={link.tag}>
-                <ButtonLink
-                  href={link.link}
-                  type="icon"
-                  className="c-footer-list__link"
-                >
-                  {link.tag}
-                </ButtonLink>
+                {link.tag !== "Logout" && (
+                  <Link
+                    href={link.link}
+                    type="icon"
+                    className="c-footer-list__link"
+                  >
+                    {link.tag}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
         </div>
       ))}
+      <div className="l-footer__nav-col">
+        <p className="l-footer__nav-col-title">Account</p>
+
+        <ul className="c-footer-list">
+          <li>
+            <BackToTop className="c-footer-list__btn">Home</BackToTop>
+          </li>
+
+          {!(await checkCookieExist()) && (
+            <li>
+              <Link href="/recuperar" className="c-footer-list__link">
+                Recover account
+              </Link>
+            </li>
+          )}
+
+          <li>
+            <Link
+              href={(await checkCookieExist()) ? "/write" : "/registrarse"}
+              className="c-footer-list__link"
+            >
+              Start to write
+            </Link>
+          </li>
+
+          {(await checkCookieExist()) && (
+            <li>
+              <Logout className="c-footer-list__btn">Logout</Logout>
+            </li>
+          )}
+        </ul>
+      </div>
     </nav>
   );
 }

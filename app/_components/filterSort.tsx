@@ -1,8 +1,9 @@
 "use client"
+import { useSearchParams } from 'next/navigation'
+
+import { useUpdateFilters } from '../_hooks/useUpdateFilterts';
 
 import '@/styles/components/filter-sort.scss'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { ArticlePreview, UserPreview } from '../_interfaces/api'
 
 const SORT_OPTIONS = [
   {value: "createdAt", name: "Mas reciente"},
@@ -21,8 +22,7 @@ interface Props{
 
 const FilterSort: React.FC<Props> = ({ articleFilters, authorFilters }) => {
   const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const { replace } = useRouter()
+  const handleSelectOption = useUpdateFilters()
   
   const disciplines = Array.from(
     new Set(
@@ -32,22 +32,6 @@ const FilterSort: React.FC<Props> = ({ articleFilters, authorFilters }) => {
       ]
     )
   );
-
-  const changeFilter = (filter: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (value) {
-      params.set(filter, value);
-    } else {
-      params.delete(filter);
-    }
-
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }
-
-  const handleSelectOption = (event: React.ChangeEvent<HTMLSelectElement>, filter: string) => {
-    changeFilter(filter, event.target.value)
-  }
 
   return (
     <div className="c-filter-sort">
@@ -78,7 +62,7 @@ const FilterSort: React.FC<Props> = ({ articleFilters, authorFilters }) => {
             <option value="">---</option>
             {disciplines.length > 0 &&
               disciplines.map((discipline) => (
-                <option value={discipline!} key={discipline}>
+                <option value={discipline} key={discipline}>
                   {discipline}
                 </option>
               ))}

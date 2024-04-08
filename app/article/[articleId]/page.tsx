@@ -9,6 +9,8 @@ import ArticleBody from '../_components/articleBody'
 // import '@/styles/layout/article.scss'
 import '@/styles/pages/article.scss'
 import { checkAdminCookieExist } from '@/app/_actions/authActions'
+import Message from '@/app/_components/message'
+import ReturnButtons from '@/app/_components/returnButtons'
 
 interface Props{
   params: {
@@ -17,14 +19,21 @@ interface Props{
 }
 
 const Page: React.FC<Props> = async ({ params }) => {
-  // const article = getArticleById(params.articleId)
   revalidateTag("articles")
   let article
 
   if(checkAdminCookieExist()) article = await getRequestedArticle(params.articleId);
   else article = await getArticle(params.articleId)
 
-  if(!article) return <p>Articulo no encontrado</p>
+  if (!article) return (
+    <div>
+      <Message message='Article not found' subMessage='Verify the id or the link and retry' />
+      <ReturnButtons />
+    </div>
+  )
+
+  console.log(article.content)
+  
 
   return (
     <article className="l-article">

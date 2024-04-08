@@ -37,9 +37,9 @@ const ProfileContent: React.FC<Props> = async ({ user }) => {
           <ProfileAboutMe description={user.description} />
         )}
 
-        {(user.socialLinks.length > 0) && (
+        {/* {(user.socialLinks.length > 0) && (
           <ProfileSocialLinks/>
-        )}
+        )} */}
       </div>
     </section>
   );

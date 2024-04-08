@@ -1,21 +1,24 @@
 "use client"
 import dynamic from "next/dynamic";
+import { useState } from "react";
 
 import type { DraftPreview } from "@/app/_interfaces/api";
+
+import { copyDraft, deleteDraft } from "@/app/_actions/draftsActions";
+
+import { useAlertContext } from "@/app/_context/alertContext";
 
 import CardsList from "@/app/_components/cardsList";
 import Message from "@/app/_components/message";
 
 import { TrashSimple } from "@phosphor-icons/react/dist/ssr/TrashSimple";
+import { CopySimple } from "@phosphor-icons/react/dist/ssr/CopySimple";
 
 import ArticlePreviewSkeleton from "@/app/_skeletons/articlePreviewSkeleton";
 
-import '@/styles/components/my-article.scss'
-import { CopySimple } from "@phosphor-icons/react/dist/ssr/CopySimple";
-import { useState } from "react";
 import ConfirmDelete from "./confirmDelete";
-import { useUserStore } from "@/app/_store/userStore";
-import { copyDraft, deleteDraft } from "@/app/_actions/draftsActions";
+
+import '@/styles/components/my-article.scss'
 
 const DynamicDraftPreview = dynamic(() => import("@/app/_components/draftPreview"), { loading: () => <ArticlePreviewSkeleton />, ssr: false });
 
@@ -29,7 +32,7 @@ const DraftsList: React.FC<Props> = ({ myDrafts }) => {
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState<boolean>(false)
   const [selectedDraft, setSelectedDraft] = useState<string>('')
 
-  const { setAlert } = useUserStore();
+  const { setAlert } = useAlertContext(state => state);
 
   const handleDeleteDraft = async () => {
     const response = await deleteDraft(selectedDraft)

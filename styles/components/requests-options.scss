@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr;
   align-items: center;
-  column-gap: 3.2rem;
+  column-gap: variables.$space-xl;
 
   &__search-bar{
     input{
@@ -29,7 +29,7 @@
 
   &__filter{
     display: flex;
-    gap: 2.4rem;
+    gap: variables.$space-lg;
   }
 
   &__option{

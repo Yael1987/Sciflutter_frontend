@@ -1,8 +1,10 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
-import ButtonLink from './buttonLink'
+import { getCookieTheme } from '../_utils/getCookieTheme'
 
-import textLogo from '@/public/img/logos/text.svg'
+import { textLogoDark, textLogoLight } from '../_utils/logos'
+
 import '@/styles/layout/header.scss'
 
 interface Props{
@@ -10,12 +12,13 @@ interface Props{
 }
 
 const Header: React.FC<Props> = ({ children }) => {
+  const theme = getCookieTheme()
   return (
     <header className="l-header">
       <div className="l-header__navigation">
-        <ButtonLink type="icon" href="/">
+        <Link href="/">
           <Image
-            src={textLogo}
+            src={theme === "light" ? textLogoLight : textLogoDark}
             className="l-header__logo"
             alt="Sciflutter logo"
             style={{
@@ -23,8 +26,8 @@ const Header: React.FC<Props> = ({ children }) => {
               height: "3.2rem",
             }}
           />
-        </ButtonLink>
-          
+        </Link>
+
         {children}
       </div>
     </header>

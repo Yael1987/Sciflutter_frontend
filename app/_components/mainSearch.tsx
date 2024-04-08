@@ -1,14 +1,18 @@
 import Image from 'next/image'
 
-import logoMain from '@/public/img/logos/main.svg'
-import '@/styles/components/mainSearch.scss'
 import SearchBar from './searchBar';
 
+import { getCookieTheme } from '../_utils/getCookieTheme';
+import { mainLogoDark, mainLogoLight } from '../_utils/logos';
+import '@/styles/components/mainSearch.scss'
+
 const MainSearch: React.FC = () => {
+  const theme = getCookieTheme()
+
   return (
     <section className="b-main-search">
       <Image
-        src={logoMain}
+        src={theme === "light" ? mainLogoLight : mainLogoDark}
         alt="Main logo"
         className="b-main-search__logo"
         style={{
@@ -16,7 +20,7 @@ const MainSearch: React.FC = () => {
         }}
       />
 
-      <div className='b-main-search__bar'>
+      <div className="b-main-search__bar">
         <SearchBar />
       </div>
     </section>

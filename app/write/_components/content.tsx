@@ -1,33 +1,33 @@
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
 import { updateDraft } from '@/app/_actions/draftsActions';
 
-import { useUserStore } from '@/app/_store/userStore';
+import { useAlertContext } from '@/app/_context/alertContext';
 
 import { useCurrentDraft } from './stepController';
 import WriteButtons from './writeButtons';
+import EditorContainer from './editorContainer';
+import WriteGroup from './writeGroup';
 
 const Editor = dynamic(() => import('./advanceEditor'), { ssr: false })
 const EditorSimple = dynamic(() => import('./simpleEditor'), { ssr: false })
-
-import '@/styles/components/editor.scss'
-import dynamic from 'next/dynamic';
-import clsx from 'clsx';
+const EditorState = dynamic(()=>import('./editorState'))
 
 const Content = () => {
   const { handleNextStep, handlePrevStep, currentDraft, token, updateCurrentDraftObj } = useCurrentDraft()
-  const { setAlert } = useUserStore();
+  const { setAlert } = useAlertContext(state => state);
   const [contentWords, setContentWords] = useState(0)
   const [bibliographyWords, setBibliographyWords] = useState(0);
   const [content, setContent] = useState(currentDraft?.content ?? "")
-  const [isSaved, setIsSaved] = useState(true);
+  const [contentIsSaved, setContentIsSaved] = useState(true);
   const [bibliography, setBibliography] = useState(currentDraft?.bibliography ?? "");
   const [bibliographyIsSaved, setBibliographyIsSaved] = useState(true);
 
   const handleSetContent = (data: string) => {
     setContent(data.trim());
     updateCurrentDraftObj({ content: data.trim() })
-    setIsSaved(false);
+    setContentIsSaved(false);
   };
 
   const handleSetBibliography = (data: string) => {
@@ -46,7 +46,7 @@ const Content = () => {
     const apiResponse = await updateDraft(currentDraft?._id!, { content: data });
     if (apiResponse.success) {
       updateCurrentDraftObj({ content: apiResponse.data.draft?.content })
-      setIsSaved(true)
+      setContentIsSaved(true)
     }
   }
 
@@ -65,12 +65,12 @@ const Content = () => {
   const handleNext = async () => {
     if (!content || !bibliography) return setAlert("warn", "All fields are required");
 
-    if (!isSaved || !bibliographyIsSaved) await saveData();
+    if (!contentIsSaved || !bibliographyIsSaved) await saveData();
     handleNextStep();
   };
 
   const handlePrev = async () => {
-    if (!isSaved || !bibliographyIsSaved) await saveData();
+    if (!contentIsSaved || !bibliographyIsSaved) await saveData();
     handlePrevStep();
   };
 
@@ -84,9 +84,9 @@ const Content = () => {
 
   return (
     <>
-      <div className="c-editor">
-        <div className="c-editor__group">
-          <p className="c-editor__label">Escribe el contenido de tu articulo</p>
+      <EditorContainer>
+        <WriteGroup>
+          <p>Escribe el contenido de tu articulo</p>
 
           <div className="c-editor__box">
             <Editor
@@ -99,18 +99,11 @@ const Content = () => {
             />
           </div>
 
-          <div className="c-editor__state">
-            <p className={clsx("c-editor__save", !isSaved && "is-saving")}>
-              {isSaved ? "Saved" : "Saving.."}
-            </p>
-            <p className="c-editor__word-count">
-              Words: <span>{contentWords}</span>
-            </p>
-          </div>
-        </div>
+          <EditorState isSaved={contentIsSaved} wordsCount={contentWords}/>
+        </WriteGroup>
 
-        <div className="c-editor__group">
-          <p className="c-editor__label">
+        <WriteGroup>
+          <p>
             Escribe la bibliografia de tu articulo
           </p>
 
@@ -123,21 +116,9 @@ const Content = () => {
             />
           </div>
 
-          <div className="c-editor__state">
-            <p
-              className={clsx(
-                "c-editor__save",
-                !bibliographyIsSaved && "is-saving"
-              )}
-            >
-              {bibliographyIsSaved ? "Saved" : "Saving.."}
-            </p>
-            <p className="c-editor__word-count">
-              Words: <span>{bibliographyWords}</span>
-            </p>
-          </div>
-        </div>
-      </div>
+          <EditorState isSaved={bibliographyIsSaved} wordsCount={bibliographyWords}/>
+        </WriteGroup>
+      </EditorContainer>
 
       <WriteButtons handleNextStep={handleNext} handlePrevStep={handlePrev} />
     </>

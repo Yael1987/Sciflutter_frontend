@@ -1,26 +1,28 @@
+import ReturnButtons from "@/app/_components/returnButtons";
+import { HouseSimple } from "@phosphor-icons/react";
 import Link from "next/link";
+
+import '@/styles/components/requested-window.scss'
 
 const Requested: React.FC = () => {
   return (
-    <div className="c-editor is-center">
-      <div className="c-editor__group">
-        <p className="is-md">
+    <div className="c-requested-window">
+      <div className="c-requested-window__message">
+        <h2 className="c-requested-window__heading">Your publish has been requested</h2>
+
+        <p>
           La publicacion de tu articulo fue solicitada, en unos dias recibiras
-          una notificacion con la respuesta a tu peticion, recuerda que puedes
-          cancelar una peticion desde la pestaña de borradores. En caso de tener
+          una notificacion con la respuesta a tu peticion, recuerda que en este tiempo no puedes copiar o solicitar otra publicacion de este borrador. En caso de tener
           dudas puedes contactarte con el soporte tecnico en la pestaña de
           ayuda.
         </p>
       </div>
 
-      <div className="c-editor__group">
-        <Link className="c-editor__delete is-md" href="/drafts">
-          Go back to drafts
+      <ReturnButtons>
+        <Link href="/">
+          <HouseSimple size={24} /> Home
         </Link>
-        <Link className="c-editor__delete" href="/">
-          Go back to home
-        </Link>
-      </div>
+      </ReturnButtons>
     </div>
   );
 }

@@ -1,27 +1,37 @@
 "use client"
-import { saveArticle, unsaveArticle } from "@/app/_actions/featuresActions";
-import { useUserStore } from "@/app/_store/userStore";
-import { BookmarkSimple } from "@phosphor-icons/react";
 import clsx from "clsx";
+
+import { saveArticle, unsaveArticle } from "@/app/_actions/featuresActions";
+
+import { useAlertContext } from "@/app/_context/alertContext";
+import { useSavesContext } from "@/app/_context/savesContext";
+
+import { BookmarkSimple } from "@phosphor-icons/react";
 
 interface Props{
   articleId: string
 }
 
 const ArticleSave: React.FC<Props> = ({ articleId }) => {
-  const {savedArticles, getSavedArticles, setAlert} = useUserStore();
+  const setAlert = useAlertContext(state => state.setAlert)
+  const { saves, addSave, removeSave } = useSavesContext(state => state)
 
-  const isSaved = savedArticles?.filter(
-    (savedArticle) => savedArticle._id === articleId
-  )[0];
+  const isSaved = saves.includes(articleId)
 
   const handleClick = async () => {
     let apiResponse;
-    if (!isSaved) apiResponse = await saveArticle(articleId);
-    else apiResponse = await unsaveArticle(articleId);
+    if (!isSaved) {
+      apiResponse = await saveArticle(articleId)
+
+      if (apiResponse.success) addSave(articleId)
+    }
+    else {
+      apiResponse = await unsaveArticle(articleId)
+
+      if (apiResponse.success) removeSave(articleId)
+    };
 
     setAlert(apiResponse.success ? "success" : "error", apiResponse.message);
-    await getSavedArticles();
   };
 
   return (

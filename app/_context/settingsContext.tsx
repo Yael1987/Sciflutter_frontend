@@ -6,7 +6,8 @@ import { revalidateUsers, updateUserData } from "../_actions/userActions";
 
 import type { BaseComponent } from "../_interfaces/components";
 
-import { useUserStore } from "./userStore";
+import { useUserContext } from "./userContext";
+import { useAlertContext } from "./alertContext";
 
 interface SettingsValue {
   addPicture(blob: Blob, name: string): void;
@@ -28,8 +29,8 @@ const SettingsProvider: React.FC<BaseComponent> = ({ children }) => {
   const [contextFormData, setContextFormData] = useState<FormData>(new FormData());
   const [photos, setPhotos] = useState({})
   const { pending } = useFormStatus();
-  const { setAlert } = useUserStore()
-  const { setUser } = useUserStore()
+  const setAlert = useAlertContext(state => state.setAlert)
+  const updateUser = useUserContext(state => state.updateUser)
   
   const addPicture = (blob: Blob, name: string) => {
     if (contextFormData.has(name)) {
@@ -64,7 +65,7 @@ const SettingsProvider: React.FC<BaseComponent> = ({ children }) => {
 
     if (apiResponse.success && apiResponse.user) {
       setAlert('success', apiResponse.message)
-      setUser(apiResponse.user);
+      updateUser(apiResponse.user);
       revalidateUsers();
     } else {
       setAlert('error', apiResponse.message)

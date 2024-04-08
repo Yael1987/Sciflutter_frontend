@@ -4,7 +4,7 @@ const PhotosSettingsSkeleton: React.FC = () => {
   return (
     <>
       <div className="s-settings-photo">
-        <div className="s-settings-photo_profile"></div>
+        <div className="s-settings-photo__profile-img"></div>
 
         <div>
           <p className="s-settings-photo__label">Subir foto</p>
@@ -12,7 +12,7 @@ const PhotosSettingsSkeleton: React.FC = () => {
       </div>
 
       <div className="s-settings-photo">
-        <div className="s-settings-photo_cover"></div>
+        <div className="s-settings-photo__cover-img"></div>
 
         <div>
           <p className="s-settings-photo__label">Subir foto</p>

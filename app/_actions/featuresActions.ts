@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidateTag } from "next/cache"
 import type { ApiErrorResponse, ApiSuccessResponse, ArticlePreview } from "../_interfaces/api"
 import { checkCookieExist } from "./authActions"
 import { getToken } from "./userActions"
@@ -48,7 +49,15 @@ export const getSavedArticles = async (): Promise<ArticlePreview[]> => {
 
   if (!data.success) return []
   
-  return data.data.saves!
+  return data.data.articles!
+}
+
+export const getSavedArticlesId = async (): Promise<string[]> => {
+  const response = await getSavedArticles()
+
+  const ids = response?.map(save => save._id)
+
+  return ids
 }
 
 export const saveArticle = async (articleId: string): Promise<ApiErrorResponse | ApiSuccessResponse> => {
@@ -62,7 +71,7 @@ export const saveArticle = async (articleId: string): Promise<ApiErrorResponse |
 
   const data: ApiSuccessResponse | ApiErrorResponse = await response.json()
   
-  // if(data.success) revalidateTag('saves')
+  if(data.success) revalidateTag('saves')
 
   return data
 }
@@ -78,7 +87,7 @@ export const unsaveArticle = async (articleId: string): Promise<ApiErrorResponse
 
   const data: ApiSuccessResponse | ApiErrorResponse = await response.json()
   
-  // if(data.success) revalidateTag('saves')
+  if(data.success) revalidateTag('saves')
 
   return data
 }

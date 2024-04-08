@@ -15,9 +15,12 @@ export const getLoggedUser = async (): Promise<LoggedUser | null> => {
   if(!token) return null
 
   const response = await fetch(`${process.env.BACKEND_URL}/users/me`, {
-    cache: 'no-store',
+    // cache: 'no-store',
     headers: {
       "Authorization": `Bearer ${token.value}`
+    },
+    next: {
+      tags: ['logged_user']
     }
   })
 
@@ -58,7 +61,7 @@ export const getSearchAuthors = async (search: string, queryString: string): Pro
 }
 
 export const getMoreAuthors = async (): Promise<UserPreview[]> => {
-  const response = await fetch(`${process.env.BACKEND_URL}/users/authors?limit=4`, { next: { tags: ['more_authors'], revalidate: 300 } })
+  const response = await fetch(`${process.env.BACKEND_URL}/users/authors?limit=4`, { next: { tags: ['more_authors'] } })
   const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
 
   if (!data.success) return []
@@ -98,6 +101,8 @@ export const updateUserData = async (formData: FormData): Promise<{success: bool
 
   if (!data.success) return { success: data.success, message: data.message }
   
+  revalidateTag('logged_user')
+
   return { success: data.success, message: data.message, user: (data.data.user as LoggedUser) }
 }
 

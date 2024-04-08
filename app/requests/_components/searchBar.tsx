@@ -1,39 +1,25 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useState } from "react"
-import { useDebouncedCallback } from 'use-debounce'
+import { useSearchBar } from "@/app/_hooks/useSearchBar";
+import { useRef } from "react"
+
+const queryParams = [
+  'page',
+  'status',
+  'type',
+  'sort',
+  'id'
+]
 
 const SearchBar = () => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const {push} = useRouter();
-
+  const { searchInput, handleTypeSearch } = useSearchBar(queryParams);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [searchInput, setSearchInput] = useState<string>(
-    searchParams.get("search")?.toString() ?? ""
-  )
 
   const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    setSearchInput(value)
-    handleSearch(value)
+    handleTypeSearch(value)
   }
-
-  const handleSearch = useDebouncedCallback((searchInput: string) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (searchInput) {
-      params.set("search", searchInput);
-      params.delete("page");
-    } else {
-      params.delete("search");
-      params.delete("page");
-    }
-
-    push(`${pathname}?${params.toString()}`, {scroll: false});
-  }, 300)
 
   return (
     <div className="c-requests-options__search-bar">

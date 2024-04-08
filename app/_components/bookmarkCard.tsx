@@ -1,17 +1,20 @@
 "use client"
 
 import { BookmarkSimple } from "@phosphor-icons/react"
-import { useUserStore } from "../_store/userStore"
 import { saveArticle, unsaveArticle } from "../_actions/featuresActions"
+import { useSavesContext } from "../_context/savesContext"
+import { useAlertContext } from "../_context/alertContext"
 
 interface Props {
   articleId: string
 }
 
 const BookmarkCard: React.FC<Props> = ({ articleId }) => {
-  const { savedArticles, getSavedArticles, setAlert } = useUserStore()
+  const { saves, removeSave, addSave } = useSavesContext(state => state)
+  const { setAlert } = useAlertContext(state => state)
+  const isSaved = saves.includes(articleId)
   
-  if (!savedArticles) return (
+  if (!saves) return (
     <button className="c-article-preview__bookmark">
       <BookmarkSimple
         size={40}
@@ -19,16 +22,20 @@ const BookmarkCard: React.FC<Props> = ({ articleId }) => {
       />
     </button>
   );
-  
-  const isSaved = savedArticles?.filter(savedArticle => savedArticle._id === articleId)[0]
 
   const handleClick = async () => {
     let apiResponse;
-    if (!isSaved) apiResponse = await saveArticle(articleId);
-    else apiResponse = await unsaveArticle(articleId);
+    if (!isSaved) {
+      apiResponse = await saveArticle(articleId)
+
+      if(apiResponse.success) addSave(articleId)
+    }
+    else {
+      apiResponse = await unsaveArticle(articleId)
+      if (apiResponse.success) removeSave(articleId)
+    };
 
     setAlert(apiResponse.success ? "success" : "error", apiResponse.message);
-    await getSavedArticles();
   }
 
   return (

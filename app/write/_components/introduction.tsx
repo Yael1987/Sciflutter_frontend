@@ -1,17 +1,21 @@
-import '@/styles/components/editor.scss'
-import dynamic from 'next/dynamic';
-import WriteButtons from './writeButtons';
-import { useCurrentDraft } from './stepController';
 import { useState } from 'react';
-import { updateDraft } from '@/app/_actions/draftsActions';
-import { useUserStore } from '@/app/_store/userStore';
-import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 
+import { useAlertContext } from '@/app/_context/alertContext';
+
+import { updateDraft } from '@/app/_actions/draftsActions';
+
+import WriteButtons from "./writeButtons";
+import {useCurrentDraft} from "./stepController";
+import EditorContainer from './editorContainer';
+import WriteGroup from './writeGroup';
+
+const EditorState = dynamic(() => import("./editorState"));
 const Editor = dynamic(() => import('./simpleEditor'), { ssr: false })
 
 const Introduction = () => {
   const { handleNextStep, handlePrevStep, currentDraft, updateCurrentDraftObj } = useCurrentDraft()
-  const { setAlert } = useUserStore()
+  const { setAlert } = useAlertContext(state => state)
   const [wordsCount, setWordsCount] = useState(0)
   const [introduction, setIntroduction] = useState(currentDraft?.introduction ?? '')
   const [isSaved, setIsSaved] = useState(true)
@@ -54,8 +58,8 @@ const Introduction = () => {
 
   return (
     <>
-      <div className="c-editor">
-        <div className="c-editor__group">
+      <EditorContainer>
+        <WriteGroup>
           <p className="c-editor__label">
             Escribe la introduccion de tu articulo
           </p>
@@ -68,17 +72,12 @@ const Introduction = () => {
               handleAutosave={handleAutosave}
             />
           </div>
+        </WriteGroup>
 
-          <div className="c-editor__state">
-            <p className={clsx('c-editor__save', !isSaved && 'is-saving')}>
-              {isSaved ? 'Saved' : 'Saving..'}
-            </p>
-            <p className='c-editor__word-count'>
-              Words: <span>{wordsCount}</span>
-            </p>
-          </div>
-        </div>
-      </div>
+        <WriteGroup>
+          <EditorState isSaved={isSaved} wordsCount={wordsCount}/>
+        </WriteGroup>
+      </EditorContainer>
 
       <WriteButtons handleNextStep={handleNext} handlePrevStep={handlePrev} />
     </>

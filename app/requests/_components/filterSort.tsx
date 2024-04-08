@@ -1,27 +1,11 @@
 'use client'
+import { useSearchParams } from "next/navigation";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useUpdateFilters } from "@/app/_hooks/useUpdateFilterts";
 
 const FilterSort = () => {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-
-  const changeFilter = (filter: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (value) {
-      params.set(filter, value);
-    } else {
-      params.delete(filter);
-    }
-
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }
-
-  const handleSelectOption = (event: React.ChangeEvent<HTMLSelectElement>, filter: string) => {
-    changeFilter(filter, event.target.value)
-  }
+  const handleSelectOption = useUpdateFilters();
 
   return (
     <div className="c-filter-sort">

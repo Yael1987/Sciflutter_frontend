@@ -2,68 +2,6 @@
 @use '../abstract/helpers';
 
 .c-editor{
-  width: 100%;
-  max-width: 120rem;
-  padding: 0 variables.$space-2xl;
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: variables.$space-2xl;
-
-  &__box{
-    max-width: 100%;
-  }
-
-  &__group{
-    width: 100%;
-    display: grid;
-    row-gap: variables.$space-md;
-
-    p{
-      line-height: 1.6;
-    }
-  }
-
-  &__label{
-    color: var(--color--main-base);
-    font-size: variables.$text--md;
-    font-weight: variables.$text-weight--medium;
-  }
-
-  &__input{
-    @extend %button-reset;
-    border-bottom: variables.$border-normal;
-    width: 100%;
-    transition: border-color variables.$a-time--long ease;
-
-    &:focus{
-      border-color: var(--color--main-base);
-    }
-
-    &_text{
-      @extend .c-editor__input;
-      resize: none;
-      padding: variables.$space-sm variables.$space-base;
-    }
-  }
-
-  &__state{
-    padding: variables.$space-base variables.$space-lg;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__word-count{
-    span{
-      color: var(--color--main-base);
-      font-weight: variables.$text-weight--bold;
-    }
-  }
-
-  &__save{
-    color: var(--color--main-base);
-  }
-
   &__upload{
     display: flex;
     flex-direction: column;
@@ -113,30 +51,6 @@
   }
 }
 
-.is-saving{
-  color: var(--color-text-base);
-}
-
-.is-lg{
-  font-weight: variables.$text-weight--bold;
-  font-size: variables.$text--md;
-}
-
-.is-md{
-  font-weight: variables.$text-weight--medium;
-  font-size: variables.$text--md;
-}
-
-.is-base{
-  font-weight: variables.$text-weight--regular;
-  font-size: variables.$text--base;
-}
-
 .is-center{
   text-align: center;
-}
-
-.ck.ck-editor__editable_inline{
-  word-break: break-word;
-  overflow-wrap: break-word;
 }

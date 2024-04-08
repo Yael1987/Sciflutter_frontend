@@ -1,10 +1,11 @@
 "use client"
+import clsx from "clsx"
 import { useEffect, useRef } from "react"
-import { useNotificationStore } from "../_store/notificationsContext"
+
+import { useNotificationStore } from "../_context/notificationsContext"
 import { NotificationStore } from "../_store/notificationStore"
 
 import '@/styles/components/notifications-dropdown.scss'
-import clsx from "clsx"
 
 interface Props{
   handleClose: () => void
@@ -19,8 +20,12 @@ const NotificationsList: React.FC<Props> = ({ handleClose }) => {
   }
 
   useEffect(() => {
-    const handleClick = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) handleClose();
+    const handleClick = (e: MouseEvent) => {
+      console.log((e.target as HTMLElement).classList.contains("c-navbar-menu__icon"))
+      
+      if ((e.target as HTMLElement).classList.contains("c-navbar-menu__icon")) return handleClose()
+      
+      if (ref.current && !ref.current.contains(e.target as Node)) return handleClose();
     };
 
     document.addEventListener("click", handleClick, true);

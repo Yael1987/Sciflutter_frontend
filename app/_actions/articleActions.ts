@@ -69,7 +69,7 @@ export const deleteArticle = async (articleId: string): Promise<ApiErrorResponse
   return data;
 }
 
-const LIMITARTICLES = 10
+const LIMITARTICLES = 2
 
 export const getSearchArticles = async (search: string, queryString: string): Promise<{ articles: ArticlePreview[], totalPages: number }> => {
   const response = await fetch(`${process.env.BACKEND_URL}/articles?limit=${LIMITARTICLES}&name=${search}${queryString}`, { next: { tags: ['articles_results'], revalidate: 60 } })

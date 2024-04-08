@@ -4,7 +4,8 @@ import { HeadingSecondary } from '../_components/headings'
 
 import '@/styles/pages/write.scss'
 import { getOneDraft } from '../_actions/draftsActions'
-import { getToken } from '../_actions/userActions'
+import { getLoggedUser, getToken } from '../_actions/userActions'
+import { UserProvider } from '../_context/userContext'
 
 const DynamicStepController = dynamic(()=> import('./_components/stepController'))
 
@@ -17,6 +18,7 @@ interface Props{
 const Page: React.FC<Props> = async ({ searchParams }) => {
   let draft;
   const token = await getToken()
+  const loggedUser = await getLoggedUser()
 
   if (searchParams.draftId) {  
     draft = await getOneDraft(searchParams.draftId)
@@ -27,7 +29,10 @@ const Page: React.FC<Props> = async ({ searchParams }) => {
   return (
     <div className='l-write'>
       <HeadingSecondary>Escribe un nuevo articulo</HeadingSecondary>
-      <DynamicStepController draft={draft} token={token}/>
+
+      <UserProvider initialValue={loggedUser}>
+        <DynamicStepController draft={draft} token={token}/>
+      </UserProvider>
     </div>
   )
 }

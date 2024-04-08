@@ -1,11 +1,11 @@
 "use client"
-import { useUserStore } from '../_store/userStore'
 import clsx from 'clsx'
 
 import '@/styles/components/alert.scss'
 import { useEffect, useRef } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { CheckSquare, Warning, XSquare } from '@phosphor-icons/react'
+import { useAlertContext } from '../_context/alertContext'
 
 const ICON = {
   error: <XSquare size={32} className='alert__icon'/>,
@@ -14,12 +14,11 @@ const ICON = {
 }
 
 const Alert: React.FC = () => {
-  const { alert } = useUserStore()
-  const hiddeAlert = useUserStore(useShallow(state => state.hiddeAlert))
+  const alert = useAlertContext(state => state.alert)
+  const hiddeAlert = useAlertContext(useShallow(state => state.hiddeAlert))
   const alertRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    
     const currentAlert = alertRef.current
 
     currentAlert?.addEventListener('click', () => {

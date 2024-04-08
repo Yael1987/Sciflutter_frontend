@@ -5,38 +5,13 @@ import SetBaseArticle from "./setBaseArticle"
 import Introduction from "./introduction"
 import Content from "./content"
 import Publish from "./publish"
-
-import '@/styles/layout/write-container.scss'
-import { Draft } from "@/app/_interfaces/api"
 import Requested from "./requested"
 
-interface DraftObj {
-  _id?: string;
-  name: string;
-  author: string;
-  discipline: string;
-  image?: string;
-  resume?: string;
-  createdAt?: string;
-  introduction?: string;
-  content?: string;
-  bibliography?: string;
-  images?: string[];
-  requested?: boolean;
-}
+import type { Draft } from "@/app/_interfaces/api"
+import type { DraftObj, NewData } from "@/app/_interfaces/draftController"
 
-export interface NewData {
-  name?: string;
-  author?: string;
-  discipline?: string;
-  image?: string;
-  resume?: string;
-  introduction?: string;
-  content?: string;
-  bibliography?: string;
-  images?: string[];
-  requested?: boolean;
-}
+import '@/styles/layout/write-container.scss'
+
 
 interface Props{
   draft: Draft | null,
@@ -73,13 +48,13 @@ const StepController: React.FC<Props> = ({ draft, token }) => {
   const handleNextStep = () => {
     if (step >= 5) return
 
-    setStep(step => step += 1)
+    setStep(step => ++step)
   }
 
   const handlePrevStep = () => {
     if (step === 1) return
     
-    setStep(step => step -= 1)
+    setStep(step => --step)
   }
 
   switch (step) {

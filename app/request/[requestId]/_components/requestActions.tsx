@@ -1,8 +1,9 @@
 "use client"
 
 import { approvePublish, rejectPublish } from "@/app/_actions/requestsActions"
+import { useAlertContext } from "@/app/_context/alertContext"
+import { useSocketContext } from "@/app/_context/socketContext"
 import { Request } from "@/app/_interfaces/api"
-import { useUserStore } from "@/app/_store/userStore"
 import { useRouter } from "next/navigation"
 
 interface Props {
@@ -10,7 +11,8 @@ interface Props {
 }
 
 const RequestActions: React.FC<Props> = ({ request }) => {
-  const { setAlert, sendNotification } = useUserStore()
+  const { setAlert } = useAlertContext(state => state)
+  const { sendNotification } = useSocketContext(state => state)
   const { replace } = useRouter()
 
   const handleApprove = async () => {

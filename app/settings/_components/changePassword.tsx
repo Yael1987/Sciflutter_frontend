@@ -4,18 +4,17 @@ import dynamic from "next/dynamic";
 import { setCookieToken } from "@/app/_actions/authActions";
 import { changePassword } from "@/app/_actions/userActions";
 
-import { useUserStore } from "@/app/_store/userStore";
-
 import type { ApiErrorResponse, ApiSuccessResponse } from "@/app/_interfaces/api";
 
 import SettingsGroup from "./settingsGroup";
 import SettingsButton from "./settingsButton";
 import ConfirmChanges from "../../_components/confirmChanges";
+import { useAlertContext } from "@/app/_context/alertContext";
 
 const DynamicModalWindow = dynamic(() => import('@/app/_components/modalWindow'), { ssr: false })
 
 const ChangePassword: React.FC = () => {
-  const { setAlert } = useUserStore();
+  const { setAlert } = useAlertContext(state => state);
   const [confirmPasswordOpen, setConfirmPasswordOpen] = useState<boolean>(false);
   const [newPassword, setNewPassword] = useState<string>("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState<string>("");

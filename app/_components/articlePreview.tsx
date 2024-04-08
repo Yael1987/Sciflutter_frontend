@@ -19,14 +19,14 @@ interface Props {
 
 const DynamicBookmark = dynamic(() => import("./bookmarkCard"), {
   loading: () => (
-    <div className="c-article-preview__bookmark is-loading">
+    <div className="c-article-preview__bookmark">
       <BookmarkSimple size={40} className="c-article-preview__icon"/>
     </div>
   ),
   ssr: false,
 });
 
-const ArticlePreview: React.FC<Props> = ({ article }) => {
+const ArticlePreview: React.FC<Props> = async ({ article }) => {
   return (
     <li className="c-article-preview">
       <div className="c-article-preview__img">
@@ -65,7 +65,7 @@ const ArticlePreview: React.FC<Props> = ({ article }) => {
         </div>
       </div>
 
-      {checkCookieExist() && <DynamicBookmark articleId={article._id} />}
+      {await checkCookieExist() && <DynamicBookmark articleId={article._id} />}
     </li>
   );
 }

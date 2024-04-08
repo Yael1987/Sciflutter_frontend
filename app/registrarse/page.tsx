@@ -1,6 +1,6 @@
 import { Form, FormContainer, FormGroup, FormHOC, Header as FormHeader, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton } from '../_components/form';
 import { signup } from '../_actions/authActions';
-import ButtonLink from '../_components/buttonLink';
+import Link from 'next/link';
 
 const Page: React.FC = async () => {
   return (
@@ -76,9 +76,9 @@ const Page: React.FC = async () => {
       <FormMoreOptions>
         <FormLink>
           ¿Ya tienes cuenta?{" "}
-          <ButtonLink href="/login" type="icon">
+          <Link href="/login" type="icon">
             Inicia sesion
-          </ButtonLink>
+          </Link>
         </FormLink>
       </FormMoreOptions>
     </FormHOC>

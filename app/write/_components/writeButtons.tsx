@@ -21,7 +21,7 @@ const WriteButtons: React.FC<Props> = ({ handlePrevStep, handleNextStep }) => {
 
       <button
         onClick={handleNextStep}
-        className={clsx("c-write-buttons__btn", step >= 5 && "is-disable")}
+        className={clsx("c-write-buttons__btn", step >= 4 && "is-disable")}
       >
         Next
       </button>

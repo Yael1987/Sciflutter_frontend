@@ -2,20 +2,20 @@
 import clsx from 'clsx'
 
 import { usePathname } from 'next/navigation'
-
 import Image from 'next/image'
 import Link from 'next/link';
 
-import { useUserStore } from "../_store/userStore";
-
+import type { FC } from 'react';
 import type { LoggedUser } from "../_interfaces/api"
 
 import { BookmarksSimple, DotsThreeOutline, FilePlus } from "@phosphor-icons/react";
 
-import '@/styles/components/navbar-menu.scss'
-import { NotificationProvider } from '../_store/notificationsContext';
+import { NotificationProvider } from '../_context/notificationsContext';
+
 import NotificationsButton from './notificationsButton';
-import { FC } from 'react';
+import { ToogleMenuButton } from './toogleMenu';
+
+import '@/styles/components/navbar-menu.scss'
 
 interface Props{
   user: LoggedUser
@@ -23,8 +23,6 @@ interface Props{
 
 const NavBarUser: FC<Props> = ({ user }) => {
   const pathname = usePathname()
-  // const user = useUserStore((state: UserStore) => state.user) as LoggedUser
-  const { toogleMenuOpen } = useUserStore()
 
   return (
     <nav className="c-navbar-menu">
@@ -53,7 +51,7 @@ const NavBarUser: FC<Props> = ({ user }) => {
       >
         <FilePlus size={32} weight="light" className="c-navbar-menu__icon" />
       </Link>
-      
+
       <NotificationProvider>
         <NotificationsButton />
       </NotificationProvider>
@@ -78,13 +76,13 @@ const NavBarUser: FC<Props> = ({ user }) => {
         />
       </Link>
 
-      <button className="c-navbar-menu__btn" onClick={toogleMenuOpen}>
+      <ToogleMenuButton className="c-navbar-menu__btn">
         <DotsThreeOutline
           size={32}
           weight="light"
           className="c-navbar-menu__icon"
         />
-      </button>
+      </ToogleMenuButton>
     </nav>
   );
 }

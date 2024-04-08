@@ -1,7 +1,7 @@
 "use client"
 
 import { followAuthor, unfollowAuthor } from "@/app/_actions/featuresActions";
-import { UserStore, useUserStore } from "@/app/_store/userStore";
+import { useUserContext } from "@/app/_context/userContext";
 import { UserMinus, UserPlus } from "@phosphor-icons/react";
 import clsx from "clsx";
 import { useState } from "react";
@@ -13,7 +13,7 @@ interface Props{
 
 const ArticleFollow: React.FC<Props> = ({ authorId, follow }) => {
   const [isFollow, setIsFollow] = useState<boolean>(follow);
-  const currentUser = useUserStore((state: UserStore) => state.user);
+  const currentUser = useUserContext(state => state.user);
 
   if (currentUser?._id === authorId) return null;
 
