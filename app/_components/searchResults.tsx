@@ -28,7 +28,7 @@ const SearchResults: React.FC<Props> = async ({ articlesQueryString, authorsQuer
 
   const articleFilters = await getArticleFilters(searchQuery)
   const authorFilters = await getAuthorFilters(searchQuery)
-
+  
   return (
     <section className="l-results">
       <SearchResume

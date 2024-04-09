@@ -10,6 +10,7 @@ const defaultStats: UserStats = {
 };
 
 export const getLoggedUser = async (): Promise<LoggedUser | null> => {
+  "use server"
   const token = cookies().get('token_sciflutter')
 
   if(!token) return null

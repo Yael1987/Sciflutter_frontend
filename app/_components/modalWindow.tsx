@@ -16,10 +16,10 @@ export const ModalWindow: React.FC<WindowProps> = ({ children, isModalOpen, onCl
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleClick = (e) => {
+    const handleClick = (e: MouseEvent) => {
        if(!isModalOpen) return
 
-      if (ref.current && !ref.current.contains(e.target)) onClickOverlay();
+      if (ref.current && !ref.current.contains((e.target as Node))) onClickOverlay();
     };
 
     if (isModalOpen) { 

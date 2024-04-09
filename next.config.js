@@ -49,7 +49,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/restablecer",
+        source: "/recover",
         destination: "/",
         permanent: true,
       },
@@ -60,19 +60,19 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/recuperar",
+        source: "/forgot-password",
         has: [cookieObj],
         destination: "/",
         permanent: true,
       },
       {
-        source: "/registrarse",
+        source: "/signup",
         has: [cookieObj],
         destination: "/",
         permanent: true,
       },
       {
-        source: "/restablecer/:token*",
+        source: "/recover/:token*",
         has: [cookieObj],
         destination: "/",
         permanent: true,
@@ -119,7 +119,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/settings/((?!seguridad).*)",
+        source: "/settings/((?!privacity).*)",
         destination: "/settings/",
         permanent: true,
       },

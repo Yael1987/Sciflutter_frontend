@@ -25,13 +25,13 @@ const MenuSettings: React.FC = () => {
 
       <li>
         <Link
-          href="/settings/seguridad"
+          href="/settings/privacity"
           className={clsx(
             "c-settings-menu__link",
-            pathname === "seguridad" && "c-settings-menu__link_active"
+            pathname === "privacity" && "c-settings-menu__link_active"
           )}
         >
-          Security
+          Privacity
         </Link>
       </li>
     </ul>

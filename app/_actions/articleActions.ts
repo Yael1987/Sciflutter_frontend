@@ -93,6 +93,8 @@ export const getArticleFilters = async(query: string) => {
   const response = await fetch(`${process.env.BACKEND_URL}/articles/filters?name=${query}`, { next: { tags: ['filters'], revalidate: 60 } })
   const data = await response.json()
 
+  console.log(data);
+  
   if (!data.success) return { disciplines: [], years: [] }
 
   return data.data.filters!

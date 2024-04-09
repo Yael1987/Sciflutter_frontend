@@ -2,6 +2,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react"
 import type { EditorConfig } from "@ckeditor/ckeditor5-core"
 import myEditor  from "ckeditor5-custom-build";
 import { EditorProps } from "@/app/_interfaces/components";
+import { Editor } from "@/ckeditor5/src/ckeditor";
 
 const editorConfig = {
   toolbar: [
@@ -32,7 +33,7 @@ const setEditorConfig = (saveFuncion: (data: string) => Promise<void>, setWordsC
     ],
     autosave: {
       save(editor) {
-          return saveFuncion(editor.getData())
+          return saveFuncion((editor as Editor).getData())
       },
       waitingTime: 2000
     },

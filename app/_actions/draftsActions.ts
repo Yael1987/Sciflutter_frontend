@@ -1,9 +1,9 @@
 "use server"
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath} from "next/cache";
 import { ApiErrorResponse, ApiSuccessResponse, Draft, DraftPreview } from "../_interfaces/api";
 import { getToken } from "./userActions";
-import { NewData } from "../write/_components/stepController";
+import type { NewData } from "../_interfaces/draftController";
 
 export const getDrafts = async (): Promise<DraftPreview[]> => {
   const response = await fetch(`${process.env.BACKEND_URL}/articles/drafts`, {
