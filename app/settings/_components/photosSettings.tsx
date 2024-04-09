@@ -43,6 +43,8 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
   const onDeleteProfile = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    if (profileImg.startsWith('/')) return
+
     setProfileImg("/img/default.jpg");
     deletePicture("/img/default.jpg", "profile");
     setIsOpenModal(false);
@@ -67,6 +69,8 @@ const PhotosSettings: React.FC<Props> = ({ photos }) => {
 
   const onDeleteCover = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (coverImg.startsWith("/")) return
+
     setCoverImg("/img/default-cover.png");
     deletePicture("/img/default-cover.png", "cover");
     setIsOpenModal(false);

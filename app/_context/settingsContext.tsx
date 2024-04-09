@@ -27,7 +27,6 @@ const SettingsContext = createContext<SettingsValue>({
 
 const SettingsProvider: React.FC<BaseComponent> = ({ children }) => {
   const [contextFormData, setContextFormData] = useState<FormData>(new FormData());
-  const [photos, setPhotos] = useState({})
   const { pending } = useFormStatus();
   const setAlert = useAlertContext(state => state.setAlert)
   const updateUser = useUserContext(state => state.updateUser)
@@ -70,6 +69,8 @@ const SettingsProvider: React.FC<BaseComponent> = ({ children }) => {
     } else {
       setAlert('error', apiResponse.message)
     }
+
+    setContextFormData(new FormData())
   }
 
   return (
