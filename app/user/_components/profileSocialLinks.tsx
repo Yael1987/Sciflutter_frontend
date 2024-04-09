@@ -5,7 +5,13 @@ import ProfileDetailsBox from "./profileDetailsBox";
 
 import '@/styles/components/social-links.scss'
 
-const ICONS = {
+enum SocialType {
+  WEB = 'web',
+  FACEBOOK = 'facebook',
+  TWITTER = 'twitter',
+}
+
+const ICONS: {[key in SocialType]: JSX.Element} = {
   web: <Globe weight="fill" size={32} />,
   facebook: <FacebookLogo weight="fill" size={32} />,
   twitter: <TwitterLogo weight="fill" size={32} />,
@@ -31,7 +37,7 @@ const ProfileSocialLinks = () => {
         {linksList.map((link) => (
           <li key={link.type}>
             <a href={link.link} className="c-social-links__link">
-              {ICONS[link.type]}
+              {ICONS[(link.type as SocialType)]}
               <p>{link.text}</p>
             </a>
           </li>

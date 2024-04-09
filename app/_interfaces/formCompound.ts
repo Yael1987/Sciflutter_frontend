@@ -1,5 +1,5 @@
-import { FormState } from ".";
 import { BaseComponent } from "./components";
+import { FormState } from "./formState";
 
 export interface ContextValue {
   pending?: boolean;

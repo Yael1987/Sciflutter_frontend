@@ -5,11 +5,13 @@ import { ClockCountdown } from "@phosphor-icons/react/dist/ssr/ClockCountdown";
 import { X } from "@phosphor-icons/react/dist/ssr/X";
 import { FC } from "react"
 
-const ICONS: {
-  pending: React.ReactNode;
-  rejected: React.ReactNode;
-  approved: React.ReactNode;
-} = {
+enum RequestStatus {
+  PENDING = "pending",
+  APPROVED = "approved",
+  REJECTED = "rejected"
+}
+
+const ICONS: {[key in RequestStatus]: JSX.Element} = {
   pending: <ClockCountdown size={24} />,
   rejected: <X size={24} />,
   approved: <Check size={24} />,
@@ -23,7 +25,7 @@ const RequestRow: FC<Props> = ({ request }) => {
   return (
     <tr className={request.status}>
       <th>
-        {ICONS[request.status]} {request.status}
+        {ICONS[(request.status as RequestStatus)]} {request.status}
       </th>
       <td>{request.type}</td>
       <td>{`${request.requester.name} ${request.requester.lastName}`}</td>

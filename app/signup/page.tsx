@@ -13,10 +13,10 @@ const Page: React.FC = async () => {
 
         <Form>
           <FormGroup>
-            <label htmlFor="name">Nombre</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
-              placeholder="Introduce tu primer nombre"
+              placeholder="Your name"
               name="name"
               id="name"
               required
@@ -24,10 +24,10 @@ const Page: React.FC = async () => {
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="lastName">Apellido</label>
+            <label htmlFor="lastName">Lastname</label>
             <input
               type="text"
-              placeholder="Introduce tu apellido"
+              placeholder="Your lastname"
               name="lastName"
               id="lastName"
               required
@@ -38,7 +38,7 @@ const Page: React.FC = async () => {
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              placeholder="Proporciona un correo electronico"
+              placeholder="Your email"
               name="email"
               id="email"
               required
@@ -46,10 +46,10 @@ const Page: React.FC = async () => {
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
-              placeholder="Tu contraseña"
+              placeholder="New password"
               name="password"
               id="password"
               required
@@ -58,26 +58,26 @@ const Page: React.FC = async () => {
 
           <FormGroup>
             <label htmlFor="passwordConfirm">
-              Confirma tu contraseña
+              Confirm password
             </label>
             <input
               type="password"
-              placeholder="Confirma tu contraseña"
+              placeholder="Confirm password"
               name="passwordConfirm"
               id="passwordConfirm"
               required
             />
           </FormGroup>
 
-          <FormSubmitButton>Crear cuenta</FormSubmitButton>
+          <FormSubmitButton>Sign up</FormSubmitButton>
         </Form>
       </FormContainer>
 
       <FormMoreOptions>
         <FormLink>
-          ¿Ya tienes cuenta?{" "}
+          You have an account?{" "}
           <Link href="/login" type="icon">
-            Inicia sesion
+            Login
           </Link>
         </FormLink>
       </FormMoreOptions>

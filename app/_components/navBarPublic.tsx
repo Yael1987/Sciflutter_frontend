@@ -19,18 +19,18 @@ const NavBarPublic: React.FC = () => {
           pathname === "/login" && "is-active"
         )}
       >
-        Iniciar sesion
+        Login
       </Link>
 
       <Link
-        href="/registrarse"
+        href="/signup"
         type="icon"
         className={clsx(
           "c-navbar-menu__signup",
-          pathname === "/registrarse" && "is-active"
+          pathname === "/signup" && "is-active"
         )}
       >
-        Registrarse
+        Signup
       </Link>
     </nav>
   );

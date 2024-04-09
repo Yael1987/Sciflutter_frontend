@@ -39,18 +39,18 @@ const Carrousel: React.FC<Props> = ({ showButtons, itemsList }) => {
     }
   }
 
-  const dragStart = e => {
-    const carousel = carouselRef.current
-    
+  const dragStart = (e: any) => {
+    const carousel = carouselRef.current;
+
     if (carousel) {
-      setIsDragStart(true)
-      
+      setIsDragStart(true);
+
       setDragStartX(e.pageX || e.touches[0].pageX);
       setDragStartScrollLeft(carousel.scrollLeft);
     }
-  }
+  };
 
-  const dragStop = e => {
+  const dragStop = () => {
     const carousel = carouselRef.current
     
     if (carousel) {
@@ -59,19 +59,19 @@ const Carrousel: React.FC<Props> = ({ showButtons, itemsList }) => {
     }
   }
 
-  const dragging = e => {
-    const carousel = carouselRef.current
-    
-    if (carousel) { 
-      if (!isDragStart) return;      
-      e.preventDefault()
+  const dragging = (e: any) => {
+    const carousel = carouselRef.current;
+
+    if (carousel) {
+      if (!isDragStart) return;
+      e.preventDefault();
+
       carousel.classList.add("dragging");
-      
       const deltaX = (e.pageX || e.touches[0].pageX) - dragStartX;
-      
+
       carousel.scrollLeft = dragStartScrollLeft - deltaX;
     }
-  }
+  };
 
   return (
     <div className={clsx("c-carrousel", !showButtons && 'has-no-btns')}>

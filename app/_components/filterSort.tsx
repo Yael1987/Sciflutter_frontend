@@ -1,9 +1,9 @@
-"use client"
-import { useSearchParams } from 'next/navigation'
+"use client";
+import {useSearchParams} from "next/navigation";
 
-import { useUpdateFilters } from '../_hooks/useUpdateFilterts';
+import {useUpdateFilters} from "../_hooks/useUpdateFilterts";
 
-import '@/styles/components/filter-sort.scss'
+import "@/styles/components/filter-sort.scss";
 
 const SORT_OPTIONS = [
   {value: "createdAt", name: "Mas reciente"},
@@ -12,25 +12,20 @@ const SORT_OPTIONS = [
   {value: "-name", name: "Z-A"},
 ];
 
-interface Props{
+interface Props {
   articleFilters: {
-    disciplines: string[],
-    years: number[]
-  },
-  authorFilters: string[]
+    disciplines: string[];
+    years: number[];
+  };
+  authorFilters: string[];
 }
 
-const FilterSort: React.FC<Props> = ({ articleFilters, authorFilters }) => {
-  const searchParams = useSearchParams()
-  const handleSelectOption = useUpdateFilters()
-  
+const FilterSort: React.FC<Props> = ({articleFilters, authorFilters}) => {
+  const searchParams = useSearchParams();
+  const handleSelectOption = useUpdateFilters();
+
   const disciplines = Array.from(
-    new Set(
-      [
-        ...articleFilters.disciplines,
-        ...authorFilters
-      ]
-    )
+    new Set([...articleFilters.disciplines, ...authorFilters])
   );
 
   return (
@@ -88,6 +83,6 @@ const FilterSort: React.FC<Props> = ({ articleFilters, authorFilters }) => {
       </div>
     </div>
   );
-}
+};
 
-export default FilterSort
+export default FilterSort;

@@ -67,7 +67,7 @@ const FooterNav: React.FC = async () => {
 
           {!(await checkCookieExist()) && (
             <li>
-              <Link href="/recuperar" className="c-footer-list__link">
+              <Link href="/forgot-password" className="c-footer-list__link">
                 Recover account
               </Link>
             </li>
@@ -75,7 +75,7 @@ const FooterNav: React.FC = async () => {
 
           <li>
             <Link
-              href={(await checkCookieExist()) ? "/write" : "/registrarse"}
+              href={(await checkCookieExist()) ? "/write" : "/signup"}
               className="c-footer-list__link"
             >
               Start to write

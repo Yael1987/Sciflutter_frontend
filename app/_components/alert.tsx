@@ -7,11 +7,17 @@ import { useShallow } from 'zustand/react/shallow'
 import { CheckSquare, Warning, XSquare } from '@phosphor-icons/react'
 import { useAlertContext } from '../_context/alertContext'
 
-const ICON = {
-  error: <XSquare size={32} className='alert__icon'/>,
-  success: <CheckSquare size={32} className='alert__icon'/>,
-  warn: <Warning size={32} className='alert__icon'/>
+enum AlertType {
+  ERROR = "error",
+  SUCCESS = "success",
+  WARNING = "warn"
 }
+
+const ICON: {[key in AlertType]: JSX.Element} = {
+  [AlertType.ERROR]: <XSquare size={32} className="alert__icon" />,
+  [AlertType.SUCCESS]: <CheckSquare size={32} className="alert__icon" />,
+  [AlertType.WARNING]: <Warning size={32} className="alert__icon" />,
+};
 
 const Alert: React.FC = () => {
   const alert = useAlertContext(state => state.alert)
@@ -34,9 +40,8 @@ const Alert: React.FC = () => {
   }, [hiddeAlert])
 
   return (
-    
     <div className={clsx(`alert alert_${alert.type}`, Boolean(alert.message) && "is-display")} ref={alertRef}>
-      <div className='alert__icon-box'>{ICON[alert.type]}</div>
+      <div className='alert__icon-box'>{ICON[alert.type as AlertType]}</div>
       <p>{alert.message}</p>
     </div>
   )

@@ -16,7 +16,7 @@ const Page: React.FC = async () => {
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              placeholder="Proporciona un correo electronico"
+              placeholder="Your email"
               name="email"
               id="email"
               required
@@ -25,33 +25,33 @@ const Page: React.FC = async () => {
 
           <FormGroup>
             <label htmlFor="password">
-              Contraseña
+              Password
             </label>
             <input
               type="password"
-              placeholder="Tu contraseña"
+              placeholder="Password"
               name="password"
               id="password"
               required
             />
           </FormGroup>
 
-          <FormSubmitButton>Iniciar sesión</FormSubmitButton>
+          <FormSubmitButton>Login</FormSubmitButton>
         </Form>
       </FormContainer>
 
       <FormMoreOptions>
         <FormLink>
-          ¿Aun no tienes cuenta?{" "}
-          <Link href="/registrarse" type="icon">
-            Registrarse
+          You are not register yet?{" "}
+          <Link href="/signup" type="icon">
+            Sign up
           </Link>
         </FormLink>
 
         <FormLink>
-          ¿Olvidaste tu contraseña?{" "}
-          <Link href="/recuperar" type="icon">
-            Recuperarla
+          Forgot your password?{" "}
+          <Link href="/forgot-password" type="icon">
+            Recover account
           </Link>
         </FormLink>
       </FormMoreOptions>
