@@ -1,34 +1,32 @@
-import dynamic from 'next/dynamic'
-
 import Image from 'next/image'
+import Link from 'next/link'
 
-import ButtonLink from './buttonLink'
-import NavBarSkeleton from '../_skeletons/navBarSkeleton'
+import { getCookieTheme } from '../_utils/getCookieTheme'
 
-import textLogo from '@/public/img/logos/text.svg'
+import { textLogoDark, textLogoLight } from '../_utils/logos'
+
 import '@/styles/layout/header.scss'
-import NavBar from './navBar'
 
-const DynamicNavBar = dynamic(() => import('./navBar'), { loading: () => <NavBarSkeleton />, ssr: false })
 interface Props{
   children: React.ReactNode
 }
 
 const Header: React.FC<Props> = ({ children }) => {
+  const theme = getCookieTheme()
   return (
-    <header className="header">
-      <div className="header__navigation">
-        <ButtonLink type="icon" href="/">
+    <header className="l-header">
+      <div className="l-header__navigation">
+        <Link href="/">
           <Image
-            src={textLogo}
-            className="header__navigation-logo"
+            src={theme === "light" ? textLogoLight : textLogoDark}
+            className="l-header__logo"
             alt="Sciflutter logo"
             style={{
               width: "auto",
               height: "3.2rem",
             }}
           />
-        </ButtonLink>
+        </Link>
 
         {children}
       </div>

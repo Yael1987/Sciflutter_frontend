@@ -1,37 +1,39 @@
-"use client"
-import React, { Suspense } from 'react'
+import dynamic from 'next/dynamic'
+
 import MainSearch from './_components/mainSearch'
 import MoreArticles from './_components/moreArticles'
 import MoreAuthors from './_components/moreAuthors'
-import SearchResults from './_components/searchResults'
+import { SavesProvider } from './_context/savesContext';
+import { getSavedArticlesId } from './_actions/featuresActions';
 
 interface Props {
   searchParams: {
     search?: string;
-    year?: string;
-    month?: string;
-    discipline?: string;
+    year: string;
+    discipline: string;
+    sort: string;
+    page: string
   };
 }
 
-const Home: React.FC<Props> = ({ searchParams }) => {
-  const filters = {
-    year: searchParams.year ?? null,
-    month: searchParams.month ?? null,
-    discipline: searchParams.discipline ?? null
-  }
+const DynamicSearchResults = dynamic(()=> import('./_components/searchResults'))
+
+const Home: React.FC<Props> = async ({ searchParams }) => {
+  const articlesQueryString = `${searchParams.year ? '&year=' + searchParams.year : ''}${searchParams.discipline ? '&discipline=' + searchParams.discipline : ''}${searchParams.sort ? '&sort=' + searchParams.sort : ''}${searchParams.page ? '&page=' + searchParams.page : '&page=1'}`
+  const authorsQueryString = `${searchParams.discipline ? '&discipline=' + searchParams.discipline : ''}${searchParams.sort ? '&sort=' + searchParams.sort : ''}`
+  const savedArticles = await getSavedArticlesId();
 
   return (
     <>
       <MainSearch />
 
-      {searchParams.search && (
-        <Suspense>
-          <SearchResults searchQuery={searchParams.search} filters={filters} />
-        </Suspense>
-      )}
+      <SavesProvider defaultValues={savedArticles}>
+        {searchParams.search && (
+          <DynamicSearchResults searchQuery={searchParams.search} articlesQueryString={articlesQueryString} authorsQueryString={authorsQueryString} />
+        )}
 
-      <MoreArticles />
+        <MoreArticles />
+      </SavesProvider>
 
       <MoreAuthors />
     </>

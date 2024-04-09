@@ -1,84 +1,45 @@
-import React from 'react'
+import type { User } from '@/app/_interfaces/api';
 
-import { AuthorsPreviewI } from '@/app/_interfaces'
+import { getArticlesOfAuthor } from '@/app/_actions/articleActions';
+
+import { HeadingSecondary } from '@/app/_components/headings';
+import ArticlePreviewList from '@/app/_components/articlePreviewList';
+import Message from "@/app/_components/message";
+import ProfileAboutMe from './profileAboutMe';
 
 import "@/styles/layout/profile-content.scss";
-import "@/styles/components/details.scss";
-import { HeadingSecondary } from '@/app/_components/headings';
-import { getUserArticles } from '@/app/_utils/getData';
-import CardsList from '@/app/_components/cardsList';
-import ArticlePreview from '@/app/_components/articlePreview';
-import { Globe } from '@phosphor-icons/react/dist/ssr/Globe';
-import { FacebookLogo } from '@phosphor-icons/react/dist/ssr/FacebookLogo';
-import { PinterestLogo } from '@phosphor-icons/react/dist/ssr/PinterestLogo';
-import { TwitterLogo } from '@phosphor-icons/react/dist/ssr/TwitterLogo';
+import ProfileSocialLinks from './profileSocialLinks';
 
 interface Props {
-  user: AuthorsPreviewI
+  user: User
 }
 
-const ProfileContent: React.FC<Props> = ({ user }) => {
-  const publishedArticles = getUserArticles(user.id)
+const ProfileContent: React.FC<Props> = async ({ user }) => {
+  const publishedArticles = await getArticlesOfAuthor(user._id)
+
+  if(publishedArticles.length === 0) return (
+    <Message message="Aún no hay articulos publicados"/>
+  );
 
   return (
-    <section className="profile-content">
-      <div className="articles">
+    <section className="l-profile-content">
+      <div className="l-articles">
         <HeadingSecondary>Articulos publicados</HeadingSecondary>
 
-        <CardsList type="articles">
-          {publishedArticles.map((article) => (
-            <ArticlePreview article={article} key={article.id} />
-          ))}
-        </CardsList>
+        <ArticlePreviewList
+          emptyMessage="No hay articulos publicados aún"
+          articleList={publishedArticles}
+        />
       </div>
 
-      <div className="details">
-        <div className="details__box">
-          <h4 className="details__box-heading">Sobre mi</h4>
-          <p className="details__box-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-            vulputate ipsum ac vehicula sagittis. Aliquam erat ligula,
-            sollicitudin at sem aliquet, eleifend maximus risus. Nulla nisi
-            nibh, elementum eu sem eu, ornare cursus orci. Suspendisse vel
-            condimentum ante. Cras at libero congue, bibendum mi tempus, euismod
-            diam.
-          </p>
-        </div>
+      <div className="l-details">
+        {user.description && (
+          <ProfileAboutMe description={user.description} />
+        )}
 
-        <aside className="details__box">
-          <h4 className="details__box-heading">Contacto</h4>
-
-          <ul className="details__list">
-            <li>
-              <a href="#" className="details__list-link">
-                <Globe weight='fill' size={32}/>
-
-                <p>mi-pagina-web.com</p>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="details__list-link">
-                <FacebookLogo weight='fill' size={32}/>
-
-                <p>Mi facebook</p>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="details__list-link">
-                <PinterestLogo weight='fill' size={32}/>
-
-                <p>Mi pinteres</p>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="details__list-link">
-                <TwitterLogo weight='fill' size={32}/>
-
-                <p>Mi X</p>
-              </a>
-            </li>
-          </ul>
-        </aside>
+        {/* {(user.socialLinks.length > 0) && (
+          <ProfileSocialLinks/>
+        )} */}
       </div>
     </section>
   );

@@ -1,38 +1,37 @@
-import React from 'react'
+"use client"
 import clsx from 'clsx';
-
 import { usePathname } from 'next/navigation';
 
-import ButtonLink from './buttonLink';
+import Link from 'next/link';
 
-import "@/styles/components/navigation.scss";
+import "@/styles/components/navbar-menu.scss";
 
 const NavBarPublic: React.FC = () => {
   const pathname = usePathname()
 
   return (
-    <nav className="menu">
-      <ButtonLink
+    <nav className="c-navbar-menu">
+      <Link
         href="/login"
         type="icon"
         className={clsx(
-          "menu__text",
-          pathname === "/login" && "menu__text-active"
+          "c-navbar-menu__link",
+          pathname === "/login" && "is-active"
         )}
       >
         Iniciar sesion
-      </ButtonLink>
+      </Link>
 
-      <ButtonLink
+      <Link
         href="/registrarse"
         type="icon"
         className={clsx(
-          "menu__text--main",
-          pathname === "/registrarse" && "menu__text--main-active"
+          "c-navbar-menu__signup",
+          pathname === "/registrarse" && "is-active"
         )}
       >
         Registrarse
-      </ButtonLink>
+      </Link>
     </nav>
   );
 }

@@ -1,22 +1,28 @@
-import ArticlePreview from "../_components/articlePreview";
-import CardsList from "../_components/cardsList"
+import { Metadata } from "next";
+
 import { HeadingSecondary } from "../_components/headings";
-import { getArticles } from "../_utils/getData"
+import SavesList from "./_components/savesList";
 
-import '@/styles/layout/saves.scss'
+import { SavesProvider } from "../_context/savesContext";
 
-const Page: React.FC = () => {
-  const saves = getArticles();
+import { getSavedArticlesId } from "../_actions/featuresActions";
+
+import '@/styles/pages/saves.scss'
+
+export const metadata: Metadata = {
+  title: 'Saves'
+}
+
+const Page: React.FC = async () => {
+  const saves = await getSavedArticlesId()
 
   return (
-    <section className="saves">
+    <section className="l-saves">
       <HeadingSecondary>Mis favoritos</HeadingSecondary>
 
-      <CardsList type="articles">
-        {saves.map((article) => (
-          <ArticlePreview article={article} key={article.id} />
-        ))}
-      </CardsList>
+      <SavesProvider defaultValues={saves}>
+        <SavesList />
+      </SavesProvider>
     </section>
   );
 }

@@ -1,8 +1,11 @@
-import React from 'react'
+import { getUser } from '@/app/_actions/userActions';
+import dynamic from 'next/dynamic';;
+import ProfileSkeleton from '@/app/_skeletons/profileSkeleton';
+import { revalidateTag } from 'next/cache';
+import Message from '@/app/_components/message';
+import ReturnButtons from '@/app/_components/returnButtons';
 
-import Profile from '../_components/profile';
-import { getUserById } from '@/app/_utils/getData';
-import ProfileContent from '../_components/profileContent';
+const DynamicProfile = dynamic(() => import('../_components/profilePage'), { loading: () => <ProfileSkeleton/> })
 
 interface Props{
   params: {
@@ -10,17 +13,21 @@ interface Props{
   }
 }
 
-const Page: React.FC<Props> = ({ params }) => {
-  const user = getUserById(params.userId)
+const Page: React.FC<Props> = async ({ params }) => {
+  const apiResponse = await getUser(params.userId)
+  
+  revalidateTag('users')
 
-  if(!user) return <p>Usuario no encontrado</p>
+  if (!apiResponse.success && !apiResponse.user) return (
+    <div>
+      <Message message='User not found' subMessage='Very the id or the link and retry'/>
+
+      <ReturnButtons/>
+    </div>
+  )
 
   return (
-    <>
-      <Profile user={user} />
-
-      <ProfileContent user={user}/>
-    </>
+    <DynamicProfile user={apiResponse.user!} />
   )
 }
 

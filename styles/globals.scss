@@ -1,5 +1,5 @@
-@import './abstract/variables';
-@import './abstract/mixins';
+@use './abstract/variables';
+@use './abstract/typography';
 
 *{
   padding: 0;
@@ -11,45 +11,80 @@ html{
   font-size: 62.5%;
 }
 
+.light{
+  --color--main-dark--2: #{variables.$color--main-dark--2};
+  --color--main-dark--1: #{variables.$color--main-dark--1};
+  --color--main-base: #{variables.$color--main-base};
+
+  --color--background: #{variables.$color--background};
+
+  --color--lines: #{variables.$color--lines};
+
+  --color--text-base: #{variables.$color--text-base};
+  --color--text-white: #{variables.$color--text-white};
+  --color--text-emphasys: #{variables.$color--text-emphasys};
+  --color--text-light: #{variables.$color--text-light};
+
+  --color--error-dark: #{variables.$color--error-dark};
+  --color--error-base: #{variables.$color--error-base};
+
+  --color--warn-dark: #{variables.$color--warn-dark};
+  --color--warn-base: #{variables.$color--warn-base};
+
+  --color--success-dark: #{variables.$color--success-dark};
+  --color--success-base: #{variables.$color--success-base};
+
+  --color--skeleton--dark: #{variables.$color--skeleton--dark};
+  --color--skeleton--base: #{variables.$color--skeleton--base};
+
+  --ck-color-base-background: #{variables.$color--background};
+  --ck-color-text: #{variables.$color--text-base};
+  --ck-color-focus-border: #{variables.$color--main-base};
+  --ck-focus-ring: 1px solid var(--ck-color-focus-border);
+}
+
+.dark{
+  --color--main-dark--2: #{variables.$color--main-dark--2};
+  --color--main-dark--1: #{variables.$dark-color--main-dark--1};
+  --color--main-base: #{variables.$dark-color--main-base};
+
+  --color--background: #{variables.$dark-color--background};
+
+  --color--lines: #{variables.$dark-color--lines};
+
+  --color--text-base: #{variables.$dark-color--text-base};
+  --color--text-white: #{variables.$dark-color--text-white};
+   --color--text-emphasys: #{variables.$color--text-emphasys};
+  --color--text-light: #{variables.$color--text-light};
+
+  --color--error-dark: #{variables.$color--error-dark};
+  --color--error-base: #{variables.$color--error-base};
+
+  --color--warn-dark: #{variables.$color--warn-dark};
+  --color--warn-base: #{variables.$color--warn-base};
+
+  --color--success-dark: #{variables.$color--success-dark};
+  --color--success-base: #{variables.$color--success-base};
+
+  --color--skeleton--dark: #{variables.$color--skeleton--dark};
+  --color--skeleton--base: #{variables.$color--skeleton--base};
+
+  --ck-color-base-background: #{variables.$dark-color--background};
+  --ck-color-text: #{variables.$dark-color--text-base};
+  --ck-color-focus-border: #{variables.$dark-color--main-base};
+  --ck-focus-ring: 1px solid var(--ck-color-focus-border);
+}
+
 body{
-  background-color: $color--grey-0;
-  color: $color--black-0;
+  background-color: var(--color--background);
+  color: var(--color--text-base);
   position: relative;
+  overflow-x: hidden;
+  font-size: variables.$text--base;
   scroll-behavior: smooth;
 }
 
-.heading--secondary{
-  font-size: 2.5rem;
-  font-weight: 400;
-}
-
-.container{
-  display: flex;
-  flex-direction: column;
-
-  &--main{
-    width: 80%;
-    max-width: 100%;
-    align-items: center;
-    margin: auto;
-    padding: 12.8rem 0 14.8rem;
-    gap: 12rem;
-  }
-
-  &--empty{
-    padding: 6.4rem 0;
-  }
-
-  &--buttons{
-    width: 100%;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2.4rem;
-    column-gap: 2.4rem;
-  }
-}
-
-.row-direction{
-  flex-direction: row;
+.is-modal-open{
+  overflow: hidden;
+  position: fixed;
 }

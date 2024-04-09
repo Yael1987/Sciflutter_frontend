@@ -1,36 +1,61 @@
-import { permanentRedirect } from "next/navigation"
-
-import { checkCookieExist } from "../_actions/authActions"
-
-import FormSection from "../_components/formSection"
-import LoginForm from "./_components/loginForm"
-import ButtonLink from "../_components/buttonLink"
+import { FormHOC, FormContainer, Header as FormHeader, Form, Link as FormLink, MoreOptions as FormMoreOptions, SubmitButton as FormSubmitButton, FormGroup } from "../_components/form";
+import { login } from "../_actions/authActions";
+import Link from "next/link";
 
 const Page: React.FC = async () => {
-  if (checkCookieExist()) permanentRedirect('/')
-
   return (
-    <FormSection>
-      <div className="form">
-        <div className="form-header">
-          <h2 className="form-header__main">Descubre mas allá</h2>
-          <p className="form-header__text">
-            Desbloquea todas las funcionalidades creando una cuenta
-          </p>
-        </div>
+    <FormHOC serverAction={login}>
+      <FormContainer>
+        <FormHeader
+          title="Descubre más allá"
+          description="Inicia sesion para poder acceder a todas las funciones disponibles."
+        />
 
-        <LoginForm />
-      </div>
+        <Form>
+          <FormGroup>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              placeholder="Proporciona un correo electronico"
+              name="email"
+              id="email"
+              required
+            />
+          </FormGroup>
 
-      <div className="form-section__links">
-        <p className="form-section__link">
-          ¿Aun no tienes cuenta? <ButtonLink href="/registrarse" type="icon">Registrarse</ButtonLink>
-        </p>
-        <p className="form-section__link">
-          ¿Olvidaste tu contraseña? <ButtonLink href="/" type="icon">Recuperarla</ButtonLink>
-        </p>
-      </div>
-    </FormSection>
+          <FormGroup>
+            <label htmlFor="password">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              placeholder="Tu contraseña"
+              name="password"
+              id="password"
+              required
+            />
+          </FormGroup>
+
+          <FormSubmitButton>Iniciar sesión</FormSubmitButton>
+        </Form>
+      </FormContainer>
+
+      <FormMoreOptions>
+        <FormLink>
+          ¿Aun no tienes cuenta?{" "}
+          <Link href="/registrarse" type="icon">
+            Registrarse
+          </Link>
+        </FormLink>
+
+        <FormLink>
+          ¿Olvidaste tu contraseña?{" "}
+          <Link href="/recuperar" type="icon">
+            Recuperarla
+          </Link>
+        </FormLink>
+      </FormMoreOptions>
+    </FormHOC>
   );
 }
 

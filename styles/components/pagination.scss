@@ -1,34 +1,36 @@
-@import '../abstract/variables';
-@import '../abstract/mixins';
+@use '../abstract/variables';
+@use '../abstract/mixins';
+@use '../abstract/helpers';
 
-.pagination{
-  @include flexDisplay(row, 2.4rem, center, center);
-  padding: 0.8rem 1.6rem;
+.c-pagination{
+  @include mixins.display-flex(row, variables.$space-lg, center, center);
+  padding: variables.$space-sm variables.$space-md;
 
   &__item{
-    font-size: 2rem;
-    border: none;
-    background-color: transparent;
-    color: $color--black-0;
-    cursor: pointer;
+    @extend %button-reset;
+    @extend %link-text-hover;
+    font-size: variables.$text--md;
 
-    &:hover{
-      color: $color--main-0;
-    }
-
-    &--arrow{
-      color: $color--main-0;
+    &_arrow{
+      @extend .c-pagination__item;
+      color: var(--color--main-base);
     }
   }
+}
 
-  .active{
-    color: $color--main-0;
-    border-bottom: solid 1px $color--main-0;
-    cursor: not-allowed;
-  }
+.disable, .active{
+  @extend %button-disable;
+}
 
-  .disable{
-    color: $color--black-0;
-    cursor:not-allowed;
+.disable{
+  color: var(--color--text-light)
+}
+
+.active{
+  color: var(--color--main-base);
+  border-bottom: solid 1px var(--color--main-base);
+
+  &:hover{
+    color: var(--color--main-base);  
   }
 }

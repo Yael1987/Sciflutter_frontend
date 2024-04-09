@@ -1,118 +1,182 @@
 "use server"
-
-import { jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
-import { ApiErrorResponse, ApiSuccessResponse, User } from '../_interfaces/api'
-import { type FormState } from '../_interfaces'
+import type { ApiErrorResponse, ApiSuccessResponse, LoggedUser, User, UserPreview, UserStats } from '../_interfaces/api'
+import { revalidateTag } from 'next/cache'
 
-export const signup = async (prevState: FormState, formData: FormData) => {
-  const loginData = {
-    email: formData.get('email'),
-    password: formData.get('password')
-  }
+const defaultStats: UserStats = {
+  likes: 0,
+  articles: 0,
+  followers: 0,
+};
 
-  const response = await fetch('http://127.0.0.1:4000/api/v1/users/login', {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(loginData)
-  })
-
-  const data = await response.json()
-
-  if (data.success) {
-    const cookieOptions = {
-      expires: new Date(
-        Date.now() + 30 * 24 * 60 * 60 * 1000
-      ),
-      httpOnly: true,
-      secure: true
-    };
-
-    cookies().set('token_sciflutter', data.token, cookieOptions)
-  }
-
-  return data
-}
-
-export const login = async (prevState: FormState, formData: FormData): Promise<FormState> => {
-  const loginData = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-
-  const response = await fetch("http://127.0.0.1:4000/api/v1/users/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(loginData),
-  });
-
-  const data: ApiErrorResponse | ApiSuccessResponse = await response.json();
-
-  if (data.success && data.token) {
-    const cookieOptions = {
-      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      httpOnly: true,
-      secure: true,
-    };
-
-    cookies().set("token_sciflutter", data.token, cookieOptions);
-
-    return {
-      success: data.success,
-      user: data.data.user
-    }
-  }
-
-  return {
-    success: data.success,
-    message: data.message
-  };
-}
-
-export const checkIsLoggedIn = async () => {
-  const token = cookies().get('token_sciflutter')
-
-  if (!token) return {
-    succes: false
-  }
-
-  const secret = new TextEncoder().encode("aatroxmecha")
-  
-  const { payload } = await jwtVerify(token.value, secret)
-
-  const response = await fetch(`http://127.0.0.1:4000/api/v1/users/${payload.id}`)
-  const data = await response.json()
-  
-  if (!data.success) return {
-    success: false
-  }
-
-  return {
-    success: true,
-    user: {
-      ...data.data
-    }
-  }
-}
-
-export const getLoggedUser = async (): Promise<User | null> => {
+export const getLoggedUser = async (): Promise<LoggedUser | null> => {
   const token = cookies().get('token_sciflutter')
 
   if(!token) return null
 
-  const secret = new TextEncoder().encode("aatroxmecha")
-
-  const { payload } = await jwtVerify(token.value, secret)
-
-  const response = await fetch(`http://127.0.0.1:4000/api/v1/users/${payload.id}`, { cache: 'force-cache' });
+  const response = await fetch(`${process.env.BACKEND_URL}/users/me`, {
+    // cache: 'no-store',
+    headers: {
+      "Authorization": `Bearer ${token.value}`
+    },
+    next: {
+      tags: ['logged_user']
+    }
+  })
 
   const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
 
-  if (!data.success) return null
+  if (!data.success) {
+    cookies().delete('token_sciflutter')
 
-  return (data.data as User) ?? null
+    return null
+  }
+
+  return (data.data.user as LoggedUser)
+}
+
+export const getUser = async (userId: string): Promise<{success: boolean, message: string, user?: User}> => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}`, {next: {tags: ['users']}})
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
+
+  if (!data.success) return {
+    success: false,
+    message: "Usuario no encontrado"
+  }
+
+  return {
+    success: true,
+    message: data.message,
+    user: data.data.user
+  }
+}
+
+export const getSearchAuthors = async (search: string, queryString: string): Promise<UserPreview[]> => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/authors?name=${search}${queryString}`, { next: { tags: ['authors_results'], revalidate: 60 } })
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
+
+  if (!data.success) return []
+
+  return data.data.users!
+}
+
+export const getMoreAuthors = async (): Promise<UserPreview[]> => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/authors?limit=4`, { next: { tags: ['more_authors'] } })
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json()
+
+  if (!data.success) return []
+
+  return data.data.users!
+}
+
+export const getAuthorFilters = async (query: string) => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/filters?name=${query}`, { next: { tags: ['authors_results'], revalidate: 60 } })
+  const data = await response.json()
+
+  if (!data.success) return []
+
+  return data.data.disciplines!
+}
+
+export const getUserStats = async (userId: string): Promise<UserStats> => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}/stats`, { next: { tags: ['users-stats'] } })
+  const data: ApiSuccessResponse | ApiErrorResponse = await response.json()
+
+  if (!data.success) return defaultStats
+  
+  return data.data.stats!
+}
+
+export const updateUserData = async (formData: FormData): Promise<{success: boolean, message: string, user?: LoggedUser}> => {
+  const response = await fetch(`${process.env.BACKEND_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${await getToken()}`,
+    },
+    body: formData,
+    cache: "no-cache",
+  });
+
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json();
+
+  if (!data.success) return { success: data.success, message: data.message }
+  
+  revalidateTag('logged_user')
+
+  return { success: data.success, message: data.message, user: (data.data.user as LoggedUser) }
+}
+
+export const deactivateAccount = async (password: string): Promise<ApiErrorResponse | ApiSuccessResponse> => {
+  const formData = {
+    password
+  }
+
+  const response = await fetch(`${process.env.BACKEND_URL}/users/me/deactivateAccount`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${await getToken()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData)
+  });
+
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json();
+
+  return data
+}
+
+export const deleteAccount = async (password: string): Promise<ApiErrorResponse | ApiSuccessResponse> => {
+  const formData = {
+    password,
+  };
+
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/users/me/`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }
+  );
+
+  const data: ApiErrorResponse | ApiSuccessResponse = await response.json();
+
+  return data;
+}
+
+export const changePassword = async (formData: { password: string, newPassword: string, newPasswordConfirm: string }): Promise<ApiErrorResponse | ApiSuccessResponse>  => {
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/users/me/updatePassword`,
+    {
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+      method: "PATCH",
+    }
+  );
+
+  const data: ApiSuccessResponse | ApiErrorResponse = await response.json();
+
+  return data
+}
+
+export const getToken = async (): Promise<string | null> => {
+  const token = cookies().get("token_sciflutter");
+
+  if (!token) return null;
+
+  return token.value
+}
+
+export const revalidateUsers = async () => {
+  revalidateTag('users')
+}
+
+export const revalidateLoggedUser = async () => {
+  revalidateTag('logged-user')
 }

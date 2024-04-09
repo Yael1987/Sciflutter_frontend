@@ -1,60 +1,61 @@
-@import '../abstract/mixins';
-@import '../abstract/variables';
+@use '../abstract/helpers';
+@use '../abstract/mixins';
+@use '../abstract/variables';
 
-.article-options{
-  @include flexDisplay(col, 2.4rem, initial, center);
-  padding: 3.2rem 1.6rem;
-  box-shadow: $shadow--small;
+$icon-size: 2.4rem;
+$author-img-size: 3.2rem;
+
+.c-article-options{
+  display: grid;
+  row-gap: variables.$space-lg;
+  justify-items: center;
+  padding: variables.$space-xl variables.$space-md;
+  box-shadow: variables.$shadow--small;
   width: 75%;
+  font-size: variables.$text--md;
 
-  &-heading{
-    font-size: 2rem;
+  &__heading{
+    font-size: inherit;
     font-weight: 500;
-    color: $color--main-0;
+    color: var(--color--main-base);
   }
 
-  .article-option{
-    color: $color--black-0;
-    border: none;
-    font-size: 2rem;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
+  &__option, &__author{
+    @include mixins.center-flex;
+    transition: color variables.$a-time--short ease;
     gap: 1.2rem;
-    cursor: pointer;
+  }
+
+  &__option{
+    @extend %button-reset;
+    @extend %link-text-hover;
 
     &__icon{
-      width: 2.4rem;
-      height: 2.4rem;
-      fill: $color--main-0;
+      width: $icon-size;
+      height: $icon-size;
     }
   }
 
-  .article-author{
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-
-    &,
-    &:link,
-    &:visited{
-      text-decoration: none;
-      color: $color--black-0;
-    }
-
-    &:hover{
-      color: $color--main-0;
-    }
+  &__author{
+    @extend %link-base;
+    @extend %link-text-hover;
 
     img{
-      width: 3.2rem;
-      height: 3.2rem;
+      width: $author-img-size;
+      height: $author-img-size;
       border-radius: 50%;
     }
 
     strong{
-      font-size: 2rem;
-      font-weight: 500;
+      font-weight: inherit;
     }
+  }
+}
+
+.is-fill{
+  color: var(--color--main-base);
+
+  &:hover{
+    color: var(--color--text-base);
   }
 }

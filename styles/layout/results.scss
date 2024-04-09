@@ -1,47 +1,25 @@
-@import '../abstract/mixins';
-@import './aside.scss';
+@use '../abstract/mixins';
+@use '../abstract/variables';
 
-.results-section{
+.l-results{
   width: 100%;
-  @include flexDisplay(col, 4.8rem, initial, center);
+  grid-template-columns: 100%;
 
-  .results{
-    &-resume{
-      width: 100%;
+  &, &-articles{
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    row-gap: variables.$space-2xl;
+  }
 
-      &__search{
-        font-size: 2.5rem;
-        font-weight: 500;
-      }
+  &-articles{
+    width: 80%;
+    grid-template-columns: 1fr;
+  }
 
-      &__count{
-        font-size: 2rem;
-        display: inline-block;
-        padding: 0 2.4rem;
-      }
-    }
-
-    &__message{
-      font-size: 2.5rem;
-      font-weight: 400;
-      text-align: center;
-
-      &-sub{
-        font-size: 2rem;
-        font-weight: 400;
-        text-align: center;
-      }
-    }
-
-    &-articles{
-      @include flexDisplay(col, 4.8rem, initial, center);
-      width: 80%;
-    }
-
-    &-authors{
-      width: 100%;
-      padding: 4.8rem 0 8.8rem;
-      @include flexDisplay(row, initial, center, center);
-    }
+  &-authors{
+    width: 100%;
+    @include mixins.center-flex;
+    padding: variables.$space-2xl 0 variables.$space-4xl;
   }
 }
