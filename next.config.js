@@ -23,6 +23,12 @@ const nextConfig = {
         port: "9000",
         pathname: "/sciflutter/**",
       },
+      {
+        protocol: "https",
+        hostname: "sciflutter-storage.s3.amazonaws.com",
+        port: '',
+        pathname: "/**",
+      },
     ],
   },
   async redirects() {
@@ -118,7 +124,7 @@ const nextConfig = {
         permanent: true,
       },
     ];
-  }
+  },
 };
 
 module.exports = nextConfig
