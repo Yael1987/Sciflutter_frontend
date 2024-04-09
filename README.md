@@ -1,126 +1,104 @@
 # Sciflutter
 ## _Sitio web de articulos cientificos de codigo abierto_
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-
-Dillinger is a cloud-enabled, mobile-ready, offline-storage compatible,
-AngularJS-powered HTML5 Markdown editor.
-
-- Type some Markdown on the left
-- See HTML in the right
-- ✨Magic ✨
-
 ## Features
 
-- Import a HTML file and watch it magically convert to Markdown
-- Drag and drop images (requires your Dropbox account be linked)
-- Import and save files from GitHub, Dropbox, Google Drive and One Drive
-- Drag and drop markdown and HTML files into Dillinger
-- Export documents as Markdown, HTML and PDF
-
-Markdown is a lightweight markup language based on the formatting conventions
-that people naturally use in email.
-As [John Gruber] writes on the [Markdown site][df1]
-
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
-> as possible. The idea is that a
-> Markdown-formatted document should be
-> publishable as-is, as plain text, without
-> looking like it's been marked up with tags
-> or formatting instructions.
-
-This text you see here is *actually- written in Markdown! To get a feel
-for Markdown's syntax, type some text into the left window and
-watch the results in the right.
+- Escribe articulos y publicalos gratuitamente
+- Dale me gusta y guarda tus articulos favoritos
+- Sigue a escritores para saber cuando publiquen un nuevo articulo
+- Recibe notificaciones en tiempo real para una mejor experiencia
 
 ## Tech
 
-Dillinger uses a number of open source projects to work properly:
+Sciflutter use diversas technologias :
 
 - [NextJS] - The react framework for production!
-- [Ace Editor] - awesome web-based text editor
-- [markdown-it] - Markdown parser done right. Fast and easy to extend.
-- [node.js] - evented I/O for the backend
+- [CK editor] - Editor de texto enriquecido gratuito.
+- [Node.js] - evented I/O for the backend
 - [Express] - fast node.js network app framework [@tjholowaychuk]
-- [Gulp] - the streaming build system
-- [Breakdance](https://breakdance.github.io/breakdance/) - HTML
+- [Redis] - the streaming build system
+- [Minio] - HTML
 to Markdown converter
-- [jQuery] - duh
+- [Socket.io] - Cliente de websockets usados para funciones en tiempo real.
 
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
+## Instalacion
 
-## Instalacion (backend)
+Sciflutter requiere [Node.js](https://nodejs.org/) v20+ to run.
 
-Dillinger requires [Node.js](https://nodejs.org/) v20+ to run.
-
-[!warning]
-Para poder correr el proyecto necesitar tener instalado redis
-Install the dependencies and devDependencies and start the server.
-
-
+### Clone repositories
 ```sh
-cd sciflutter
-npm i
+git clone https://github.com/Yael1987/SciFlutter_backend.git
+git clone https://github.com/Yael1987/SciFlutter_frontend.git
+```
+
+>[!NOTE]
+>Este proyecto usa Minio en el backend como dependencia de desarrollo, si no estas familiriaziado con ella puedes consultar su documentacion o usar otro gestor de almacenamiento local
+
+Despues de clonar ambos repositorios instala las dependencias de la siguiente forma.
+
+
+### Backend
+```sh
+cd sciflutter_backend
+npm install
 npm run dev
 ```
 
-For production environments...
+### Frontend
+```sh
+cd sciflutter_frontend
+npm install
+npm run dev
+```
+
+Para entorno de produccion
 
 ```sh
 npm install --production
 npm run start
 ```
 
-## Development
+## Licencia
 
-Want to contribute? Great!
+MIT License
 
-Dillinger uses Gulp + Webpack for fast developing.
-Make a change in your file and instantaneously see your updates!
+Copyright (c) 2023 Cristian Yael De Jesus Reyes
 
-Open your favorite Terminal and run these commands.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-First Tab:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-```sh
-node app
-```
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-Second Tab:
+## Contacto
 
-```sh
-gulp watch
-```
+Si tienes dudas, comentarios o quieres contactarme estare a tus ordenes, estoy abierto a recibir feedback o a colaborar.
 
-(optional) Third:
-
-```sh
-karma test
-```
-
-## License
-
-MIT
-
-**Free Software, Hell Yeah!**
+- **Email:** [dejesusyael1987@gmail.com](mailto:dejesusyael1987@gmail.com)
+- **LinkedIn:** [Cristian Yael De Jesus Reyes](https://www.linkedin.com/in/cristian-yael-de-jesus-reyes-b96572211/)
+- **GitHub:** [Yael1987](https://github.com/Yael1987)
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
-   [dill]: <https://github.com/joemccann/dillinger>
-   [git-repo-url]: <https://github.com/joemccann/dillinger.git>
-   [john gruber]: <http://daringfireball.net>
-   [df1]: <http://daringfireball.net/projects/markdown/>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
-   [Ace Editor]: <http://ace.ajax.org>
-   [node.js]: <http://nodejs.org>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   [NextJS]: <http://angularjs.org>
-   [Gulp]: <http://gulpjs.com>
+   [Node.js]: <http://nodejs.org>
+   [Express]: <http://expressjs.com>
+   [Redis]: <https://redis.io/>
+   [CK Editor]: <https://ckeditor.com/>
+   [NextJS]: <https://nextjs.org/>
+   [Minio]: <https://min.io/>
+   [Socket.io]: <https://socket.io/>
 
    [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
    [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
