@@ -11,6 +11,7 @@ import '@/styles/pages/article.scss'
 import { checkAdminCookieExist } from '@/app/_actions/authActions'
 import Message from '@/app/_components/message'
 import ReturnButtons from '@/app/_components/returnButtons'
+import ArticleBibliography from '../_components/articleBibliography'
 
 interface Props{
   params: {
@@ -44,6 +45,8 @@ const Page: React.FC<Props> = async ({ params }) => {
       <ArticleBody>
         <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
       </ArticleBody>
+
+      {/* <ArticleBibliography bibliography={article.bibliography} /> */}
     </article>
   );
 }

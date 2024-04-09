@@ -34,7 +34,7 @@ export const createSocketStore = (initialState: SocketState = initDefaultValues)
       if (!(await checkCookieExist())) return
 
       if (!socket?.connect)
-        mySocket = io("http://localhost:4000", {
+        mySocket = io("https://sciflutter-backend.onrender.com", {
           query: {
             "sciflutter-token": `${await getToken()}`,
           },

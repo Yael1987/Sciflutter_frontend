@@ -1,11 +1,10 @@
 "use client"
-import { useState, type ButtonHTMLAttributes, type FC, EventHandler, MouseEventHandler } from "react";
+import { useState, type ButtonHTMLAttributes, type FC } from "react";
 import type { BaseComponent } from "../_interfaces/components";
 import { useRouter } from "next/navigation";
 import { useAlertContext } from "../_context/alertContext";
 import { signout } from "../_actions/authActions";
 import { followAuthor, unfollowAuthor } from "../_actions/featuresActions";
-import { ArrowLeft } from "@phosphor-icons/react";
 
 interface LogoutProps extends ButtonHTMLAttributes<HTMLButtonElement>{ 
   onClick?: () => void
@@ -29,13 +28,14 @@ export const Logout: FC<BaseComponent & LogoutProps> = ({ children, onClick, ...
   )
 }
 
-interface FollowProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+interface FollowProps{
   follow: boolean;
   userId: string
 }
 
-export const Follow: FC<FollowProps> = ({ follow, userId, ...props }) => {
+export const Follow: FC<FollowProps> = ({ follow, userId }) => {
   const [isFollow, setIsFollow] = useState<boolean>(follow);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onFollow = async () => {
     const apiResponse = await followAuthor(userId);
@@ -54,8 +54,10 @@ export const Follow: FC<FollowProps> = ({ follow, userId, ...props }) => {
   };
 
   const handleFollowButton = async () => {
+    setIsLoading(true)
     if (isFollow) await onUnfollow();
     else await onFollow();
+    setIsLoading(false);
   };
 
   return (
@@ -63,7 +65,10 @@ export const Follow: FC<FollowProps> = ({ follow, userId, ...props }) => {
       data-style={isFollow ? "secondary" : "primary"}
       onClick={handleFollowButton}
     >
-      <span>{isFollow ? "Unfollow author" : "Follow author"}</span>
+      {isLoading ?
+        <span>Loading...</span> :
+        <span>{isFollow ? "Unfollow author" : "Follow author"}</span>
+      }
     </button>
   );
 }
