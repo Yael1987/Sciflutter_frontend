@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers"
 import Cookies from "js-cookie";
-import type { FormState } from "../_interfaces"
+import type { FormState } from "../_interfaces/formState"
 import type { ApiErrorResponse, ApiResponseBase, ApiSuccessResponse, LoggedUser } from "../_interfaces/api";
 import { revalidateTag } from "next/cache";
 
