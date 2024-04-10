@@ -2,10 +2,9 @@ import type { User } from '@/app/_interfaces/api';
 
 import { getLoggedUser } from "@/app/_actions/userActions";
 
-import "@/styles/components/profile-buttons.scss";
-import dynamic from 'next/dynamic';
+import { Follow } from '@/app/_components/buttons'
 
-const Follow = dynamic(() => import('@/app/_components/buttons').then((data) => data.Follow))
+import "@/styles/components/profile-buttons.scss";
 
 interface Props{
   user: User;
